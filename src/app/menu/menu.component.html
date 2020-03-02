@@ -1,0 +1,31 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class = sidenav>
+    <nav>
+      <p><a routerLink="management" (click)="hideWorkoutGroups()">management</a></p>
+      <p><a (click)="showWorkoutGroups()" routerLink="workout">workout</a></p>
+      <ul [ngClass]="workoutGroups">
+        <li (click)="showExercises(excerciseGroup)" *ngFor="let excerciseGroup of excerciseGroups">
+          {{ excerciseGroup.label }}
+          <ul *ngIf="group === excerciseGroup.label">
+            <li *ngFor="let exercise of excerciseGroup.exercises" >
+              {{ exercise }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="contentContainer" (click)="clickEvent()" [ngClass]= "status ? 'change' : ''" >
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
