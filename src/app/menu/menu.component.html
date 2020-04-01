@@ -3,13 +3,14 @@
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" class = sidenav>
     <nav>
       <p><a routerLink="management" (click)="hideWorkoutGroups()">management</a></p>
-      <p><a (click)="showWorkoutGroups()" routerLink="workout">workout</a></p>
+      <p><a (click)="showWorkoutGroups()">workout</a></p>
       <ul [ngClass]="workoutGroups">
-        <li (click)="showExercises(excerciseGroup)" *ngFor="let excerciseGroup of excerciseGroups">
+        <li (click)="showExercises(excerciseGroup)" *ngFor="let excerciseGroup of exerciseGroups">
           {{ excerciseGroup.label }}
           <ul *ngIf="group === excerciseGroup.label">
-            <li *ngFor="let exercise of excerciseGroup.exercises" >
-              {{ exercise }}
+            <li *ngFor="let exercise of excerciseGroup.exercises">
+              <a (click)="stateClickedLink(makeString(exercise))">{{ exercise["name"] }}</a>
+             <!-- <a (click)="stateClickedLink(makeString(exercise))" [routerLink]="['workout', makeString(exercise)]">{{ exercise["name"] }}</a>-->
             </li>
           </ul>
         </li>
@@ -18,7 +19,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="contentContainer" (click)="clickEvent()" [ngClass]= "status ? 'change' : ''" >
+    <div class="contentContainer" (click)="openCloseSideNavigation()" [ngClass]= "opened ? 'change' : ''" >
       <div class="bar1"></div>
       <div class="bar2"></div>
       <div class="bar3"></div>

@@ -52,9 +52,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LastSetComponent } from './workout/tables/last-set/last-set.component';
 import { CurrentSetComponent } from './workout/tables/current-set/current-set.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { CurrentSetComponent } from './workout/tables/current-set/current-set.co
     CurrentSetComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -114,9 +117,11 @@ import { CurrentSetComponent } from './workout/tables/current-set/current-set.co
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

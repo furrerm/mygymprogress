@@ -1,11 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
-import { Winning } from './Winning';
-import { WINNINGMOCKS } from './mock-winnings';
-import { Observable, of } from 'rxjs';
+import {Inject, Injectable} from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +10,11 @@ import { DOCUMENT } from '@angular/common';
 export class MenuServiceService {
   appUrl: string;
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
-
-    this.appUrl = 'http://' + this.document.location.hostname + ':8000/api/test';
+    const getJsonRoutines = ':8080/myGymProgressConnector/mygymprogress-rest-services/routine-service/get-json-routines';
+    this.appUrl = 'http://' + this.document.location.hostname + getJsonRoutines;
   }
 
-  getWinnings1() {
+  fetchExerciseGroups() {
     return (this.http.get<string>(this.appUrl));
   }
 }
-
-
-

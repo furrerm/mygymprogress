@@ -1,4 +1,7 @@
+import {Input} from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import {LastSetServiceService} from './last-set-service.service';
+
 
 @Component({
   selector: 'app-last-set',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./last-set.component.css']
 })
 export class LastSetComponent implements OnInit {
-
-  constructor() { }
-
+  receivedSets: string;
+  updatedExercise: string;
+  @Input() set exercise(value: string) {
+    this.updatedExercise = value;
+    this.lastSetService.getSets(value).subscribe(a => {
+      this.receivedSets = a;
+    });
+  }
+  constructor(private lastSetService: LastSetServiceService) {
+  }
   ngOnInit() {
   }
-
 }

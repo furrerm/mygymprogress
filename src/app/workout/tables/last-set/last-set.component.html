@@ -1,1 +1,12 @@
-<p>last-set works!</p>
+<ul>
+  <p>{{this.updatedExercise['name']}}</p>
+  <li *ngFor="let set of receivedSets">
+    reps:
+    {{set["repetitions"]}}
+    <br>
+    weights:
+    {{set["weight"]}}
+  </li>
+
+</ul>
+

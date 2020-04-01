@@ -10,11 +10,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
 const routes: Routes = [
   { path: '', component: WelcomeComponent, pathMatch: 'full' },
   { path: 'management', component: ManagementComponent },
-  { path: 'workout', component: WorkoutComponent }
+  { path: 'workout/:exercise', component: WorkoutComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

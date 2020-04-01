@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MenuServiceService } from './menu-service.service';
 import {printLine} from 'tslint/lib/verify/lines';
+import {LastSetServiceService} from '../workout/tables/last-set/last-set-service.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -12,79 +14,73 @@ export class MenuComponent implements OnInit {
   opened: boolean;
   status: boolean;
   title = 'CRS';
-  excerciseGroups: ExcerciseGroup[];
+  exerciseGroups: ExerciseGroup[];
   workoutGroups: string;
   exercises: string;
   group: string;
+  mySubscription;
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
-  constructor(private menuServiceService: MenuServiceService) {
-    this.status = false;
+  constructor(private menuServiceService: MenuServiceService, private lastSetService: LastSetServiceService, private router: Router) {
     this.opened = false;
     this.workoutGroups = 'hiddenWorkouts';
     this.exercises = 'hiddenExercises';
-    // const obj1 = {label: 'Chest', exercises: ['benchpress', 'flying', 'dumbells']};
-    // this.excerciseGroups = [obj1, {label: 'Bicesps', exercises: ['curls', 'side curls']}];
   }
-
+  stateClickedLink(vari: string): void {
+    console.log(vari);
+    this.router.navigate(['workout', vari]);
+  }
   ngOnInit() {
-    this.excerciseGroups = this.getExerciseGroups();
+    this.exerciseGroups = this.getExerciseGroups();
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.onSameUrlNavigation = 'reload';
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
   }
 
-  getExerciseGroups(): ExcerciseGroup[] {
+  getExerciseGroups(): ExerciseGroup[] {
     const obj1 = {label: 'Chest', exercises: ['benchpress', 'flying', 'dumbells']};
     const excerciseGroupsLoc = [obj1];
     excerciseGroupsLoc.push({label: 'Bicesps', exercises: ['curls', 'side curls']});
 
-    /*
-    this.winnings = [];
-    let numbs = [];
 
-    this.winningService.getWinnings1().subscribe(winningsLoc => {
-      this.winnings = [];
-      console.log(winningsLoc);
-      console.log(typeof winningsLoc);
-
-      var stringified = JSON.stringify(winningsLoc);
-      var parsedObj = JSON.parse(stringified);
-
-      //let winningsLocParsed = JSON.parse(winningsLoc.toString())
-      let winningsLocParsed = parsedObj;
-
-      winningsLocParsed.forEach(x => {
-        console.log(x);
-        let s = Object.assign(new Winning(), x);
-
-        this.winnings.push(s);
+    this.menuServiceService.fetchExerciseGroups().subscribe(winningsLoc => {
+      const exerciseGroups = JSON.parse(JSON.stringify(winningsLoc));
+      this.exerciseGroups = [];
+      exerciseGroups.forEach(x => {
+        this.exerciseGroups.push({label: x.name, exercises: x.exercises});
       });
 
-      console.log(this.winnings); // put graph filling
-      numbs = this.winnings.map(x => x.amount);
-      console.log(numbs);
-      this.lineChartData = [
-        { data: numbs, label: 'running total of winnings' },
-      ];
     });
-    */
     return excerciseGroupsLoc;
   }
-  clickEvent() {
-    this.status = !this.status;
-    console.log('status = '.concat( String(this.status)));
+  openCloseSideNavigation() {
     this.opened = !this.opened;
   }
   showWorkoutGroups() {
+    console.log('ins workout groups');
     this.workoutGroups = (this.workoutGroups === 'visibleWorkouts') ?  'hiddenWorkouts' : 'visibleWorkouts';
   }
   hideWorkoutGroups() {
     this.workoutGroups = 'hiddenWorkouts';
   }
-  showExercises(excerciseGroup: ExcerciseGroup) {
-    this.group = excerciseGroup.label;
+  showExercises(exerciseGroup: ExerciseGroup) {
+    this.group = exerciseGroup.label;
     this.exercises = (this.exercises === 'visibleExercises') ?  'hiddenExercises' : 'visibleExercises';
   }
+  public makeString(param: string): string {
+    console.log(param);
+    return JSON.stringify(param);
+  }
 }
-interface ExcerciseGroup {
+interface ExerciseGroup {
   label: string;
   exercises: string[];
 }
