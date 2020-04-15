@@ -14,8 +14,8 @@ export class LastSetServiceService {
     console.log(exerciseParsed);
     // const getSetsUrl = ':8082/exercise/get-sets';
     // const url = 'http://' + this.document.location.hostname + getSetsUrl;
-    const getSetsUrl = ':8080/exercise/get-sets';
-    const url = 'http://' + 'Connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com (e-gc29nzqr6e)' + getSetsUrl;
+    const getSetsUrl = '/exercise/get-sets';
+    const url = 'http://' + 'connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com' + getSetsUrl;
     const params = new HttpParams().set('exercise', exerciseParsed);
     return (this.http.get<string>(url, { params }));
   }

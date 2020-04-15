@@ -10,8 +10,8 @@ export class MenuServiceService {
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
     // const getJsonRoutines = ':8082/routine-service/get-json-routines';
     // this.appUrl = 'http://' + this.document.location.hostname + getJsonRoutines;
-    const getJsonRoutines = ':8080/routine-service/get-json-routines';
-    this.appUrl = 'http://' + 'Connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com (e-gc29nzqr6e)' + getJsonRoutines;
+    const u = 'http://connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com/routine-service/get-json-routines';
+    this.appUrl = u;
   }
 
   fetchExerciseGroups() {

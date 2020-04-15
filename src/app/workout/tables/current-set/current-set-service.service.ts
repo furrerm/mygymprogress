@@ -15,9 +15,8 @@ export class CurrentSetServiceService {
     console.log(exerciseParsed);
     // const getSetsUrl = ':8082/save-sets-service/save';
     // const url = 'http://' + this.document.location.hostname + getSetsUrl;
-    const getSetsUrl = ':8080/save-sets-service/save';
-    const url = 'http://' + 'Connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com (e-gc29nzqr6e)' + getSetsUrl;
-
+    const getSetsUrl = '/save-sets-service/save';
+    const url = 'http://' + 'connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com' + getSetsUrl;
     console.log('here 1');
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
