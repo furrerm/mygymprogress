@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
 
 @Injectable({
@@ -11,9 +11,12 @@ export class LastSetServiceService {
   }
   getSets(exercise: string) {
     const exerciseParsed = JSON.stringify(exercise);
-    console.log(exerciseParsed)
-    const getSetsUrl = ':8080/myGymProgressConnector/mygymprogress-rest-services/exercise-service/get-sets/';
-    const url = 'http://' + this.document.location.hostname + getSetsUrl + exerciseParsed;
-    return (this.http.get<string>(url));
+    console.log(exerciseParsed);
+    // const getSetsUrl = ':8082/exercise/get-sets';
+    // const url = 'http://' + this.document.location.hostname + getSetsUrl;
+    const getSetsUrl = ':8080/exercise/get-sets';
+    const url = 'http://' + 'Connectortest-env-1.eba-pjecrepd.eu-west-2.elasticbeanstalk.com (e-gc29nzqr6e)' + getSetsUrl;
+    const params = new HttpParams().set('exercise', exerciseParsed);
+    return (this.http.get<string>(url, { params }));
   }
 }
