@@ -1,29 +1,19 @@
 language: node_js
-
 node_js:
   - "9"
-  -
 dist: trusty
 sudo: required
 branches:
   only:
-  - master
-
-cache:
-  directories:
-    - node_modules
-
+    - master
 before_script:
-  - npm install
-
+  - npm install -g @angular/cli
 script:
-  - ng build --prod --base-href https://github.com/furrerm/mygymprogress.git
-
+  - ng build
 before_deploy:
   - cd $TRAVIS_BUILD_DIR
   - sed -i '/dist/d' .gitignore
   - git add . && git commit -m "latest build"
-
 deploy:
   - provider: elasticbeanstalk
     access_key_id: ${AWS_ACCESS_KEY_ID}             // You have use environment variable name instead of plain text
