@@ -9,9 +9,9 @@ branches:
 before_script:
   - npm install -g @angular/cli
 script:
-  - ng build
+  - ng build --prod --base-href https://github.com/furrerm/mygymprogress.git
 before_deploy:
-  - cd './'
+  - cd $TRAVIS_BUILD_DIR
   - sed -i '/dist/d' .gitignore
   - git add . && git commit -m "latest build"
 deploy:
@@ -24,3 +24,5 @@ deploy:
     bucket_name: "elasticbeanstalk-eu-west-2-345269114307"
     on:
       branch: master
+after_deploy:
+  - echo "Applcation Deployed!"
