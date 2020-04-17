@@ -22,7 +22,7 @@ export class CurrentSetServiceService {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
     // var this.http = require('https-proxy-agent');
-    httpOptions.headers.append('Access-Control-Allow-Origin', 'http://localhost:8082');
+    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
