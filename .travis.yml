@@ -12,13 +12,12 @@ script:
   - ng build
 before_deploy:
   - zip -r mygymprogress dist package.json server.js
-  - mkdir -p dpl_upload
-  - mv mygymprogress.zip dpl_upload/mygymprogress.zip
 deploy:
   - provider: elasticbeanstalk
     access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key: ${AWS_SECRET_ACCESS_KEY}
     local_dir: dpl_upload
+    zip_file: mygymprogress.zip
     skip_cleanup: true
     region: "eu-west-2"
     app: "workoutfrontend"
