@@ -16,6 +16,7 @@ export class TablesComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       console.log('rout param = ' + params.get('exercise'));
       this.exercise = JSON.parse(params.get('exercise'));
+
     });
   }
 

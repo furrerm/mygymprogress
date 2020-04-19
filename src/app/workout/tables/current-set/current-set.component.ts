@@ -49,25 +49,9 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
       console.log(set.weight);
       console.log(set.repetitions);
     }
-    this.currentSetService.saveSets(JSON.stringify(superset)).subscribe(a => {
-        console.log('dadada');
-        this.sets = new Array();
-        const str = JSON.stringify(this.updatedExercise);
-        // str = '{"id":1,"name":"Flat Bench Press"}';
-        console.log(str);
-        this.router.routeReuseStrategy.shouldReuseRoute = () => {
-          return false;
-        };
-        this.router.onSameUrlNavigation = 'reload';
-        this.mySubscription = this.router.events.subscribe((event) => {
-          if (event instanceof NavigationEnd) {
-            // Trick the Router into believing it's last link wasn't previously loaded
-            this.router.navigated = false;
-          }
-        });
-        this.router.navigate(['workout/tables', str]);
-      }
-    );
+    this.currentSetService.saveSets(JSON.stringify(superset)).subscribe(a => { },
+      error => console.log('error'),
+      () => window.location.reload());
   }
   ngOnDestroy(): void {
     if (this.mySubscription) {

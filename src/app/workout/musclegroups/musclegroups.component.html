@@ -1,18 +1,16 @@
-<p>musclegroups works!</p>
+<div class = "siteWrapper">
 
-<p>
-workout
-</p>
+
 
 <ul>
   <li (click)="showExercises(excerciseGroup)"  *ngFor="let excerciseGroup of exerciseGroups">
-    {{ excerciseGroup.label }}
-    <ul  *ngIf="group === excerciseGroup.label">
-      <li *ngFor="let exercise of excerciseGroup.exercises">
-        <p>{{ exercise["name"] }}</p>
-        <a [routerLink]="['../tables/', makeString(exercise)]">{{ exercise["name"] }}</a>
-      </li>
-    </ul>
+    <p class = "groupBox">{{ excerciseGroup.label }}</p>
+    <div class = "innerWrapper" *ngIf="group === excerciseGroup.label">
+
+        <a  *ngFor="let exercise of excerciseGroup.exercises" class = "groupBox2" [routerLink]="['../tables/', makeString(exercise)]">{{ exercise["name"] }}</a>
+
+    </div>
   </li>
 </ul>
-[routerLink]="['/user', user.id]"
+
+</div>
