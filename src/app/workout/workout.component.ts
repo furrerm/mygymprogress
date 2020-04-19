@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class WorkoutComponent implements OnInit {
   exercise: string;
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {

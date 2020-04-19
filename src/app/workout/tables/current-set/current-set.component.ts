@@ -65,7 +65,7 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
             this.router.navigated = false;
           }
         });
-        this.router.navigate(['workout', str]);
+        this.router.navigate(['workout/tables', str]);
       }
     );
   }

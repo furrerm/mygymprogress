@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { ConstantsService } from '../common/services/constants.service';
+import {ConstantsService} from '../../common/services/constants.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenuServiceService {
+export class MusclegroupsService {
   appUrl: string;
   readonly distFolderLocation: string;
+
   constructor(private http: HttpClient,
               private constant: ConstantsService) {
 

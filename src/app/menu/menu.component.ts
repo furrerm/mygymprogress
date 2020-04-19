@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
-import { MenuServiceService } from './menu-service.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material';
+import {MenuServiceService} from './menu-service.service';
 import {printLine} from 'tslint/lib/verify/lines';
 import {LastSetServiceService} from '../workout/tables/last-set/last-set-service.service';
 import {NavigationEnd, Router} from '@angular/router';
-import { ConstantsService } from '../common/services/constants.service';
+import {ConstantsService} from '../common/services/constants.service';
 
 @Component({
   selector: 'app-menu',
@@ -22,6 +22,7 @@ export class MenuComponent implements OnInit {
   mySubscription;
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   private distFolderLocation: string;
+
   constructor(private menuServiceService: MenuServiceService,
               private lastSetService: LastSetServiceService,
               private router: Router,
@@ -31,13 +32,16 @@ export class MenuComponent implements OnInit {
     this.exercises = 'hiddenExercises';
     this.distFolderLocation = constant.baseAppUrl;
   }
+
+  /*
   stateClickedLink(vari: string): void {
     console.log(vari);
     this.router.navigate(['workout', vari]);
   }
+   */
   ngOnInit() {
-    this.exerciseGroups = this.getExerciseGroups();
-
+    // this.exerciseGroups = this.getExerciseGroups();
+/*
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
@@ -48,8 +52,9 @@ export class MenuComponent implements OnInit {
         this.router.navigated = false;
       }
     });
+ */
   }
-
+/*
   getExerciseGroups(): ExerciseGroup[] {
     const obj1 = {label: 'Chest', exercises: ['benchpress', 'flying', 'dumbells']};
     const excerciseGroupsLoc = [obj1];
@@ -66,25 +71,31 @@ export class MenuComponent implements OnInit {
     });
     return excerciseGroupsLoc;
   }
-  openCloseSideNavigation() {
-    this.opened = !this.opened;
-  }
+
   showWorkoutGroups() {
     console.log('ins workout groups');
-    this.workoutGroups = (this.workoutGroups === 'visibleWorkouts') ?  'hiddenWorkouts' : 'visibleWorkouts';
+    this.workoutGroups = (this.workoutGroups === 'visibleWorkouts') ? 'hiddenWorkouts' : 'visibleWorkouts';
   }
+
   hideWorkoutGroups() {
     this.workoutGroups = 'hiddenWorkouts';
   }
+
   showExercises(exerciseGroup: ExerciseGroup) {
     this.group = exerciseGroup.label;
-    this.exercises = (this.exercises === 'visibleExercises') ?  'hiddenExercises' : 'visibleExercises';
+    this.exercises = (this.exercises === 'visibleExercises') ? 'hiddenExercises' : 'visibleExercises';
   }
+
   public makeString(param: string): string {
     console.log(param);
     return JSON.stringify(param);
   }
+ */
+  openCloseSideNavigation() {
+    this.opened = !this.opened;
+  }
 }
+
 interface ExerciseGroup {
   label: string;
   exercises: string[];

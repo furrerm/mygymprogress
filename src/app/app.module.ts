@@ -58,6 +58,7 @@ import { CurrentSetComponent } from './workout/tables/current-set/current-set.co
 import { ConstantsService } from './common/services/constants.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { HttpClientModule } from '@angular/common/http';
     HistoryComponent,
     WelcomeComponent,
     LastSetComponent,
-    CurrentSetComponent
+    CurrentSetComponent,
+    MusclegroupsComponent
   ],
   imports: [
     ReactiveFormsModule,

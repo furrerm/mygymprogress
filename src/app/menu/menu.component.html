@@ -2,8 +2,12 @@
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" class=sidenav>
     <nav>
       <p>
-        <a routerLink="management" (click)="hideWorkoutGroups()">management</a>
+        <a (click)="openCloseSideNavigation()" [routerLink]="['management', 11]" routerLinkActive="active">management</a>
       </p>
+      <a (click)="openCloseSideNavigation()" routerLink="workout" routerLinkActive="active">workout</a>
+
+      <router-outlet></router-outlet>
+<!--
       <p>
         <a (click)="showWorkoutGroups()">workout</a>
       </p>
@@ -13,11 +17,11 @@
           <ul *ngIf="group === excerciseGroup.label">
             <li *ngFor="let exercise of excerciseGroup.exercises">
               <a (click)="stateClickedLink(makeString(exercise))">{{ exercise["name"] }}</a>
-              <!-- <a (click)="stateClickedLink(makeString(exercise))" [routerLink]="['workout', makeString(exercise)]">{{ exercise["name"] }}</a>-->
             </li>
           </ul>
         </li>
       </ul>
+-->
     </nav>
   </mat-sidenav>
 

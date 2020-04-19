@@ -1,0 +1,18 @@
+<p>musclegroups works!</p>
+
+<p>
+workout
+</p>
+
+<ul>
+  <li (click)="showExercises(excerciseGroup)"  *ngFor="let excerciseGroup of exerciseGroups">
+    {{ excerciseGroup.label }}
+    <ul  *ngIf="group === excerciseGroup.label">
+      <li *ngFor="let exercise of excerciseGroup.exercises">
+        <p>{{ exercise["name"] }}</p>
+        <a [routerLink]="['../tables/', makeString(exercise)]">{{ exercise["name"] }}</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+[routerLink]="['/user', user.id]"
