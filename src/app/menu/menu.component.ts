@@ -4,6 +4,7 @@ import { MenuServiceService } from './menu-service.service';
 import {printLine} from 'tslint/lib/verify/lines';
 import {LastSetServiceService} from '../workout/tables/last-set/last-set-service.service';
 import {NavigationEnd, Router} from '@angular/router';
+import { ConstantsService } from '../common/services/constants.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,11 +21,15 @@ export class MenuComponent implements OnInit {
   group: string;
   mySubscription;
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
-
-  constructor(private menuServiceService: MenuServiceService, private lastSetService: LastSetServiceService, private router: Router) {
+  private distFolderLocation: string;
+  constructor(private menuServiceService: MenuServiceService,
+              private lastSetService: LastSetServiceService,
+              private router: Router,
+              private constant: ConstantsService) {
     this.opened = false;
     this.workoutGroups = 'hiddenWorkouts';
     this.exercises = 'hiddenExercises';
+    this.distFolderLocation = constant.baseAppUrl;
   }
   stateClickedLink(vari: string): void {
     console.log(vari);

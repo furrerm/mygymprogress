@@ -55,6 +55,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LastSetComponent } from './workout/tables/last-set/last-set.component';
 import { CurrentSetComponent } from './workout/tables/current-set/current-set.component';
+import { ConstantsService } from './common/services/constants.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -120,7 +121,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ConstantsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,16 +1,19 @@
 <mat-sidenav-container class="sidenav-container">
-
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class = sidenav>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class=sidenav>
     <nav>
-      <p><a routerLink="management" (click)="hideWorkoutGroups()">management</a></p>
-      <p><a (click)="showWorkoutGroups()">workout</a></p>
+      <p>
+        <a routerLink="management" (click)="hideWorkoutGroups()">management</a>
+      </p>
+      <p>
+        <a (click)="showWorkoutGroups()">workout</a>
+      </p>
       <ul [ngClass]="workoutGroups">
         <li (click)="showExercises(excerciseGroup)" *ngFor="let excerciseGroup of exerciseGroups">
           {{ excerciseGroup.label }}
           <ul *ngIf="group === excerciseGroup.label">
             <li *ngFor="let exercise of excerciseGroup.exercises">
               <a (click)="stateClickedLink(makeString(exercise))">{{ exercise["name"] }}</a>
-             <!-- <a (click)="stateClickedLink(makeString(exercise))" [routerLink]="['workout', makeString(exercise)]">{{ exercise["name"] }}</a>-->
+              <!-- <a (click)="stateClickedLink(makeString(exercise))" [routerLink]="['workout', makeString(exercise)]">{{ exercise["name"] }}</a>-->
             </li>
           </ul>
         </li>
