@@ -1,12 +1,7 @@
-<ul>
-  <p>{{this.updatedExercise['name']}}</p>
-  <li *ngFor="let set of receivedSets">
-    reps:
-    {{set["repetitions"]}}
-    <br>
-    weights:
-    {{set["weight"]}}
-  </li>
+<div class = "siteWrapper">
+  <div *ngFor="let set of receivedSets" class="entryBar">
+    <p class="entryText">{{set["repetitions"]}} X {{set["weight"]}} Kg</p>
+  </div>
+</div>
 
-</ul>
 

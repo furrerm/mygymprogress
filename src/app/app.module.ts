@@ -127,4 +127,5 @@ import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.compo
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

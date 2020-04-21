@@ -1,9 +1,25 @@
-<p>{{this.exercise.name}}</p>
-<div id = "wrappingContainer" >
-
-  <div class = "setContainer"> <app-last-set [exercise]="this.exercise"></app-last-set> </div>
-  <div class = "setContainer"> <app-current-set [exercise]="this.exercise"></app-current-set></div>
-
+<div id="wrappingContainer">
+  <div class="setInputWrapper">
+    <p class="title">{{this.exercise.name}}</p>
+    <div class="formWrapper">
+      <form [formGroup]="myForm2" (ngSubmit)="pushToChild(myForm2)">
+        <div class="inputFieldsWrapper">
+          <input type="number" class="setInput"  formControlName="repetitions" ><span class="repetitionsX">X</span>
+          <input type="number" required="true" class="setInput" formControlName='weight' value="42" placeholder="42"><span class = weightKg>Kg</span>
+          <button class="setInputButton" type="submit">&#10003;</button>
+          <button class="setInputButton" type="button" (click)="pushToDB()">complete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="setDisplayWrapper">
+    <div class="setContainer">
+      <app-last-set class="currentAndLastComponent" #last [exercise]="this.exercise"></app-last-set>
+    </div>
+    <div class="setContainer">
+      <app-current-set class="currentAndLastComponent" [sibling]="last" [exercise]="this.exercise"></app-current-set>
+    </div>
+  </div>
 </div>
 
 

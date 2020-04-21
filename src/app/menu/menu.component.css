@@ -1,14 +1,22 @@
+html{
+  background-color: #111110;
+}
+body{
+  background-color: #111110;
+}
 .sidenav-container {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: #111110;
 }
 
 .contentContainer {
   display: inline-block;
   cursor: pointer;
+  background-color: #111110;
 }
 
 .bar1, .bar2, .bar3 {
@@ -42,5 +50,7 @@
 
 .sidenav {
   width: 200px;
+  background-color: #111110;
+  border-right: #099FDF solid 2px;
 }
 

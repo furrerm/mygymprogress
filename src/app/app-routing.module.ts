@@ -13,19 +13,17 @@ const routes: Routes = [
   { path: '', component: WelcomeComponent, pathMatch: 'full' },
   { path: 'management/:id', component: ManagementComponent, pathMatch: 'full' },
   { path: 'workout', component: WorkoutComponent, pathMatch: 'full' },
-  { path: 'workout/musclegroups', component: MusclegroupsComponent },
-  { path: 'workout/tables/:exercise', component: TablesComponent }
+  { path: 'workout/musclegroups', component: MusclegroupsComponent, pathMatch: 'full' },
+  { path: 'workout/tables/:exercise', component: TablesComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-
 
 
 

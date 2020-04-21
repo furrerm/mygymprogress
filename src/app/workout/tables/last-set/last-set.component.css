@@ -1,0 +1,35 @@
+.entryBar {
+  background: linear-gradient(to bottom, #FFFFFF 0, #7f7d7c 2%, #111110 100%) repeat scroll 0 0 transparent;
+  border: 1px solid #c4c2bf;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px #999999;
+  -ms-box-shadow: 0 1px 2px #999999;
+  box-shadow: 0 1px 2px #999999;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  -ms-text-shadow: 0 -1px #099FDF;
+  text-shadow: 0 -1px #099FDF;
+  height: 30px;
+  width: 200px;
+  text-decoration: none;
+  margin: 2px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.entryText {
+  display: block;
+  text-align: center;
+  margin: auto auto;
+}
+
+.siteWrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}

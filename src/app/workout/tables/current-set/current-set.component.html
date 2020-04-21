@@ -1,11 +1,5 @@
-<p>current-set works!</p>
-
-<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-  <input class = "setInput" formControlName='name1' placeholder="weight">
-  <input class = "setInput" formControlName="repetitions" placeholder="reps">
-  <button class = "setInputButton" type="submit">Add</button>
-  <button class = "setInputButton" type="button" (click)="pushToDB()">complete</button>
-</form>
-<p *ngFor="let set of sets">
-  weight: {{set["weight"]}} reps: {{set["repetitions"]}}
-</p>
+<div class = "siteWrapper">
+  <div *ngFor="let set of sets" class="entryBar">
+    <p class="entryText">{{set["repetitions"]}} X {{set["weight"]}} Kg</p>
+  </div>
+</div>

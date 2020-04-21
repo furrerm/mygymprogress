@@ -1,17 +1,32 @@
 .siteWrapper {
   width: 100%;
   height: 100%;
-
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 .innerWrapper {
   width: 100%;
   height: 100%;
-
+  display: block;
   text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.innerWrapperDepth2 {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 li{
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul{
   margin: 0;
   padding: 0;
 }
@@ -64,4 +79,7 @@ li{
 
   display: inline-block;
   text-align: center;
+}
+html{
+  background-color: #111110;
 }
