@@ -4,7 +4,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #111110;
+  /*
+  background-image: url("../pictures/background2.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+   */
+  background-color: #c4c2bf;
 }
 
 .contentContainer {
