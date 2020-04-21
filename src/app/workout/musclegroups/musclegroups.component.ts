@@ -14,13 +14,6 @@ export class MusclegroupsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.exerciseGroups = this.getExerciseGroups();
-  }
-
-  getExerciseGroups(): ExerciseGroup[] {
-    const obj1 = {label: 'Chest', exercises: ['benchpress', 'flying', 'dumbells']};
-    const excerciseGroupsLoc = [obj1];
-    excerciseGroupsLoc.push({label: 'Bicesps', exercises: ['curls', 'side curls']});
     this.musclgroupservice.fetchExerciseGroups().subscribe(winningsLoc => {
       const exerciseGroups = JSON.parse(JSON.stringify(winningsLoc));
       this.exerciseGroups = [];
@@ -28,7 +21,6 @@ export class MusclegroupsComponent implements OnInit {
         this.exerciseGroups.push({label: x.name, exercises: x.exercises});
       });
     });
-    return excerciseGroupsLoc;
   }
 
   showExercises(exerciseGroup: ExerciseGroup) {
