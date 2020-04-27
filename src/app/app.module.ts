@@ -60,6 +60,14 @@ import { ConstantsService } from './common/services/constants.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.component';
 
+
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +82,11 @@ import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.compo
     MusclegroupsComponent
   ],
   imports: [
+    BrowserModule,
+    FormsModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule, // for database
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,

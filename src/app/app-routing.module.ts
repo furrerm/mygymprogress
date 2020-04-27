@@ -6,11 +6,13 @@ import { WorkoutComponent } from './workout/workout.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.component';
 import { TablesComponent } from './workout/tables/tables.component';
+import {AppComponent} from './app.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent, pathMatch: 'full' },
+  { path: '', component: AppComponent },
+  { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
   { path: 'management/:id', component: ManagementComponent, pathMatch: 'full' },
   { path: 'workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workout/musclegroups', component: MusclegroupsComponent, pathMatch: 'full' },
