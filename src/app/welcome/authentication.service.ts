@@ -62,7 +62,7 @@ export class AuthenticationService {
     const url = this.distFolderLocation + getSetsUrl;
 
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
 
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
