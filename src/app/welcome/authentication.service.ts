@@ -14,6 +14,7 @@ import {ConstantsService} from '../common/services/constants.service';
 export class AuthenticationService {
 
   readonly distFolderLocation: string;
+  private token: string;
   /*
   constructor(private http: HttpClient,
               @Inject(DOCUMENT) private document: Document,
@@ -36,7 +37,8 @@ export class AuthenticationService {
       .then((res) => {
         this.ngZone.run(() => {
           // this.router.navigate(['dashboard']);
-          provider.getAuthToken();
+          this.token = provider.getAuthToken;
+         // provider.getAuthToken();
         });
       }).catch((error) => {
         window.alert(error);
