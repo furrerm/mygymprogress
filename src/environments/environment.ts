@@ -13,7 +13,8 @@ export const environment = {
     messagingSenderId: '965935905357',
     appId: '1:965935905357:web:0c4981d4b7fc83cc89ba04',
     measurementId: 'G-YNEX3LF8PP'
-  }
+  },
+  APIEndpoint: 'http://localhost:8082/'
   /*
   firebaseConfig: {
     apiKey: 'AIzaSyDdGU6D0iv1TAuyn1XbMop2zg618lsAB0k',
