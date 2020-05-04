@@ -14,11 +14,11 @@ export class WelcomeComponent implements OnInit {
   user: User;
   idToken: string;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private _authService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.authService.afAuth.authState.subscribe(user => {
+    this._authService.afAuth.authState.subscribe(user => {
       this.user = user;
     });
     this.GetToken();
@@ -31,18 +31,22 @@ export class WelcomeComponent implements OnInit {
     console.log(this.user);
   }
   GetToken(): string {
-    this.authService.afAuth.onAuthStateChanged( user => {
+    this._authService.afAuth.onAuthStateChanged(user => {
       if (user) {
         user.getIdToken().then(idToken => {
           this.idToken = idToken;
           // this shows the userToken
           console.log('token inside getToken method ' + this.idToken);
-          this.authService.validateLogin(this.idToken).subscribe(a => {
+          this._authService.validateLogin(this.idToken).subscribe(a => {
           });
         });
       }
     });
     console.log('before return ' + this.idToken);
     return this.idToken;
+  }
+
+  get authService(): AuthenticationService {
+    return this._authService;
   }
 }

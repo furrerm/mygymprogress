@@ -13,6 +13,7 @@ export class MusclegroupsService {
               private constant: ConstantsService) {
 
     this.distFolderLocation = constant.baseAppUrl;
+    console.log(this.distFolderLocation);
     const u = this.distFolderLocation + 'routine-service/get-json-routines';
     this.appUrl = u;
   }

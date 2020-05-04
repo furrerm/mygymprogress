@@ -2,7 +2,7 @@
 <div class="flex-container">
   <div class="row">
     <div class="login-wrapper">
-      <button type="button" class="large-button" (click)="authService.SigninWithGoogle()">
+      <button type="button" class="large-button" (click)="this.authService.SigninWithGoogle()">
         <span class="large-button__icon">
           <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -20,7 +20,7 @@
         </span>
         <span class="large-button__text">Sign in with Google</span>
       </button>
-      <button type="button" class="large-button" (click)="authService.SignOut()">
+      <button type="button" class="large-button" (click)="this.authService.SignOut()">
         logout
       </button>
       <button type="button" class="large-button" (click)="foo()">
