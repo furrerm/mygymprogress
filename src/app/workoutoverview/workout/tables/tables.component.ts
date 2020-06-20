@@ -17,9 +17,8 @@ export class TablesComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      console.log('rout param = ' + params.get('exercise'));
+      console.log('route param = ' + params.get('exercise'));
       this.exercise = JSON.parse(params.get('exercise'));
-
     });
     this.initializeInputValues(12, 30);
   }
@@ -30,7 +29,7 @@ export class TablesComponent implements OnInit {
   pushToDB(): void {
     this.child.pushToDB();
   }
-  private initializeInputValues(repetitionsValue: number, weightValue: number){
+  private initializeInputValues(repetitionsValue: number, weightValue: number) {
     this.myForm2 = this.formBuilder.group({
       weight: weightValue,
       repetitions: repetitionsValue

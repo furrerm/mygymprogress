@@ -1,0 +1,11 @@
+<p>new-workout works!</p>
+
+<div class="formWrapper">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+    <div class="inputFieldsWrapper">
+      <input type="text" class="setInput"  formControlName="workoutName">
+      <button  type="submit">&#10003;</button>
+      <!--button class="setInputButton" type="button" (click)="pushToDB()">complete</button-->
+    </div>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="siteWrapper">
+  <app-menu></app-menu>
+
+
+  <div class="innerWrapperDepth2">
+    <a class="groupBox" [routerLink]="['new-workout']">+++</a>
+  </div>
+  <div *ngFor="let workout of this.workouts" class="innerWrapperDepth2">
+    <a class="groupBox" [routerLink]="['musclegroups', this.objectToJsonString(workout)]">{{workout.name}}</a>
+  </div>
+</div>

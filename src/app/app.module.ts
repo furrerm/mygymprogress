@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { ManagementComponent } from './management/management.component';
-import { WorkoutComponent } from './workout/workout.component';
-import { TablesComponent } from './workout/tables/tables.component';
-import { HistoryComponent } from './workout/history/history.component';
+import { ManagementComponent } from './home/management.component';
+import { WorkoutComponent } from './workoutoverview/workout/workout.component';
+import { TablesComponent } from './workoutoverview/workout/tables/tables.component';
+import { HistoryComponent } from './workoutoverview/workout/history/history.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -53,12 +53,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LastSetComponent } from './workout/tables/last-set/last-set.component';
-import { CurrentSetComponent } from './workout/tables/current-set/current-set.component';
+import { LastSetComponent } from './workoutoverview/workout/tables/last-set/last-set.component';
+import { CurrentSetComponent } from './workoutoverview/workout/tables/current-set/current-set.component';
 import { ConstantsService } from './common/services/constants.service';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MusclegroupsComponent } from './workout/musclegroups/musclegroups.component';
+import { MusclegroupsComponent } from './workoutoverview/workout/musclegroups/musclegroups.component';
 
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -66,6 +66,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { NewWorkoutComponent } from './workoutoverview/workout/new-workout/new-workout.component';
+import { WorkoutoverviewComponent } from './workoutoverview/workoutoverview.component';
+
 
 
 @NgModule({
@@ -79,7 +82,9 @@ import { environment } from '../environments/environment';
     WelcomeComponent,
     LastSetComponent,
     CurrentSetComponent,
-    MusclegroupsComponent
+    MusclegroupsComponent,
+    NewWorkoutComponent,
+    WorkoutoverviewComponent,
   ],
   imports: [
     BrowserModule,

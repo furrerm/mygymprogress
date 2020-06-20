@@ -53,9 +53,14 @@ export class AuthenticationService {
         console.log(error);
       });
   }
-  SignOut() {
+
+  SignOut(user: any) {
     return this.afAuth.signOut().then(() => {
       console.log('logged out');
+      // this.router.navigate(['welcome']);
+      user = null;
+      window.location.reload();
+      // this.router.navigate(['welcome']);
     });
   }
   validateLogin(exercise: string) {

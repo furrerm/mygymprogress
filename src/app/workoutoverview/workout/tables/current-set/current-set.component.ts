@@ -40,8 +40,10 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
 
   pushToDB(): void {
     console.log(this.sets);
+    console.log(JSON.stringify(this.updatedExercise));
+    const exerciseId: number = JSON.parse(JSON.stringify(this.updatedExercise)).id;
     const exerciseName: string = JSON.parse(JSON.stringify(this.updatedExercise)).name;
-    const superset: Superset = {name: exerciseName, date: 'datum', sets: this.sets};
+    const superset: Superset = {id: exerciseId, name: exerciseName, date: 'datum', sets: this.sets};
     console.log(superset);
     console.log(superset.name);
     console.log(superset.date);
@@ -74,6 +76,7 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
 }
 
 interface Superset {
+  id: number;
   name: string;
   date: string;
   sets: Set[];

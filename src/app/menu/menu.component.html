@@ -1,39 +1,40 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class=sidenav>
-    <nav>
-      <p>
-        <a (click)="openCloseSideNavigation()" [routerLink]="['management', 11]" routerLinkActive="active">management</a>
-      </p>
-      <a (click)="openCloseSideNavigation()" routerLink="workout" routerLinkActive="active">workout</a>
-
-      <router-outlet></router-outlet>
-<!--
-      <p>
-        <a (click)="showWorkoutGroups()">workout</a>
-      </p>
-      <ul [ngClass]="workoutGroups">
-        <li (click)="showExercises(excerciseGroup)" *ngFor="let excerciseGroup of exerciseGroups">
-          {{ excerciseGroup.label }}
-          <ul *ngIf="group === excerciseGroup.label">
-            <li *ngFor="let exercise of excerciseGroup.exercises">
-              <a (click)="stateClickedLink(makeString(exercise))">{{ exercise["name"] }}</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
--->
-    </nav>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <div class="contentContainer" (click)="openCloseSideNavigation()" [ngClass]= "opened ? 'change' : ''" >
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
+<div class="pageFrame">
+  <div class="frame">
+    <div class="menuLeft">
+       <img alt="home" src="../../assets/pictures/menuButtons/mySport.svg" >
     </div>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
 
-</mat-sidenav-container>
+    <div class="menuCentered">
+      <a  [routerLink]="['../management', 11]" routerLinkActive="active" >
+        <img alt="home" src="../../assets/pictures/menuButtons/menuHome2.svg" style="width: 40px; height: 40px">
+      </a>
 
 
+      <a (click)="openCloseSideNavigation()" routerLink="/workoutoverview" routerLinkActive="active">
+        <img alt="home" src="../../assets/pictures/menuButtons/dumbbell.svg" style="width: 40px; height: 40px">
+      </a>
+
+
+      <a (click)="openCloseSideNavigation()" routerLink="" routerLinkActive="active">
+        <img alt="home" src="../../assets/pictures/menuButtons/menuFood.svg" style="width: 40px; height: 40px">
+      </a>
+
+      <a (click)="openCloseSideNavigation()" routerLink="" routerLinkActive="active">
+        <img alt="home" src="../../assets/pictures/menuButtons/menuFriends.svg" style="width: 40px; height: 40px">
+      </a>
+      <a (click)="openCloseSideNavigation()" routerLink="" routerLinkActive="active">
+        <img alt="home" src="../../assets/pictures/menuButtons/menuPlus.svg" style="width: 40px; height: 40px">
+      </a>
+
+    </div>
+    <a class="profile" (click)="openCloseSideNavigation(); logout()" routerLink="" routerLinkActive="active">
+      <img alt="home" src="../../assets/pictures/menuButtons/menuProfil.svg" style="width: 40px; height: 40px">
+    </a>
+    <!--
+    <p>
+      <a (click)="openCloseSideNavigation()" routerLink="profile" routerLinkActive="active">welcome</a>
+    </p>
+  -->
+
+  </div>
+</div>
