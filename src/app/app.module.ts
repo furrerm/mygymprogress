@@ -69,6 +69,7 @@ import { environment } from '../environments/environment';
 import { NewWorkoutComponent } from './workoutoverview/workout/new-workout/new-workout.component';
 import { WorkoutoverviewComponent } from './workoutoverview/workoutoverview.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -139,7 +140,8 @@ import { WorkoutoverviewComponent } from './workoutoverview/workoutoverview.comp
     PortalModule,
     ScrollingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [ConstantsService],
   bootstrap: [AppComponent]

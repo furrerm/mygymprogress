@@ -1,2 +1,31 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <app-menu></app-menu>
 <p>Home works!</p>
+
+<div class="container">
+  <ngb-tabset>
+    <ngb-tab title="Simple">
+      <template ngbTabContent>
+        <p>This is the content of the first tab!</p>
+        <ngb-alert [dismissible]="false">
+          <strong>Warning!</strong> This is an alert!
+        </ngb-alert>
+      </template>
+    </ngb-tab>
+    <ngb-tab>
+      <template ngbTabTitle><b>Fancy</b> title</template>
+      <template ngbTabContent>
+        <p>This is the content of the second tab!</p>
+        <p><ngb-progressbar type="success" [value]="25"></ngb-progressbar></p>
+        <p><ngb-progressbar type="info" [value]="50"></ngb-progressbar></p>
+        <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
+        <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
+      </template>
+    </ngb-tab>
+    <ngb-tab title="Disabled" [disabled]="true">
+      <template ngbTabContent>
+        <p>This tab is disabled</p>
+      </template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
