@@ -1,31 +1,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<app-menu></app-menu>
-<p>Home works!</p>
 
-<div class="container">
-  <ngb-tabset>
-    <ngb-tab title="Simple">
-      <template ngbTabContent>
-        <p>This is the content of the first tab!</p>
-        <ngb-alert [dismissible]="false">
-          <strong>Warning!</strong> This is an alert!
-        </ngb-alert>
-      </template>
-    </ngb-tab>
-    <ngb-tab>
-      <template ngbTabTitle><b>Fancy</b> title</template>
-      <template ngbTabContent>
-        <p>This is the content of the second tab!</p>
-        <p><ngb-progressbar type="success" [value]="25"></ngb-progressbar></p>
-        <p><ngb-progressbar type="info" [value]="50"></ngb-progressbar></p>
-        <p><ngb-progressbar type="warning" [value]="75"></ngb-progressbar></p>
-        <p><ngb-progressbar type="danger" [value]="100"></ngb-progressbar></p>
-      </template>
-    </ngb-tab>
-    <ngb-tab title="Disabled" [disabled]="true">
-      <template ngbTabContent>
-        <p>This tab is disabled</p>
-      </template>
-    </ngb-tab>
-  </ngb-tabset>
+
+<div class="container-fluid h-100 outer-wrapper">
+
+  <nav class="nav-personal-settings d-flex justify-content-center">
+    <div class="inner-wrapper d-flex">
+
+
+      <div class="ndiv-2 col-sm-4 col-md-3 col-lg-2 h-100 d-flex justify-content-start nav-div-1 nav-div">
+        <a class="nav-link" [routerLink]="['../management', 11]" routerLinkActive="active">
+          <img class="link-images logo-image" alt="home" src="../../assets/pictures/menuButtons/sport-logo.svg">
+        </a>
+      </div>
+
+      <div class="ndiv-3 col-sm-6 col-md-7 col-lg-8 h-100 d-flex justify-content-center nav-div-2 nav-div">
+
+        <a class="nav-link" [routerLink]="['../management', 11]" routerLinkActive="active">
+          <img class="link-images" alt="home" src="../../assets/pictures/menuButtons/menuHome2.svg">
+        </a>
+
+        <a class="nav-link" routerLink="/workoutoverview" routerLinkActive="active">
+          <img class="link-images" alt="home" src="../../assets/pictures/menuButtons/dumbbell.svg">
+        </a>
+
+
+        <a class="nav-link" routerLink="" routerLinkActive="active">
+          <img class="link-images" alt="home" src="../../assets/pictures/menuButtons/menuFood.svg">
+        </a>
+
+        <a class="nav-link" routerLink="" routerLinkActive="active">
+          <img class="link-images" alt="home" src="../../assets/pictures/menuButtons/menuFriends.svg">
+        </a>
+        <a class="nav-link" routerLink="" routerLinkActive="active">
+          <img class="link-images" alt="home" src="../../assets/pictures/menuButtons/menuPlus.svg">
+        </a>
+      </div>
+
+      <div class="ndiv-5 col-sm-2 col-md-2 col-lg-2  h-100 nav-div-4 nav-div d-flex justify-content-end">
+        <a class="nav-link" class="profile nav-link profile-link" routerLink="" routerLinkActive="active">
+          <img class="link-images profile-link" alt="home" src="../../assets/pictures/menuButtons/menuProfil.svg">
+        </a>
+      </div>
+
+
+    </div>
+  </nav>
+  <div class="d-flex justify-content-center content-wrapper">
+
+
+    <div class="content-div inner-wrapper d-flex">
+
+
+    </div>
+
+    </div>
+
 </div>

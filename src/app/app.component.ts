@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
     if (this.constants.getUser == null) {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
-      this.router.navigate(['welcome']);
+      // very important include next line again for sign in
+      // this.router.navigate(['welcome']);
       // window.location.href = window.location + 'welcome';
     }
   }
