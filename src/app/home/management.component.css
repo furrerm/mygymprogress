@@ -1,18 +1,4 @@
 @media (max-width: 767px) {
-  .nav-personal-settings {
-
-    border-bottom: black solid 3px;
-    padding: 3px 0px 3px 0px;
-    margin: 0px;
-
-    width: 100%;
-    height: 35px;
-
-  }
-  .nav-link {
-    margin: 0px 5px 0px 5px;
-    padding: 0px;
-  }
   .content-wrapper {
     height: calc(100% - 35px);
     width: 100%;
@@ -21,20 +7,6 @@
   }
 }
 @media (min-width: 768px) {
-  .nav-personal-settings {
-
-    border-bottom: black solid 1px;
-    padding: 3px 0px 3px 0px;
-    margin: 0px;
-
-    width: 100%;
-    height: 45px;
-
-  }
-  .nav-link {
-    margin: 0px 15px 0px 15px;
-    padding: 0px;
-  }
   .content-wrapper {
     height: calc(100% - 45px);
     width: 100%;
@@ -42,68 +14,10 @@
     padding: 0;
   }
 }
-
-.inner-wrapper {
+.content-div {
   width: 100%;
   max-width: 1000px;
-}
-p {
-  color: red;
-}
-
-.navbar-custom {
-
-}
-
-.link-images {
-  margin: 0px;
-  padding: 0px;
-  height: 100%
-}
-.logo-image {
-
-}
-.profile-link{
-  max-width: 40px;
-  max-height: 40px;
-  min-width: 30px;
-
-}
-
-.outer-wrapper {
-  margin: 0px;
-  padding: 0px;
-justify-content: center;
-
-}
-
-.nav-div {
-  margin: 0px;
-  padding: 0px;
-}
-.content-div {
   height: 100%;
   overflow: auto;
   border: black solid 1px;
 }
-
-
-
-.ndiv-1 {
-}
-.ndiv-2 {
-
-}
-.ndiv-3 {
-
-}
-.ndiv-4 {
-
-}
-.ndiv-5 {
-
-}
-.ndiv-6 {
-
-}
-

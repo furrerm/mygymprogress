@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
       // very important include next line again for sign in
-      // this.router.navigate(['welcome']);
-      // window.location.href = window.location + 'welcome';
+      // TODO: for login uncomment next line
+      this.router.navigate(['welcome']);
     }
   }
 }
