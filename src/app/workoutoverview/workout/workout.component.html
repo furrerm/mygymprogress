@@ -1,11 +1,22 @@
-<div class="siteWrapper">
-  <app-menu></app-menu>
+<app-menu></app-menu>
 
+<div class="d-flex justify-content-center content-wrapper">
 
-  <div class="innerWrapperDepth2">
-    <a class="groupBox" [routerLink]="['new-workout']">+++</a>
+  <div class="content-div">
+    <div class = "filter-div">
+
+        <ng-template [ngIf]="imageToShow">
+          <img [src]="imageToShow" class="img-thumbnail" *ngIf="!isImageLoading;">
+        </ng-template>
+
+    </div>
+    <div *ngFor="let workout of this.workouts" class="innerWrapperDepth2">
+      <a class="groupBox" [routerLink]="['musclegroups', this.objectToJsonString(workout)]">{{workout.name}}</a>
+      <img class="previewImage" alt="home" src="../../../assets/pictures/pic1.png">
+    </div>
   </div>
-  <div *ngFor="let workout of this.workouts" class="innerWrapperDepth2">
-    <a class="groupBox" [routerLink]="['musclegroups', this.objectToJsonString(workout)]">{{workout.name}}</a>
-  </div>
+
 </div>
+
+
+

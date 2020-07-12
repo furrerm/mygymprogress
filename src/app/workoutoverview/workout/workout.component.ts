@@ -2,6 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WorkoutsService} from './workouts.service';
 import {ConstantsService} from '../../common/services/constants.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,9 @@ import {ConstantsService} from '../../common/services/constants.service';
 export class WorkoutComponent implements OnInit {
   exercise: string;
   workouts: Workout[];
+  private isImageLoading: boolean;
+  private imageToShow;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private workoutsService: WorkoutsService,
@@ -42,8 +46,31 @@ export class WorkoutComponent implements OnInit {
         this.workouts.push({id: x.id, name: x.name, userId: x.userId});
       });
     });
+
+    this.workoutsService.getFiles().subscribe(data => {
+        this.createImageFromBlob(data);
+        this.isImageLoading = false;
+      },
+      error => {
+        this.isImageLoading = false;
+      });
+  }
+  createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load',
+      () => {
+        this.imageToShow = reader.result;
+      },
+      false);
+
+    if (image) {
+      if (image.type !== 'application/pdf') {
+        reader.readAsDataURL(image);
+      }
+    }
   }
 }
+
 interface Workout {
   id: number;
   name: string;

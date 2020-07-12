@@ -1,3 +1,26 @@
+@media (max-width: 767px) {
+  .content-wrapper {
+    height: calc(100% - 35px);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+@media (min-width: 768px) {
+  .content-wrapper {
+    height: calc(100% - 45px);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+.content-div {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  overflow: auto;
+}
+
 .groupBox {
   background: linear-gradient(to bottom, #FFFFFF 0, #FAB149 2%, #F89406 100%) repeat scroll 0 0 transparent;
   border: 1px solid #FAB149;
@@ -19,24 +42,23 @@
   vertical-align: center;
   align-items: center;
   text-decoration: none;
-
   display: inline-block;
   text-align: center;
-}
-.siteWrapper {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  background-color: wheat;
 }
 
 .innerWrapperDepth2 {
   width: 100%;
-
   display: block;
   text-align: center;
   padding: 0;
-  margin: 0;
+  margin: 0 0 30px 0;
+  border: solid black 1px;
+
+}
+
+.filter-div {
+  width: 100%;
+  height: 100px;
+  border: solid black 1px;
+  margin: 30px 0 30px 0;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ConstantsService} from '../../common/services/constants.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,12 @@ export class WorkoutsService {
     // return this.http.post<string>(this.appUrl, params, httpOptions);
     return this.http.post<string>(this.appUrl, JSON.stringify(this.constant.getUser), httpOptions);
     // return (this.http.get<string>(this.appUrl));
+  }
+
+  getFiles(): Observable<File> {
+    const urlLocal = this.constant.baseAppUrl + 'workout-service/get-workout-images';
+    const result: Observable<any> = this.http
+      .get(urlLocal, { responseType: 'blob' });
+    return result;
   }
 }
