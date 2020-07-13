@@ -69,6 +69,14 @@ export class WorkoutComponent implements OnInit {
       }
     }
   }
+
+  getIsImageLoading(): boolean {
+    return this.isImageLoading;
+  }
+
+  getImageToShow() {
+    return this.imageToShow;
+  }
 }
 
 interface Workout {

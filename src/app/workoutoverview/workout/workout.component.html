@@ -5,8 +5,8 @@
   <div class="content-div">
     <div class = "filter-div">
 
-        <ng-template [ngIf]="imageToShow">
-          <img [src]="imageToShow" class="img-thumbnail" *ngIf="!isImageLoading;">
+        <ng-template [ngIf]="this.getImageToShow">
+          <img [src]="this.getImageToShow" class="img-thumbnail" *ngIf="!this.getIsImageLoading;">
         </ng-template>
 
     </div>
