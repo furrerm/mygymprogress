@@ -24,14 +24,9 @@ export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
               private constants: ConstantsService) { }
 
   ngOnInit() {
-    console.log('in init');
     this.workoutpreviewpicturesService.getUrls().subscribe( data => {
-      console.log(data);
-      console.log(data[0]);
-      console.log(data[1]);
       for (const i in data) {
         if (data.hasOwnProperty(i)) {
-          console.log(data[i]);
           this.workoutpreviewpicturesService.getFiles(i, data[i]).image.subscribe(data2 => {
               this.createImageFromBlob(data2, i);
             },
@@ -59,7 +54,6 @@ export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
       () => {
         this.imageToShow = reader.result;
         const a = reader.result;
-        console.log(a);
         this.previewImages[position] = { image: reader.result, isLoaded: true };
       },
       false);

@@ -27,7 +27,7 @@ export class TablesComponent implements OnInit {
       console.log('route param = ' + params.get('exercise'));
     });
     if (this.savedWorkoutService.getSavedWorkouts) {
-      this.workout = this.savedWorkoutService.getSavedWorkouts;
+      this.savedWorkoutService.getSavedWorkouts.subscribe(data => this.workout = data);
     } else {
       this.workoutsService.fetchWorkouts().subscribe(data => {
         this.workout = this.savedWorkoutService.convertJsonDataToWorkouts(data);

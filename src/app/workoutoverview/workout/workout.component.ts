@@ -40,37 +40,11 @@ export class WorkoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.workoutsService.fetchWorkouts().subscribe(data => {
-      this.workouts = this.savedWorkoutsService.convertJsonDataToWorkouts(data);
-      this.savedWorkoutsService.setSavedWorkouts = this.workouts;
-      for (const i in data) {
-        if (data.hasOwnProperty(i)) {
-          console.log(data[i]);
-          this.workoutpreviewpicturesService.getFiles(i, data[i].imageUrl).image.subscribe(data2 => {
-            this.addImagesToWorkouts(data2, i);
-          });
-        }
-      }
-    });
+    this.savedWorkoutsService.getSavedWorkouts.subscribe(data =>
+      this.workouts = data
+    );
+    console.log(this.workouts);
   }
-
-  addImagesToWorkouts(image: Blob, position) {
-    const reader = new FileReader();
-    reader.addEventListener('load',
-      () => {
-        this.workouts[position].image = reader.result;
-        this.workouts[position].isImageLoaded = true;
-        this.savedWorkoutsService.getSavedWorkouts[position].image = reader.result;
-        this.savedWorkoutsService.getSavedWorkouts[position].isImageLoaded = true;
-      },
-      false);
-    if (image) {
-      if (image.type !== 'application/pdf') {
-        reader.readAsDataURL(image);
-      }
-    }
-  }
-
   convert() {
 
   }
