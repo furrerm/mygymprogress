@@ -14,7 +14,7 @@ export class WorkoutsService {
     this.appUrl = this.constant.baseAppUrl + 'workout-service/get-workouts';
   }
 
-  fetchWorkouts() {
+  fetchWorkouts(): Observable<File> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
@@ -27,7 +27,8 @@ export class WorkoutsService {
     console.log(JSON.stringify(this.constant.getUser.id));
     const params = new HttpParams().set('UserDTO', JSON.stringify(this.constant.getUser));
     // return this.http.post<string>(this.appUrl, params, httpOptions);
-    return this.http.post<string>(this.appUrl, JSON.stringify(this.constant.getUser), httpOptions);
+    const result: Observable<any> = this.http.post<string>(this.appUrl, JSON.stringify(this.constant.getUser), httpOptions);
+    return result;
     // return (this.http.get<string>(this.appUrl));
   }
 

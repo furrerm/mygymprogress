@@ -11,7 +11,7 @@ import {LastSetComponent} from '../last-set/last-set.component';
   styleUrls: ['./current-set.component.css']
 })
 export class CurrentSetComponent implements OnInit, OnDestroy {
-  myForm: FormGroup;
+
   sets: Set[];
   updatedExercise: string;
   public destroyed = new Subject<any>();

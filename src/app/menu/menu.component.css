@@ -92,6 +92,15 @@ p {
   margin: 0px;
   padding: 0px;
   justify-content: center;
+  position: fixed;
+  background-color: white;
+
+}
+.outer-wrapper2 {
+  margin: 0px;
+  padding: 0px;
+  justify-content: center;
+  background-color: white;
 
 }
 

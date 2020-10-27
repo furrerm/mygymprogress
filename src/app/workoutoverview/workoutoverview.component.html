@@ -5,7 +5,6 @@
     <div class="content-div">
 
       <a class="groupBox" routerLink='workout/new-workout'>
-
         <div class="workoutcreation">
           <p>Create your own workout</p>
           <img alt="home" src="../../assets/pictures/gym1.png">
@@ -17,16 +16,24 @@
             <p>Saved Workouts</p>
           </div>
           <div class="workoutgroupsinnderdivs">
-            <img class="previewImage" alt="home" src="../../assets/pictures/pic1.png">
+            <ng-template [ngIf]="this.getImageToShow()[0]">
+              <img class="previewImage" [src]="this.getImageToShow()[0].image" class="img-thumbnail" *ngIf="this.getImageToShow()[0].isLoaded;">
+            </ng-template>
           </div>
           <div class="workoutgroupsinnderdivs">
-            <img class="previewImage" alt="home" src="../../assets/pictures/pic2.png">
+            <ng-template [ngIf]="this.getImageToShow()[1]">
+              <img class="previewImage" [src]="this.getImageToShow()[1].image" class="img-thumbnail" *ngIf="this.getImageToShow()[1].isLoaded;">
+            </ng-template>
           </div>
           <div class="workoutgroupsinnderdivs">
-            <img class="previewImage" alt="home" src="../../assets/pictures/pic3.png">
+            <ng-template [ngIf]="this.getImageToShow()[2]">
+              <img class="previewImage" [src]="this.getImageToShow()[2].image" class="img-thumbnail" *ngIf="this.getImageToShow()[2].isLoaded;">
+            </ng-template>
           </div>
           <div class="workoutgroupsinnderdivs">
-            <img class="previewImage" alt="home" src="../../assets/pictures/pic4.png">
+            <ng-template [ngIf]="this.getImageToShow()[3]">
+              <img class="previewImage" [src]="this.getImageToShow()[3].image" class="img-thumbnail" *ngIf="this.getImageToShow()[3].isLoaded;">
+            </ng-template>
           </div>
         </div>
       </a>

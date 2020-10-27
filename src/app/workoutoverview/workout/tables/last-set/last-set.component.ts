@@ -28,8 +28,10 @@ export class LastSetComponent implements OnInit {
   }
 
   loadLastSet(value: string) {
+    /*
     this.lastSetService.getSets(value).subscribe(a => {
       this.receivedSets = a;
     });
+     */
   }
 }

@@ -16,7 +16,7 @@ export class ConstantsService {
     return this.user;
   }
 
-  set setUser(value: UserInternal) {
+  public set setUser(value: UserInternal) {
     this.user = value;
   }
 }

@@ -33,7 +33,7 @@ export class AuthenticationService {
   this.distFolderLocation = constant.baseAppUrl;
   }
   OAuthProvider(provider) {
-    return this.afAuth.signInWithPopup(provider)
+    return this.afAuth.signInWithRedirect(provider)
       .then((res) => {
         this.ngZone.run(() => {
           // this.router.navigate(['dashboard']);

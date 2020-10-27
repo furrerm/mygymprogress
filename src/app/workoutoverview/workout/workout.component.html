@@ -3,18 +3,45 @@
 <div class="d-flex justify-content-center content-wrapper">
 
   <div class="content-div">
-    <div class = "filter-div">
-
-        <ng-template [ngIf]="this.getImageToShow()">
-          <img [src]="this.getImageToShow()" class="img-thumbnail" *ngIf="!this.getIsImageLoading();">
-        </ng-template>
-
+    <div class="filter-div">
+      <!--
+              <ng-template [ngIf]="this.getImageToShow()">
+                <img [src]="this.getImageToShow()" class="img-thumbnail" *ngIf="!this.getIsImageLoading();">
+              </ng-template>
+      -->
     </div>
-    <div *ngFor="let workout of this.workouts" class="innerWrapperDepth2">
-      <a class="groupBox" [routerLink]="['musclegroups', this.objectToJsonString(workout)]">{{workout.name}}</a>
-      <img class="previewImage" alt="home" src="../../../assets/pictures/pic1.png">
+
+
+    <div *ngFor="let set of workouts" class="workoutsContainer">
+      <div class = "centerContent" style="width: 400px; border: solid 1px black">
+        <h2 class="centerContent"
+           style="text-align: center;">{{set["name"]}}</h2>
+        <img class="centerContent imageLimiter img-thumbnail"
+             [src]="set['image']" *ngIf="set['isImageLoaded']" (click)="expandContent(set)">
+        <div class="expandButtonWrapper centerContent">
+          <img class="toggleImageStyle" [src]="set['toggleImage']"
+               (click)="expandContent(set)">
+        </div>
+        <div [ngClass]="set.isCollapsed ? 'collapsed' : 'expanded'"
+             class="centerContent">
+          <div *ngFor="let days of set.days">
+            <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
+            {{days.name}} <img routerLink="tables/:1" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
+            </h3>
+
+            <div class="phaseContainer" *ngFor="let phase of days.phases">
+              <h4 class="phase">{{phase.name}}</h4>
+
+              <p *ngFor="let exercise of phase.exercises">{{exercise.name}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
+
 
 </div>
 

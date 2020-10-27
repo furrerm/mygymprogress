@@ -1,7 +1,12 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WorkoutsService} from './workouts.service';
 import {ConstantsService} from '../../common/services/constants.service';
+import {WorkoutpreviewpicturesService} from './../workoutpreviewpictures.service';
+import {ImageObservable} from '../workoutoverview.component';
+import {SavedWorkouts} from './saved-workouts.Workout';
+import {SavedWorkoutsService} from './saved-workouts.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,56 +18,52 @@ import {ConstantsService} from '../../common/services/constants.service';
 })
 export class WorkoutComponent implements OnInit {
   exercise: string;
-  workouts: Workout[];
   private isImageLoading: boolean;
   private imageToShow;
+  private previewImagesObservables: ImageObservable[] = [];
+  private workouts: SavedWorkouts[];
+
+  bntStyle = 'btn-default';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private workoutsService: WorkoutsService,
-              private constants: ConstantsService) {
+              private constants: ConstantsService,
+              private workoutpreviewpicturesService: WorkoutpreviewpicturesService,
+              private el: ElementRef,
+              private savedWorkoutsService: SavedWorkoutsService) {
     console.log('workout constructor');
   }
 
-  objectToJsonString(obj: Workout) {
+  objectToJsonString(obj: SavedWorkouts) {
     return JSON.stringify(obj);
   }
 
   ngOnInit() {
-    // to clear
-    console.log('workout init');
-    console.log(this.constants.getUser.id);
-    console.log(this.constants.getUser.email);
-    console.log(this.constants.getUser.firstSignIn);
-    this.route.paramMap.subscribe(params => {
-      this.exercise = JSON.parse(params.get('exercise'));
+    this.workoutsService.fetchWorkouts().subscribe(data => {
+      this.workouts = this.savedWorkoutsService.convertJsonDataToWorkouts(data);
+      this.savedWorkoutsService.setSavedWorkouts = this.workouts;
+      for (const i in data) {
+        if (data.hasOwnProperty(i)) {
+          console.log(data[i]);
+          this.workoutpreviewpicturesService.getFiles(i, data[i].imageUrl).image.subscribe(data2 => {
+            this.addImagesToWorkouts(data2, i);
+          });
+        }
+      }
     });
-    // to clear end
-    this.workoutsService.fetchWorkouts().subscribe(workoutsRes => {
-      const workoutsAsJson = JSON.parse(JSON.stringify(workoutsRes));
-      console.log(workoutsRes);
-      this.workouts = [];
-      workoutsAsJson.forEach(x => {
-        this.workouts.push({id: x.id, name: x.name, userId: x.userId});
-      });
-    });
-
-    this.workoutsService.getFiles().subscribe(data => {
-        this.createImageFromBlob(data);
-        this.isImageLoading = false;
-      },
-      error => {
-        this.isImageLoading = false;
-      });
   }
-  createImageFromBlob(image: Blob) {
+
+  addImagesToWorkouts(image: Blob, position) {
     const reader = new FileReader();
     reader.addEventListener('load',
       () => {
-        this.imageToShow = reader.result;
+        this.workouts[position].image = reader.result;
+        this.workouts[position].isImageLoaded = true;
+        this.savedWorkoutsService.getSavedWorkouts[position].image = reader.result;
+        this.savedWorkoutsService.getSavedWorkouts[position].isImageLoaded = true;
       },
       false);
-
     if (image) {
       if (image.type !== 'application/pdf') {
         reader.readAsDataURL(image);
@@ -70,17 +71,25 @@ export class WorkoutComponent implements OnInit {
     }
   }
 
-  getIsImageLoading(): boolean {
-    return this.isImageLoading;
+  convert() {
+
   }
 
-  getImageToShow() {
-    return this.imageToShow;
+  expandContent(set: SavedWorkouts) {
+    set.isCollapsed = !set.isCollapsed;
+    if (set.isCollapsed) {
+      set.toggleImage = '../../assets/pictures/menuButtons/toggle_open.png';
+    } else {
+      set.toggleImage = '../../assets/pictures/menuButtons/toggle_close.png';
+    }
+    console.log(this.bntStyle);
+    console.log('something expanded');
+    this.bntStyle = 'btn-default2';
+    console.log(this.bntStyle);
+    console.log(this.el.nativeElement.offsetHeight);
   }
-}
 
-interface Workout {
-  id: number;
-  name: string;
-  userId: number;
+  foo(num: number) {
+    console.log(num);
+  }
 }

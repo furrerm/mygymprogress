@@ -2,6 +2,10 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentSetComponent} from './current-set/current-set.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {SavedWorkoutsService} from '../saved-workouts.service';
+import {SavedWorkouts} from '../saved-workouts.Workout';
+import {WorkoutsService} from '../workouts.service';
+import {WorkoutpreviewpicturesService} from '../../workoutpreviewpictures.service';
 
 @Component({
   selector: 'app-tables',
@@ -9,30 +13,25 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./tables.component.css'],
 })
 export class TablesComponent implements OnInit {
-  @ViewChild(CurrentSetComponent, {static: true}) child: CurrentSetComponent;
+  // @ViewChild(CurrentSetComponent, {static: true}) child: CurrentSetComponent;
   exercise: string;
-  myForm2: FormGroup;
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  private workout: SavedWorkouts[] = [];
+  constructor(private route: ActivatedRoute,
+              private workoutsService: WorkoutsService,
+              private workoutpreviewpicturesService: WorkoutpreviewpicturesService,
+              private savedWorkoutService: SavedWorkoutsService) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       console.log('route param = ' + params.get('exercise'));
-      this.exercise = JSON.parse(params.get('exercise'));
     });
-    this.initializeInputValues(12, 30);
-  }
-  pushToChild(form: FormGroup) {
-    this.child.onSubmit(form);
-    this.initializeInputValues(12, 30);
-  }
-  pushToDB(): void {
-    this.child.pushToDB();
-  }
-  private initializeInputValues(repetitionsValue: number, weightValue: number) {
-    this.myForm2 = this.formBuilder.group({
-      weight: weightValue,
-      repetitions: repetitionsValue
-    });
+    if (this.savedWorkoutService.getSavedWorkouts) {
+      this.workout = this.savedWorkoutService.getSavedWorkouts;
+    } else {
+      this.workoutsService.fetchWorkouts().subscribe(data => {
+        this.workout = this.savedWorkoutService.convertJsonDataToWorkouts(data);
+      });
+    }
   }
 }
