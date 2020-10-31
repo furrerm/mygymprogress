@@ -1,26 +1,24 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CurrentSetServiceService} from './current-set-service.service';
 import {NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {Subject} from 'rxjs';
 import {LastSetComponent} from '../last-set/last-set.component';
+import {Exercise} from '../../saved-workouts.Workout';
 
 @Component({
   selector: 'app-current-set',
   templateUrl: './current-set.component.html',
   styleUrls: ['./current-set.component.css']
 })
-export class CurrentSetComponent implements OnInit, OnDestroy {
+export class CurrentSetComponent implements OnInit, OnDestroy, OnChanges {
 
   sets: Set[];
-  updatedExercise: string;
+  updatedExercise: Exercise;
   public destroyed = new Subject<any>();
   mySubscription;
+  @Input() currentExercise: Exercise;
   @Input() sibling: LastSetComponent;
-
-  @Input() set exercise(value: string) {
-    this.updatedExercise = value;
-  }
 
   constructor(private formBuilder: FormBuilder,
               private currentSetService: CurrentSetServiceService,
@@ -29,14 +27,17 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-
-    this.onChanges();
+    console.log(this.currentExercise);
   }
 
-  onChanges(): void {
+  ngOnChanges(changes: SimpleChanges) {
+    this.updatedExercise = null;
+    this.updatedExercise = this.currentExercise;
+    if (this.updatedExercise) {
+      this.updatedExercise.setContainers.sort((a, b) => new Date(b.timeOfExercise).getTime() - new Date(a.timeOfExercise).getTime());
+    }
+    console.log(this.currentExercise);
   }
-
 
   pushToDB(): void {
     console.log(this.sets);
@@ -55,7 +56,7 @@ export class CurrentSetComponent implements OnInit, OnDestroy {
       },
       error => console.log('error'),
       () => {
-        this.sibling.loadLastSet(this.sibling.getValue());
+        // this.sibling.loadLastSet(this.sibling.getValue());
         this.sets = new Array();
       });
   }

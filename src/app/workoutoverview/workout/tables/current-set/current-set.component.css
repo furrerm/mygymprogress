@@ -34,5 +34,6 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #F89406;
+  border: solid black 1px;
+  overflow: auto;
 }

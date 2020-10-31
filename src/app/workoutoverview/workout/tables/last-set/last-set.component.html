@@ -1,6 +1,11 @@
 <div class = "siteWrapper">
-  <div *ngFor="let set of receivedSets" class="entryBar">
-    <p class="entryText">{{set["repetitions"]}} X {{set["weight"]}} Kg</p>
+
+  <div *ngIf="this.updatedExercise && this.updatedExercise.setContainers.length > 0">
+    <div *ngFor="let setContainer of this.updatedExercise.setContainers">
+      <h4>{{setContainer.timeOfExercise}}</h4>
+      <p *ngFor="let set of setContainer.exerciseSets">weight = {{set.weight}} X times = {{set.repetitions}}</p>
+    </div>
+
   </div>
 </div>
 

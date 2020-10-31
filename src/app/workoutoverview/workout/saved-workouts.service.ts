@@ -9,33 +9,35 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SavedWorkoutsService {
-  private savedWorkouts: BehaviorSubject<SavedWorkouts[]>;
+  public savedWorkouts: BehaviorSubject<SavedWorkouts[]> = new BehaviorSubject<SavedWorkouts[]>([]);
 
   constructor(private workoutsService: WorkoutsService,
               private workoutpreviewpicturesService: WorkoutpreviewpicturesService) {
-    // this.savedWorkouts = new Observable<SavedWorkouts[]>();
     this.savedWorkouts = new BehaviorSubject<SavedWorkouts[]>([]);
   }
 
   public get getSavedWorkouts(): Observable<SavedWorkouts[]> {
+    return this.savedWorkouts;
+  }
+  public initializeWorkouts() {
     if (this.savedWorkouts.getValue().length === 0) {
       console.log('in the shit');
       let workoutsLocal: SavedWorkouts[] = [];
       this.workoutsService.fetchWorkouts().subscribe(data => {
         // this.savedWorkouts.next(ada => ada.) = of(this.convertJsonDataToWorkouts(data));
         workoutsLocal = this.convertJsonDataToWorkouts(data);
+        workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
         this.savedWorkouts.next(workoutsLocal);
-        for (const i in data) {
+        for (const i in workoutsLocal) {
           if (data.hasOwnProperty(i)) {
-            console.log(data[i]);
-            this.workoutpreviewpicturesService.getFiles(i, data[i].imageUrl).image.subscribe(data2 => {
+            console.log(workoutsLocal[i]);
+            this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
               this.addImagesToWorkouts(data2, i, workoutsLocal);
             });
           }
         }
       });
     }
-    return this.savedWorkouts;
   }
 
   addImagesToWorkouts(image: Blob, position, workouts) {

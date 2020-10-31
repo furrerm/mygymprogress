@@ -1,39 +1,45 @@
+<app-menu></app-menu>
 <div id="wrappingContainer">
-  <div style="width: 100%; height: 200px; background-color: #099FDF">
-  </div>
-  <!--
-<div class="setInputWrapper">
+  <div class="d-flex justify-content-center content-wrapper">
 
- <p class="title">{{this.exercise}}</p>
- <div class="formWrapper">
-   <form [formGroup]="myForm2" (ngSubmit)="pushToChild(myForm2)">
-     <div class="inputFieldsWrapper">
-       <input type="number" class="setInput"  formControlName="repetitions" ><span class="repetitionsX">X</span>
-       <input type="number" required="true" class="setInput" formControlName='weight' value="42" placeholder="42"><span class = weightKg>Kg</span>
-       <button class="setInputButton" type="submit">&#10003;</button>
-       <button class="setInputButton" type="button" (click)="pushToDB()">complete</button>
-     </div>
-   </form>
- </div>
-
-  </div>
-   -->
-  <div class="setDisplayWrapper">
-    <div class="exerciseTitle">
-      <p *ngIf="workout[0]"> {{workout[0].name}} </p>
-    </div>
-    <div class="tableContainer">
-      <div class="setContainer">
-        <app-last-set class="currentAndLastComponent" #last [exercise]="this.exercise"></app-last-set>
+    <div class="content-div">
+      <div class="filter-div">
+        <!--
+                <ng-template [ngIf]="this.getImageToShow()">
+                  <img [src]="this.getImageToShow()" class="img-thumbnail" *ngIf="!this.getIsImageLoading();">
+                </ng-template>
+        -->
       </div>
 
-      <div class="setContainer">
-        <app-current-set class="currentAndLastComponent" [sibling]="last" [exercise]="this.exercise"></app-current-set>
+      <div class="setDisplayWrapper">
+        <div class="exerciseTitle">
+
+          <h3 *ngIf="this.currentExercise">{{this.currentExercise.name}} </h3>
+
+        </div>
+        <div class="tableContainer">
+          <div class="setContainer">
+            <app-last-set class="currentAndLastComponent" #last [currentExercise]="this.currentExercise"></app-last-set>
+          </div>
+
+          <div class="setContainer">
+
+            <app-current-set class="currentAndLastComponent" [sibling]="last" [currentExercise]="this.currentExercise"></app-current-set>
+          </div>
+        </div>
+        <div class = "motherBoard">
+          <h3 (click)="this.nextExercise()">next</h3>
+        </div>
+
       </div>
+
+
     </div>
-    <div class = "motherBoard"></div>
+
 
   </div>
+
+
 </div>
 
 

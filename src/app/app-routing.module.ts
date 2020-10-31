@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'workoutoverview/workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/musclegroups/:workout', component: MusclegroupsComponent, pathMatch: 'full' },
-  { path: 'workoutoverview/workout/tables/:exercise', component: TablesComponent, pathMatch: 'full' },
+  { path: 'workoutoverview/workout/tables/:savedWorkoutId/:dayId', component: TablesComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' }
 ];
 

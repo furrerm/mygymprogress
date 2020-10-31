@@ -35,16 +35,14 @@ export class WorkoutComponent implements OnInit {
     console.log('workout constructor');
   }
 
-  objectToJsonString(obj: SavedWorkouts) {
-    return JSON.stringify(obj);
-  }
-
   ngOnInit() {
     this.savedWorkoutsService.getSavedWorkouts.subscribe(data =>
       this.workouts = data
     );
+    this.savedWorkoutsService.initializeWorkouts();
     console.log(this.workouts);
   }
+
   convert() {
 
   }
