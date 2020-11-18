@@ -33,6 +33,18 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border: solid black 1px;
+  border-right: solid black 1px;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
   overflow: auto;
+}
+.lastTwoSetsContainer {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+.singleSetsContainer {
+  margin-left: 20px;
+  margin-right: 20px;
 }

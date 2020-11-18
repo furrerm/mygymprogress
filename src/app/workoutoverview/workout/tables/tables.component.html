@@ -12,9 +12,9 @@
       </div>
 
       <div class="setDisplayWrapper">
-        <div class="exerciseTitle">
+        <div class="exerciseTitleWrapper">
 
-          <h3 *ngIf="this.currentExercise">{{this.currentExercise.name}} </h3>
+          <h3 class="exerciseTitle" *ngIf="this.currentExercise">{{this.currentExercise.name}}</h3>
 
         </div>
         <div class="tableContainer">
@@ -28,7 +28,9 @@
           </div>
         </div>
         <div class = "motherBoard">
-          <h3 (click)="this.nextExercise()">next</h3>
+          <h3 class="endButton" (click)="this.endWorkout()">end</h3>
+          <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'black'}" (click)="this.nextExercise()">next</h3>
+
         </div>
 
       </div>

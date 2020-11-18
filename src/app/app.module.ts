@@ -71,6 +71,10 @@ import { WorkoutoverviewComponent } from './workoutoverview/workoutoverview.comp
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { ReverseArrayPipe } from './workoutoverview/workout/tables/last-set/ReverseArrayPipe';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import 'echarts/theme/macarons.js';
 
 @NgModule({
   declarations: [
@@ -86,8 +90,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MusclegroupsComponent,
     NewWorkoutComponent,
     WorkoutoverviewComponent,
+    ReverseArrayPipe
   ],
   imports: [
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     BrowserModule,
     FormsModule,
     AngularFireAuthModule,
@@ -141,7 +149,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ScrollingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserModule,
+    NgxEchartsModule.forRoot({ echarts })
   ],
   providers: [ConstantsService],
   bootstrap: [AppComponent]

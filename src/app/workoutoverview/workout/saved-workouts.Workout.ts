@@ -25,7 +25,7 @@ export interface Phase {
 export interface Exercise {
   id: number;
   name: string;
-  setContainers: SetContainer[];
+  setsContainer: SetContainer[];
 }
 
 /*
@@ -34,8 +34,8 @@ var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 d.setUTCSeconds(utcSeconds);
  */
 export interface SetContainer {
-  timeOfExercise: Date;
-  exerciseSets: ExerciseSet[];
+    timeOfExercise: Date;
+    exerciseSets: ExerciseSet[];
 }
 export interface ExerciseSet {
   id: number;

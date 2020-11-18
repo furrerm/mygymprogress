@@ -15,7 +15,6 @@ export class NewWorkoutComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
-
   fileInfos: Observable<any>;
   constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) { }
 

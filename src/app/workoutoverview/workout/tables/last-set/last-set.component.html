@@ -1,12 +1,11 @@
 <div class = "siteWrapper">
-
-  <div *ngIf="this.updatedExercise && this.updatedExercise.setContainers.length > 0">
-    <div *ngFor="let setContainer of this.updatedExercise.setContainers">
-      <h4>{{setContainer.timeOfExercise}}</h4>
-      <p *ngFor="let set of setContainer.exerciseSets">weight = {{set.weight}} X times = {{set.repetitions}}</p>
+  <div class="lastTwoSetsContainer" *ngIf="this.updatedExercise && this.updatedExercise.setsContainer.length > 0">
+    <div class="singleSetsContainer" *ngFor="let setContainer of (this.lastTwoSets) | reverse">
+      <p class="text-center">{{setContainer.timeOfExercise.toDateString()}}</p>
+      <p class="text-center" *ngFor="let exerciseSet of setContainer.exerciseSets">{{exerciseSet.repetitions}} X {{exerciseSet.weight}} Kg</p>
     </div>
-
   </div>
+  <div echarts [options]="options" [merge]="updateOptions" class="chart"></div>
 </div>
 
 

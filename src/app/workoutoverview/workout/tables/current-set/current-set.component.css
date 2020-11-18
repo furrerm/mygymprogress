@@ -29,11 +29,133 @@
 }
 
 .siteWrapper {
-
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border: solid black 1px;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
   overflow: auto;
 }
+.inputFieldsWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.innerSetInputWrapper {
+  margin-right: auto;
+  margin-left: auto;
+}
+.setInput {
+  margin-right: auto;
+  margin-left: auto;
+  height: 50px;
+  width: 60px;
+  font-size: 30px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+}
+
+.numberUpButton {
+  margin-right: auto;
+  margin-left: auto;
+  width: 60px;
+  height: 35px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  border: none;
+
+}
+.numberUpImage {
+  background-color: white;
+  width: 100%;
+  -webkit-transform:rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+.numberDownImage {
+  background-color: white;
+  width: 100%;
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.singleInputWrapper {
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper-left {
+  width: 70px;
+  margin-left: 50px;
+}
+.wrapper-center {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.wrapper-right {
+  width: 70px;
+}
+.wrapper-center-right {
+  width: 60px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.xTimes {
+
+  margin: auto auto auto auto;
+  width: 60%;
+  height: 15%;
+}
+.kgSpan {
+  margin: auto auto auto auto;
+  text-align: center;
+  font-size: 30px;
+  width: 80%;
+  height: 50px;
+}
+.removeEntryButton {
+  margin: auto auto auto 20px;
+  width: 35px;
+  height: 35px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  border: none;
+}
+.addEntryButton {
+  margin-left: auto;
+  margin-right: auto;
+  height: 45px;
+  width: 45px;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  border: none;
+}
+.formWrapper {
+}
+

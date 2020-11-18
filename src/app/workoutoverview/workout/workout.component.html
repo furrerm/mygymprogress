@@ -26,7 +26,7 @@
              class="centerContent">
           <div *ngFor="let days of set.days">
             <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
-            {{days.name}} <img routerLink="tables/{{i}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
+            {{days.name}} <img routerLink="tables/{{set.id}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
             </h3>
 
             <div class="phaseContainer" *ngFor="let phase of days.phases">
