@@ -12,7 +12,7 @@
     </div>
 
 
-    <div *ngFor="let set of workouts; index as i" class="workoutsContainer">
+    <div *ngFor="let set of this.getWorkouts(); index as i" class="workoutsContainer">
       <div class = "centerContent" style="width: 400px; border: solid 1px black">
         <h2 class="centerContent"
            style="text-align: center;">{{set["name"]}}</h2>

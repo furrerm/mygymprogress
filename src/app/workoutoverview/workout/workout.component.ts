@@ -64,4 +64,7 @@ export class WorkoutComponent implements OnInit {
   foo(num: number) {
     console.log(num);
   }
+  getWorkouts() {
+    return this.workouts;
+  }
 }

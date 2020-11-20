@@ -14,17 +14,17 @@
       <div class="setDisplayWrapper">
         <div class="exerciseTitleWrapper">
 
-          <h3 class="exerciseTitle" *ngIf="this.currentExercise">{{this.currentExercise.name}}</h3>
+          <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}}</h3>
 
         </div>
         <div class="tableContainer">
           <div class="setContainer">
-            <app-last-set class="currentAndLastComponent" #last [currentExercise]="this.currentExercise"></app-last-set>
+            <app-last-set class="currentAndLastComponent" #last [currentExercise]="this.getCurrentExercise()"></app-last-set>
           </div>
 
           <div class="setContainer">
 
-            <app-current-set class="currentAndLastComponent" [sibling]="last" [currentExercise]="this.currentExercise"></app-current-set>
+            <app-current-set class="currentAndLastComponent" [sibling]="last" [currentExercise]="this.getCurrentExercise()"></app-current-set>
           </div>
         </div>
         <div class = "motherBoard">

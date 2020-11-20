@@ -146,6 +146,9 @@ export class TablesComponent implements OnInit, AfterContentInit {
       this.router.navigate(['/workoutoverview']);
     });
   }
+  getCurrentExercise() {
+    return this.currentExercise;
+  }
 }
 
 interface CurrentExerciseIds {

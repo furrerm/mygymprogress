@@ -97,7 +97,6 @@ import 'echarts/theme/macarons.js';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),*/
-    NgxEchartsModule,
     BrowserModule,
     FormsModule,
     AngularFireAuthModule,
