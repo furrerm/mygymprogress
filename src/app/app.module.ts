@@ -93,9 +93,11 @@ import 'echarts/theme/macarons.js';
     ReverseArrayPipe
   ],
   imports: [
+    /*
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    }),
+    }),*/
+    NgxEchartsModule,
     BrowserModule,
     FormsModule,
     AngularFireAuthModule,
