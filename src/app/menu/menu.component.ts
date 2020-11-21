@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
   exercises: string;
   group: string;
   mySubscription;
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav') sidenav: MatSidenav;
   private distFolderLocation: string;
 
   constructor(private menuServiceService: MenuServiceService,
