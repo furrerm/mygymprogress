@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LastSetComponent } from './last-set.component';
 
@@ -6,7 +6,7 @@ describe('LastSetComponent', () => {
   let component: LastSetComponent;
   let fixture: ComponentFixture<LastSetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LastSetComponent ]
     })

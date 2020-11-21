@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CurrentSetComponent } from './current-set.component';
 
@@ -6,7 +6,7 @@ describe('CurrentSetComponent', () => {
   let component: CurrentSetComponent;
   let fixture: ComponentFixture<CurrentSetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CurrentSetComponent ]
     })
