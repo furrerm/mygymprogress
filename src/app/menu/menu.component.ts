@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSidenav} from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import {MenuServiceService} from './menu-service.service';
 import {printLine} from 'tslint/lib/verify/lines';
 import {LastSetServiceService} from '../workoutoverview/workout/tables/last-set/last-set-service.service';
