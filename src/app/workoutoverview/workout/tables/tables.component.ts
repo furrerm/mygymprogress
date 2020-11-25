@@ -10,6 +10,8 @@ import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_versio
 import {LastSetService} from './last-set.service';
 import {SaveSetsService} from './save-sets.service';
 import {Timestamp} from 'rxjs';
+import {DayWorkoutHandlerFactory} from './DayWorkoutHandlerFactory';
+import {DayWorkoutHandler} from './DayWorkoutHandler';
 
 @Component({
   selector: 'app-tables',
@@ -24,7 +26,7 @@ export class TablesComponent implements OnInit, AfterContentInit {
   private savedWorkoutId: number;
   private dayId: number;
   private exerciseIds: number[] = [];
-  private currentExerciseIds: CurrentExerciseIds;
+  private dayWorkoutHandler: DayWorkoutHandler;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -33,112 +35,25 @@ export class TablesComponent implements OnInit, AfterContentInit {
               private savedWorkoutService: SavedWorkoutsService,
               private lastSetService: LastSetService,
               private saveSetsService: SaveSetsService) {
-    this.currentExerciseIds = {phaseNumber: 0, exerciseNumber: 0};
   }
 
   ngOnInit() {
   }
 
   ngAfterContentInit() {
+    this.savedWorkoutService.initializeWorkouts();
     this.route.paramMap.subscribe(params => {
-      this.savedWorkoutId = +params.get('savedWorkoutId');
-      this.dayId = +params.get('dayId');
+      const workoutId: number = +params.get('savedWorkoutId');
+      const dayId: number = +params.get('dayId');
       this.savedWorkoutService.getSavedWorkouts.subscribe(data => {
-        this.workouts = data;
-        if (this.workouts[this.savedWorkoutId]) {
-          this.currentDayWorkout = this.workouts.find(a => a.id === this.savedWorkoutId).days.find(a => a.id === this.dayId);
-          this.exerciseIds = [].concat(...this.currentDayWorkout.phases.map(a => a.exercises)).map(a => a.id);
-          this.lastSetService.getSets(this.exerciseIds, this.dayId).subscribe(sets => {
-            console.log(sets);
-            const workoutsAsJson = JSON.parse(JSON.stringify(sets));
-            console.log(workoutsAsJson);
-            workoutsAsJson.forEach(a => a.setsContainer.forEach(b => b.exerciseSets.forEach(c =>
-              this.currentDayWorkout.phases.forEach(d => d.exercises.forEach(e => {
-                if (e.id === a.id) {
-                  e.setsContainer = a.setsContainer;
-                }
-              }))
-            )));
-            this.currentDayWorkout.phases.forEach(a => a.exercises.
-            forEach(b => b.setsContainer.
-            forEach(c => c.timeOfExercise = new Date(c.timeOfExercise))));
-            const phaseNumber: number = this.currentExerciseIds.phaseNumber;
-            const exerciseNumber: number = this.currentExerciseIds.exerciseNumber;
-            this.currentExercise = this.currentDayWorkout.phases[phaseNumber].exercises[exerciseNumber];
-            this.currentExercise.setsContainer = this.copyLastEntry(this.currentExercise.setsContainer);
-          });
-        }
+        const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(data, this.lastSetService);
+        this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(workoutId, dayId);
+        this.currentExercise = this.dayWorkoutHandler.nextExercise();
       });
     });
-    this.savedWorkoutService.initializeWorkouts();
   }
-
-  private copyLastEntry(setsContainers: SetContainer[]) {
-    if (setsContainers) {
-      setsContainers.sort((a, b) => new Date(a.timeOfExercise).getTime() - new Date(b.timeOfExercise).getTime());
-      const containerLength = this.currentExercise.setsContainer.length;
-      setsContainers.push(this.createCopy(this.currentExercise.setsContainer[containerLength - 1]));
-      setsContainers[containerLength].timeOfExercise = new Date(Date.now());
-    } else {
-      const setsContainersToCreate: SetContainer[] = [];
-      const initialExerciseSets: ExerciseSet[] = [];
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      setsContainersToCreate.push({timeOfExercise: new Date(Date.now()), exerciseSets: initialExerciseSets});
-      setsContainers = setsContainersToCreate;
-    }
-    return setsContainers;
-  }
-
-  private createCopy(inputSetContainer: SetContainer): SetContainer {
-    const exerciseSetsCopy: ExerciseSet[] = inputSetContainer.exerciseSets.map(a => {
-      const exerciseSetTemp: ExerciseSet = {id: a.id, repetitions: a.repetitions, weight: a.weight};
-      return exerciseSetTemp;
-    });
-    const setContainer: SetContainer = {timeOfExercise: new Date(inputSetContainer.timeOfExercise), exerciseSets: exerciseSetsCopy};
-    return setContainer;
-  }
-
   nextExercise() {
-    const currentPhaseId = this.currentExerciseIds.phaseNumber;
-    const currentExerciseId = this.currentExerciseIds.exerciseNumber;
-    const phases = this.currentDayWorkout.phases;
-    const exercises = phases[currentPhaseId].exercises;
-    if (!this.isLastExerciseOfDayWorkout()) {
-      if (exercises[currentExerciseId + 1]) {
-        this.currentExerciseIds.exerciseNumber++;
-        this.currentExercise = exercises[this.currentExerciseIds.exerciseNumber];
-      } else if (phases[currentPhaseId + 1]) {
-        this.currentExerciseIds.phaseNumber++;
-        this.currentExercise = phases[this.currentExerciseIds.phaseNumber].exercises[0];
-      }
-      this.currentExercise.setsContainer = this.copyLastEntry(this.currentExercise.setsContainer);
-    }
-  }
-
-  isLastPhaseOfDayWorkout(): boolean {
-    const currentPhaseId = this.currentExerciseIds.phaseNumber;
-    const phases = this.currentDayWorkout.phases;
-    if (phases[currentPhaseId + 1]) {
-      return false;
-    }
-    return true;
-  }
-
-  isLastExerciseOfPhase(): boolean {
-    const currentPhaseId = this.currentExerciseIds.phaseNumber;
-    const currentExerciseId = this.currentExerciseIds.exerciseNumber;
-    const phases = this.currentDayWorkout.phases;
-    const exercises = phases[currentPhaseId].exercises;
-    if (exercises[currentExerciseId + 1]) {
-      return false;
-    }
-    return true;
-  }
-
-  isLastExerciseOfDayWorkout(): boolean {
-    return this.isLastPhaseOfDayWorkout() && this.isLastExerciseOfPhase();
+    this.currentExercise = this.dayWorkoutHandler.nextExercise();
   }
 
   endWorkout() {
@@ -146,12 +61,11 @@ export class TablesComponent implements OnInit, AfterContentInit {
       this.router.navigate(['/workoutoverview']);
     });
   }
+
   getCurrentExercise() {
     return this.currentExercise;
   }
-}
-
-interface CurrentExerciseIds {
-  phaseNumber: number;
-  exerciseNumber: number;
+  isLastExerciseOfDayWorkout() {
+    return this.dayWorkoutHandler?.isLastExerciseOfDayWorkout();
+  }
 }

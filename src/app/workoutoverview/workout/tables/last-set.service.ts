@@ -12,10 +12,10 @@ export class LastSetService {
     this.distFolderLocation = constant.baseAppUrl;
   }
 
-  getSets(exerciseIds: number[], dayId: number) {
+  getSets(exerciseIds: number[]) {
     const getSetsUrl = 'exercise/get-sets';
     const url = this.distFolderLocation + getSetsUrl;
-    const params = new HttpParams().set('exerciseIds', exerciseIds.toString()).set('dayId', dayId.toString());
+    const params = new HttpParams().set('exerciseIds', exerciseIds.toString());
     return (this.http.get<string>(url, { params }));
   }
 }
