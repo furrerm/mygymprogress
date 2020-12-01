@@ -48,12 +48,15 @@ export class TablesComponent implements OnInit, AfterContentInit {
       this.savedWorkoutService.getSavedWorkouts.subscribe(data => {
         const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(data, this.lastSetService);
         this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(workoutId, dayId);
-        this.currentExercise = this.dayWorkoutHandler.nextExercise();
+        this.currentDayWorkout = this.dayWorkoutHandler.getDayWorkout();
+        this.savedWorkoutId = workoutId;
+        this.dayWorkoutHandler.getUpdatedWorkout().subscribe(a => this.currentDayWorkout = a);
+        this.dayWorkoutHandler.getUpdatedExercise().subscribe(a => this.currentExercise = a);
       });
     });
   }
   nextExercise() {
-    this.currentExercise = this.dayWorkoutHandler.nextExercise();
+    this.dayWorkoutHandler.nextExercise();
   }
 
   endWorkout() {

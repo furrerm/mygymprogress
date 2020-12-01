@@ -1,25 +1,38 @@
 import {Day, Exercise, ExerciseSet, SetContainer} from '../saved-workouts.Workout';
 import {LastSetService} from './last-set.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 export interface DayWorkoutHandler {
   getDayWorkout(): Day;
-  nextExercise(): Exercise;
+  getUpdatedWorkout(): BehaviorSubject<Day>;
+  getUpdatedExercise(): BehaviorSubject<Exercise>;
+  nextExercise(): void;
   isLastExerciseOfDayWorkout(): boolean;
 }
 
 export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
+  private updatedDayWorkout: BehaviorSubject<Day>;
+  private updatedExercise: BehaviorSubject<Exercise>;
   private dayWorkout: Day;
   private exercisePointer: ExercisePointer;
   constructor(dayWorkout: Day, lastSetService: LastSetService) {
+    this.updatedDayWorkout = new BehaviorSubject<Day>(dayWorkout);
+    this.updatedExercise = new BehaviorSubject<Exercise>(null);
     this.dayWorkout = dayWorkout;
     this.loadSets(lastSetService);
     this.exercisePointer = {phaseNumber: 0, exerciseNumber: -1};
   }
   getDayWorkout(): Day {
-    return undefined;
+    return this.dayWorkout;
+  }
+  getUpdatedWorkout(): BehaviorSubject<Day> {
+    return this.updatedDayWorkout;
+  }
+  getUpdatedExercise(): BehaviorSubject<Exercise> {
+    return this.updatedExercise;
   }
 
-  nextExercise(): Exercise {
+  nextExercise() {
     const currentPhaseId = this.exercisePointer.phaseNumber;
     const currentExerciseId = this.exercisePointer.exerciseNumber;
     const phases = this.dayWorkout.phases;
@@ -36,14 +49,15 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
       }
       currentExercise.setsContainer = this.copyLastEntry(currentExercise);
     }
-    return currentExercise;
+    this.updatedExercise.next(currentExercise);
   }
 
-  private loadSets(lastSetService: LastSetService) {
+  public loadSets(lastSetService: LastSetService) {
     const exerciseIds: number[] = [].concat(...this.dayWorkout?.phases.map(a => a.exercises)).map(a => a.id);
     lastSetService.getSets(exerciseIds).subscribe(sets => {
       const workoutsAsJson = JSON.parse(JSON.stringify(sets));
       this.addSetsToDayWorkout(workoutsAsJson);
+      this.nextExercise();
     });
   }
   private addSetsToDayWorkout(workoutsAsJson) {
@@ -55,6 +69,8 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
         }
       }))
     )));
+    this.updatedDayWorkout.next(null);
+    this.updatedDayWorkout.next(this.dayWorkout);
   }
   private transformSetContainersStringToDate(exerciseSetContainers: SetContainer[]) {
     exerciseSetContainers?.forEach(c => c.timeOfExercise = new Date(c.timeOfExercise));

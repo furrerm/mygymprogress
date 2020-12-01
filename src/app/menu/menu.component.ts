@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import {MenuServiceService} from './menu-service.service';
-import {printLine} from 'tslint/lib/verify/lines';
-import {LastSetServiceService} from '../workoutoverview/workout/tables/last-set/last-set-service.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {ConstantsService} from '../common/services/constants.service';
 import {WelcomeComponent} from '../welcome/welcome.component';
@@ -25,11 +23,9 @@ export class MenuComponent implements OnInit {
   private distFolderLocation: string;
 
   constructor(private menuServiceService: MenuServiceService,
-              private lastSetService: LastSetServiceService,
               private router: Router,
               private constant: ConstantsService,
-              private welcomeComponent: WelcomeComponent,
-              private constants: ConstantsService) {
+              private welcomeComponent: WelcomeComponent) {
     this.opened = false;
     this.workoutGroups = 'hiddenWorkouts';
     this.exercises = 'hiddenExercises';

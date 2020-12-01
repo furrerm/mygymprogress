@@ -1,10 +1,7 @@
 import {Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
-import {LastSetServiceService} from './last-set-service.service';
 import {Exercise, SetContainer} from '../../saved-workouts.Workout';
 import {graphic} from 'echarts';
-import {EChartOption} from 'echarts';
-import {gexf} from 'echarts/extension/dataTool';
 
 @Component({
   selector: 'app-last-set',
@@ -91,7 +88,7 @@ export class LastSetComponent implements OnInit, OnChanges {
       }]
   };
 
-  constructor(private lastSetService: LastSetServiceService) {
+  constructor() {
   }
 
   ngOnInit() {
