@@ -19,19 +19,14 @@ import {DayWorkoutHandler} from './DayWorkoutHandler';
   styleUrls: ['./tables.component.css'],
 })
 export class TablesComponent implements OnInit, AfterContentInit {
-  // @ViewChild(CurrentSetComponent, {static: true}) child: CurrentSetComponent;
+
   private currentExercise: Exercise;
-  private workouts: SavedWorkouts[] = [];
   private currentDayWorkout: Day;
   private savedWorkoutId: number;
-  private dayId: number;
-  private exerciseIds: number[] = [];
   private dayWorkoutHandler: DayWorkoutHandler;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private workoutsService: WorkoutsService,
-              private workoutpreviewpicturesService: WorkoutpreviewpicturesService,
               private savedWorkoutService: SavedWorkoutsService,
               private lastSetService: LastSetService,
               private saveSetsService: SaveSetsService) {
@@ -43,15 +38,13 @@ export class TablesComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     this.savedWorkoutService.initializeWorkouts();
     this.route.paramMap.subscribe(params => {
-      const workoutId: number = +params.get('savedWorkoutId');
+      this.savedWorkoutId = +params.get('savedWorkoutId');
       const dayId: number = +params.get('dayId');
-      this.savedWorkoutService.getSavedWorkouts.subscribe(data => {
-        const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(data, this.lastSetService);
-        this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(workoutId, dayId);
-        this.currentDayWorkout = this.dayWorkoutHandler.getDayWorkout();
-        this.savedWorkoutId = workoutId;
-        this.dayWorkoutHandler.getUpdatedWorkout().subscribe(a => this.currentDayWorkout = a);
-        this.dayWorkoutHandler.getUpdatedExercise().subscribe(a => this.currentExercise = a);
+      this.savedWorkoutService.getSavedWorkouts.subscribe(savedWorkouts => {
+        const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(savedWorkouts, this.lastSetService);
+        this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(this.savedWorkoutId, dayId);
+        this.dayWorkoutHandler.getWorkout().subscribe(a => this.currentDayWorkout = a);
+        this.dayWorkoutHandler.getExercise().subscribe(a => this.currentExercise = a);
       });
     });
   }

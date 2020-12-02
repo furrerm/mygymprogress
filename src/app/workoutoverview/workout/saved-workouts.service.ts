@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SavedWorkoutsService {
-  public savedWorkouts: BehaviorSubject<SavedWorkouts[]> = new BehaviorSubject<SavedWorkouts[]>([]);
+  public savedWorkouts: BehaviorSubject<SavedWorkouts[]>;
 
   constructor(private workoutsService: WorkoutsService,
               private workoutpreviewpicturesService: WorkoutpreviewpicturesService) {

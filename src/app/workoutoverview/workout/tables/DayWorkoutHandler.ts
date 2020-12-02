@@ -1,34 +1,30 @@
 import {Day, Exercise, ExerciseSet, SetContainer} from '../saved-workouts.Workout';
 import {LastSetService} from './last-set.service';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 export interface DayWorkoutHandler {
-  getDayWorkout(): Day;
-  getUpdatedWorkout(): BehaviorSubject<Day>;
-  getUpdatedExercise(): BehaviorSubject<Exercise>;
+  getWorkout(): BehaviorSubject<Day>;
+  getExercise(): Subject<Exercise>;
   nextExercise(): void;
   isLastExerciseOfDayWorkout(): boolean;
 }
 
 export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
-  private updatedDayWorkout: BehaviorSubject<Day>;
-  private updatedExercise: BehaviorSubject<Exercise>;
-  private dayWorkout: Day;
+  private readonly updatedDayWorkout: BehaviorSubject<Day>;
+  private updatedExercise: Subject<Exercise> = new Subject<Exercise>();
+  private readonly dayWorkout: Day;
   private exercisePointer: ExercisePointer;
   constructor(dayWorkout: Day, lastSetService: LastSetService) {
     this.updatedDayWorkout = new BehaviorSubject<Day>(dayWorkout);
-    this.updatedExercise = new BehaviorSubject<Exercise>(null);
     this.dayWorkout = dayWorkout;
     this.loadSets(lastSetService);
     this.exercisePointer = {phaseNumber: 0, exerciseNumber: -1};
   }
-  getDayWorkout(): Day {
-    return this.dayWorkout;
-  }
-  getUpdatedWorkout(): BehaviorSubject<Day> {
+
+  getWorkout(): BehaviorSubject<Day> {
     return this.updatedDayWorkout;
   }
-  getUpdatedExercise(): BehaviorSubject<Exercise> {
+  getExercise(): Subject<Exercise> {
     return this.updatedExercise;
   }
 
