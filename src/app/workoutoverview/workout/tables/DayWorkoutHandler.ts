@@ -65,7 +65,6 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
         }
       }))
     )));
-    this.updatedDayWorkout.next(null);
     this.updatedDayWorkout.next(this.dayWorkout);
   }
   private transformSetContainersStringToDate(exerciseSetContainers: SetContainer[]) {
@@ -74,10 +73,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
   private isLastPhaseOfDayWorkout(): boolean {
     const currentPhaseId = this.exercisePointer.phaseNumber;
     const phases = this.dayWorkout.phases;
-    if (phases[currentPhaseId + 1]) {
-      return false;
-    }
-    return true;
+    return !!(phases[currentPhaseId + 1]);
   }
 
   private isLastExerciseOfPhase(): boolean {
@@ -85,10 +81,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     const currentExerciseId = this.exercisePointer.exerciseNumber;
     const phases = this.dayWorkout.phases;
     const exercises = phases[currentPhaseId].exercises;
-    if (exercises[currentExerciseId + 1]) {
-      return false;
-    }
-    return true;
+    return !exercises[currentExerciseId + 1];
   }
 
   isLastExerciseOfDayWorkout(): boolean {
@@ -96,22 +89,28 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
   }
 
   private copyLastEntry(currentExercise: Exercise) {
+    const containerLength = currentExercise.setsContainer.length;
     let setsContainers: SetContainer[] = currentExercise.setsContainer;
     if (setsContainers) {
       setsContainers.sort((a, b) => new Date(a.timeOfExercise).getTime() - new Date(b.timeOfExercise).getTime());
-      const containerLength = currentExercise.setsContainer.length;
       setsContainers.push(this.createCopy(currentExercise.setsContainer[containerLength - 1]));
       setsContainers[containerLength].timeOfExercise = new Date(Date.now());
     } else {
-      const setsContainersToCreate: SetContainer[] = [];
-      const initialExerciseSets: ExerciseSet[] = [];
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
-      setsContainersToCreate.push({timeOfExercise: new Date(Date.now()), exerciseSets: initialExerciseSets});
-      setsContainers = setsContainersToCreate;
+      setsContainers = this.initializeSetContainer();
     }
     return setsContainers;
+  }
+  private initializeSetContainer(): SetContainer[] {
+    const setsContainersToCreate: SetContainer[] = [];
+    setsContainersToCreate.push({timeOfExercise: new Date(Date.now()), exerciseSets: this.initnializeExerciseSets()});
+    return setsContainersToCreate;
+  }
+  private initnializeExerciseSets(): ExerciseSet[] {
+    const initialExerciseSets: ExerciseSet[] = [];
+    initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
+    initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
+    initialExerciseSets.push({id: 0, weight: 0, repetitions: 0});
+    return initialExerciseSets;
   }
   private createCopy(inputSetContainer: SetContainer): SetContainer {
     const exerciseSetsCopy: ExerciseSet[] = inputSetContainer.exerciseSets.map(a => {
