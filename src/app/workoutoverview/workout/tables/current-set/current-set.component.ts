@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Form, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {CurrentSetServiceService} from './current-set-service.service';
 import {NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {Subject} from 'rxjs';
 import {LastSetComponent} from '../last-set/last-set.component';
@@ -26,7 +25,6 @@ export class CurrentSetComponent implements OnInit, OnDestroy, OnChanges {
   });
 
   constructor(private formBuilder: FormBuilder,
-              private currentSetService: CurrentSetServiceService,
               private router: Router) {
     this.sets = new Array();
   }
