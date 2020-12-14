@@ -5,6 +5,7 @@
   overflow: hidden;
   outline:none;
   border: none;
+
 }
 .quantityButton {
   margin-right: auto;
@@ -27,20 +28,8 @@
   background-color: white;
   width: 100%;
 }
-.quantityUpButtonImage {
-  -webkit-transform:rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-.quantityDownButtonImage {
-  -webkit-transform:rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
