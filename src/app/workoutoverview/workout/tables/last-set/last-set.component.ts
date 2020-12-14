@@ -1,7 +1,8 @@
-import {Input, OnChanges, SimpleChanges} from '@angular/core';
+import {HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
-import {Exercise, SetContainer} from '../../saved-workouts.Workout';
 import {graphic} from 'echarts';
+import {ExerciseDTO} from '../../../../common/model/swagger-model/exerciseDTO';
+import {ExerciseSetContainerDTO} from '../../../../common/model/swagger-model/exerciseSetContainerDTO';
 
 @Component({
   selector: 'app-last-set',
@@ -9,13 +10,11 @@ import {graphic} from 'echarts';
   styleUrls: ['./last-set.component.css']
 })
 export class LastSetComponent implements OnInit, OnChanges {
-  receivedSets: string;
-  updatedExercise: Exercise;
-  lastTwoSets: SetContainer[] = [];
-  // sum: number;
+  updatedExercise: ExerciseDTO;
+  lastTwoSets: ExerciseSetContainerDTO[] = [];
   xAxe: number[] = [];
   yAxe: number[] = [];
-  @Input() currentExercise: Exercise;
+  @Input() currentExercise: ExerciseDTO;
   updateOptions: any;
   options = {
     color: ['#3398DB'],
@@ -40,9 +39,11 @@ export class LastSetComponent implements OnInit, OnChanges {
         }
       }
     ],
-    yAxis: [{
-      type: 'value'
-    }],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
     series: [
       {
         name: 'Counters',
@@ -95,16 +96,9 @@ export class LastSetComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.updatedExercise = null;
     this.updatedExercise = this.currentExercise;
     if (this.updatedExercise) {
-      const length: number = this.currentExercise.setsContainer.length;
-      this.lastTwoSets.push(this.currentExercise.setsContainer[length - 2]);
-      this.lastTwoSets.push(this.currentExercise.setsContainer[length - 3]);
-      // this.options.xAxis[0].data = this.updatedExercise.setsContainer.map(a => a.timeOfExercise);
-      // this.options.series[0].data = this.updatedExercise.setsContainer.map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0));
-      this.options.xAxis[0].data = [1, 2, 3];
-      this.options.series[0].data = [30, 40, 50];
+      this.lastTwoSets = this.createLastTwoSets();
       this.updateOptions = {
         xAxis: [
           {
@@ -113,13 +107,47 @@ export class LastSetComponent implements OnInit, OnChanges {
         ],
         series: [
           {
-            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1).map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0))
+            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+              .map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0))
           },
           {
-            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1).map(a => a.exerciseSets.reduce((sum, b) => sum + b.weight, 0))
+            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+              .map(a => a.exerciseSets.reduce((sum, b) => sum + b.weight, 0))
           }
         ]
       };
     }
+  }
+
+  private createLastTwoSets(): ExerciseSetContainerDTO[] {
+    const numberOfSetsMadeInThisExercise: number = this.currentExercise.setsContainer.length;
+    const lastTwoSets: ExerciseSetContainerDTO[] = [];
+    lastTwoSets.push(this.currentExercise.setsContainer[numberOfSetsMadeInThisExercise - 2]);
+    lastTwoSets.push(this.currentExercise.setsContainer[numberOfSetsMadeInThisExercise - 3]);
+    return lastTwoSets;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    const width = event.target.innerWidth;
+    console.log(width);
+
+    this.updateOptions = {
+      xAxis: [
+        {
+          data: this.updatedExercise.setsContainer.map(a => a.timeOfExercise)
+        }
+      ],
+      series: [
+        {
+          data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+            .map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0))
+        },
+        {
+          data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+            .map(a => a.exerciseSets.reduce((sum, b) => sum + b.weight, 0))
+        }
+      ]
+    };
   }
 }

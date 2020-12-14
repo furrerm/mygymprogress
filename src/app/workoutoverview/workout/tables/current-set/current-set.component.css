@@ -1,50 +1,56 @@
-.entryBar {
-  background: linear-gradient(to bottom, #FFFFFF 0, #7f7d7c 2%, #111110 100%) repeat scroll 0 0 transparent;
-  border: 1px solid #c4c2bf;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 1px 2px #999999;
-  -ms-box-shadow: 0 1px 2px #999999;
-  box-shadow: 0 1px 2px #999999;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  -ms-text-shadow: 0 -1px #099FDF;
-  text-shadow: 0 -1px #099FDF;
-  height: 30px;
-  width: 140px;
-  text-decoration: none;
-  margin: 2px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.controlButton {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  border: none;
 }
-
-.entryText {
-  display: block;
-  text-align: center;
-  margin: auto auto;
+.quantityButton {
+  margin-right: auto;
+  margin-left: auto;
+  width: 60px;
+  height: 35px;
 }
-
-.siteWrapper {
-  display: flex;
-  flex-direction: column;
+.removeEntryButton {
+  margin: auto auto auto 20px;
+  width: 35px;
+  height: 35px;
+}
+.addEntryButton {
+  margin-left: auto;
+  margin-right: auto;
+  height: 45px;
+  width: 45px;
+}
+.controlButtonImage {
+  background-color: white;
   width: 100%;
-  height: 100%;
-  border-top: solid black 1px;
-  border-bottom: solid black 1px;
-  overflow: auto;
 }
-.inputFieldsWrapper {
+.quantityUpButtonImage {
+  -webkit-transform:rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+.quantityDownButtonImage {
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+}
+.inputFieldsRowWrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
-}
-.innerSetInputWrapper {
-  margin-right: auto;
-  margin-left: auto;
 }
 .setInput {
   margin-right: auto;
@@ -55,47 +61,7 @@
   text-align: center;
   border: 1px solid black;
 }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  margin: 0;
-}
-
-.numberUpButton {
-  margin-right: auto;
-  margin-left: auto;
-  width: 60px;
-  height: 35px;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
-  border: none;
-
-}
-.numberUpImage {
-  background-color: white;
-  width: 100%;
-  -webkit-transform:rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-.numberDownImage {
-  background-color: white;
-  width: 100%;
-  -webkit-transform:rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-.singleInputWrapper {
-
+.inputFieldsRowWrapperEntryColumn {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -105,11 +71,8 @@ input::-webkit-inner-spin-button {
   margin-left: 50px;
 }
 .wrapper-center {
-  margin-top: auto;
-  margin-bottom: auto;
   width: 30px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: auto 10px;
 }
 .wrapper-right {
   width: 70px;
@@ -119,43 +82,15 @@ input::-webkit-inner-spin-button {
   margin-bottom: auto;
   margin-top: auto;
 }
-
-.xTimes {
-
-  margin: auto auto auto auto;
+.xTimesImage {
+  margin: auto;
   width: 60%;
   height: 15%;
 }
 .kgSpan {
-  margin: auto auto auto auto;
+  margin: auto;
   text-align: center;
   font-size: 30px;
   width: 80%;
   height: 50px;
 }
-.removeEntryButton {
-  margin: auto auto auto 20px;
-  width: 35px;
-  height: 35px;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
-  border: none;
-}
-.addEntryButton {
-  margin-left: auto;
-  margin-right: auto;
-  height: 45px;
-  width: 45px;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
-  border: none;
-}
-.formWrapper {
-}
-

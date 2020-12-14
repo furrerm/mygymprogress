@@ -1,28 +1,32 @@
 <app-menu></app-menu>
-<div id="wrappingContainer">
-  <div class="d-flex justify-content-center content-wrapper">
-    <div class="content-div">
-      <div class="filter-div">
+
+<div class="d-flex justify-content-center content-wrapper">
+  <div class="content-div">
+    <div class="filter-div">
+    </div>
+    <div class="setDisplayWrapper">
+      <div class="exerciseTitleWrapper">
+        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}}</h3>
       </div>
-      <div class="setDisplayWrapper">
-        <div class="exerciseTitleWrapper">
-          <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}}</h3>
+      <div class="tableContainer">
+        <div class="showIfNonMobile">
+          <app-last-set class="setDisplayComponents lastSetComponent" [currentExercise]="this.getCurrentExercise()"></app-last-set>
         </div>
-        <div class="tableContainer">
-          <div class="setContainer">
-            <app-last-set class="currentAndLastComponent" #last [currentExercise]="this.getCurrentExercise()"></app-last-set>
-          </div>
-          <div class="setContainer">
-            <app-current-set class="currentAndLastComponent" [sibling]="last" [currentExercise]="this.getCurrentExercise()"></app-current-set>
-          </div>
+        <div class="setContainer">
+          <app-current-set class="setDisplayComponents" [currentExercise]="this.getCurrentExercise()"></app-current-set>
         </div>
-        <div class = "motherBoard">
-          <h3 class="endButton" (click)="this.endWorkout()">end</h3>
-          <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'black'}" (click)="this.nextExercise()">next</h3>
-        </div>
+      </div>
+      <div class="motherBoard">
+        <h3 class="endButton" (click)="this.endWorkout()">end</h3>
+        <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'black'}"
+            (click)="this.nextExercise()">next</h3>
+      </div>
+      <div class="showIfMobile">
+        <app-last-set class="setDisplayComponents lastSetComponent" [currentExercise]="this.getCurrentExercise()"></app-last-set>
       </div>
     </div>
   </div>
 </div>
+
 
 

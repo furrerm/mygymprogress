@@ -1,63 +1,49 @@
-<div class="siteWrapper">
-  <!--
-  <div *ngFor="let set of sets" class="entryBar">
-    <p class="entryText">{{set["repetitions"]}} X {{set["weight"]}} Kg</p>
-  </div>
-  -->
-  <div class="formWrapper" *ngIf="this.updatedExercise && this.updatedExercise.setsContainer.length > 0">
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+<div *ngIf="this.currentExercise && this.currentExercise.setsContainer.length > 0">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
 
-        <div *ngFor="let city of cities.controls; index as i">
+    <div class="inputFieldsRowWrapper" *ngFor="let repetition of repetitions.controls; index as i">
+      <div class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
+        <button (click)="this.incrementRepetitions(i)" class="controlButton quantityButton" type="submit">
+          <img class="quantityUpButtonImage controlButtonImage"
+               src="../../../../../assets/pictures/menuButtons/quantityButton.svg">
+        </button>
 
-          <div class="inputFieldsWrapper">
-            <div class="singleInputWrapper wrapper-left">
-              <button (click)="this.incrementRepetitions(i)" class="numberUpButton" type="submit"><img class="numberUpImage"
-                                                                src="../../../../../assets/pictures/menuButtons/playerButton.svg">
-              </button>
-              <div class="innerSetInputWrapper" formArrayName="cities">
-              <input type="number" class="setInput" step="1" min="1" max="" name="quantity" value="1" title="Qty"
-                     size="4"
-                     pattern="" inputmode="" [formControlName]="i" placeholder="City">
-              </div>
-              <button (click)="this.decrementRepetitions(i)" class="numberUpButton" type="submit"><img class="numberDownImage"
-                                                                src="../../../../../assets/pictures/menuButtons/playerButton.svg">
-              </button>
-            </div>
-            <div class="singleInputWrapper wrapper-center">
-              <img class="xTimes"
-                   src="../../../../../assets/pictures/menuButtons/crossProduct.svg">
-            </div>
-            <div class="singleInputWrapper wrapper-right">
-              <button (click)="this.incrementWeight(i)" class="numberUpButton" type="submit"><img class="numberUpImage"
-                                                                src="../../../../../assets/pictures/menuButtons/playerButton.svg">
-              </button>
-              <div class="innerSetInputWrapper" formArrayName="wei">
-              <input type="number" class="setInput" step="1" min="1" max="" name="quantity" value="1" title="Qty"
-                     size="4"
-                     pattern="" inputmode="" [formControlName]="i">
-              </div>
-              <button (click)="this.decrementWeight(i)" class="numberUpButton" type="submit"><img class="numberDownImage"
-                                                                src="../../../../../assets/pictures/menuButtons/playerButton.svg">
-              </button>
-            </div>
-            <div class="singleInputWrapper wrapper-center-right">
-              <span class="kgSpan">kg</span>
-            </div>
-            <button (click)="this.removeEntry(i)" class="removeEntryButton" type="submit">
-              <img class="numberDownImage"
-                   src="../../../../../assets/pictures/menuButtons/minusButton.svg">
-            </button>
-          </div>
+        <input type="number" class="setInput" step="1" min="0" max="" name="quantity"
+               value="1" title="Qty" size="4" pattern="" inputmode="" [formControlName]="i" placeholder="0">
 
-
-        </div>
-
-    </form>
-    <div class="inputFieldsWrapper">
-    <button (click)="this.addEntry()" class="addEntryButton" type="submit">
-      <img class="numberDownImage"
-           src="../../../../../assets/pictures/menuButtons/plusButton.svg">
-    </button>
+        <button (click)="this.decrementRepetitions(i)" class="controlButton quantityButton" type="submit">
+          <img class="quantityDownButtonImage controlButtonImage"
+               src="../../../../../assets/pictures/menuButtons/quantityButton.svg">
+        </button>
+      </div>
+      <div class="inputFieldsRowWrapperEntryColumn wrapper-center">
+        <img class="xTimesImage" src="../../../../../assets/pictures/menuButtons/crossProduct.svg">
+      </div>
+      <div class="inputFieldsRowWrapperEntryColumn wrapper-right" formArrayName="weights">
+        <button (click)="this.incrementWeight(i)" class="controlButton quantityButton" type="submit">
+          <img class="quantityUpButtonImage controlButtonImage"
+               src="../../../../../assets/pictures/menuButtons/quantityButton.svg">
+        </button>
+        <input type="number" class="setInput" step="1" min="1" max="" name="quantity"
+               value="1" title="Qty"
+               size="4"
+               pattern="" inputmode="" [formControlName]="i">
+        <button (click)="this.decrementWeight(i)" class="controlButton quantityButton" type="submit">
+          <img class="quantityDownButtonImage controlButtonImage"
+               src="../../../../../assets/pictures/menuButtons/quantityButton.svg">
+        </button>
+      </div>
+      <div class="inputFieldsRowWrapperEntryColumn wrapper-center-right">
+        <span class="kgSpan">kg</span>
+      </div>
+      <button (click)="this.removeEntry(i)" class="controlButton removeEntryButton" type="submit">
+        <img class="controlButtonImage" src="../../../../../assets/pictures/menuButtons/minusButton.svg">
+      </button>
     </div>
+  </form>
+  <div class="inputFieldsRowWrapper">
+    <button (click)="this.addEntry()" class="controlButton addEntryButton" type="submit">
+      <img class="controlButtonImage" src="../../../../../assets/pictures/menuButtons/plusButton.svg">
+    </button>
   </div>
 </div>
