@@ -42,8 +42,6 @@ export class CurrentSetComponent implements OnInit, OnChanges {
   }
 
   changeValue() {
-
-
     this.form = this.initializeTheForm();
   }
 

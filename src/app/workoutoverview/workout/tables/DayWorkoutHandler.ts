@@ -38,7 +38,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     return this.updatedExercise;
   }
 
-// todo: implement iterator principle
+  // todo: implement iterator principle
   nextExercise() {
     const exercises = this.dayWorkout.phases[this.exercisePointer.phaseNumber].exercises;
     let currentExercise: ExerciseDTO;

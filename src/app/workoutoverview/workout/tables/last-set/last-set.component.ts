@@ -126,28 +126,4 @@ export class LastSetComponent implements OnInit, OnChanges {
     lastTwoSets.push(this.currentExercise.setsContainer[numberOfSetsMadeInThisExercise - 3]);
     return lastTwoSets;
   }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    const width = event.target.innerWidth;
-    console.log(width);
-
-    this.updateOptions = {
-      xAxis: [
-        {
-          data: this.updatedExercise.setsContainer.map(a => a.timeOfExercise)
-        }
-      ],
-      series: [
-        {
-          data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
-            .map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0))
-        },
-        {
-          data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
-            .map(a => a.exerciseSets.reduce((sum, b) => sum + b.weight, 0))
-        }
-      ]
-    };
-  }
 }
