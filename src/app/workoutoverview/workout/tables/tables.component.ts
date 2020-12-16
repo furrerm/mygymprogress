@@ -26,6 +26,8 @@ export class TablesComponent implements OnInit, AfterContentInit {
     private savedWorkoutService: SavedWorkoutsService,
     private lastSetService: LastSetService,
     private saveSetsService: SaveSetsService) {
+
+    console.log(savedWorkoutService);
   }
 
   ngOnInit() {

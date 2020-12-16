@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NewWorkoutComponent } from './new-workout.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('NewWorkoutComponent', () => {
   let component: NewWorkoutComponent;
@@ -8,7 +11,11 @@ describe('NewWorkoutComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewWorkoutComponent ]
+      declarations: [ NewWorkoutComponent ],
+      imports: [
+      BrowserModule /* or CommonModule */,
+      FormsModule, ReactiveFormsModule, HttpClientTestingModule
+    ],
     })
     .compileComponents();
   }));

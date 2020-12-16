@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ManagementComponent } from './management.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {LastSetService} from '../workoutoverview/workout/tables/last-set.service';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 
 describe('ManagementComponent', () => {
   let component: ManagementComponent;
@@ -8,7 +11,10 @@ describe('ManagementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagementComponent ]
+      declarations: [ ManagementComponent ],
+      imports: [
+        RouterModule.forRoot([])
+      ]
     })
     .compileComponents();
   }));
@@ -21,5 +27,10 @@ describe('ManagementComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('shoud contain app-menu', () => {
+      const compiled = fixture.debugElement.nativeElement;
+      expect(compiled.querySelector('app-menu')).not.toBeNull();
   });
 });

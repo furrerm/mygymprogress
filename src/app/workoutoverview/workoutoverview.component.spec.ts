@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { WorkoutoverviewComponent } from './workoutoverview.component';
+import {WorkoutoverviewComponent} from './workoutoverview.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {WorkoutpreviewpicturesService} from './workoutpreviewpictures.service';
+import {WorkoutpreviewpicturesServiceMock} from './workoutpreviewpictures.service.mock';
 
 describe('WorkoutoverviewComponent', () => {
   let component: WorkoutoverviewComponent;
@@ -8,9 +12,13 @@ describe('WorkoutoverviewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkoutoverviewComponent ]
+      declarations: [WorkoutoverviewComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers: [
+        {provide: WorkoutpreviewpicturesService, useClass: WorkoutpreviewpicturesServiceMock}
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

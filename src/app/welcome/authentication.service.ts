@@ -1,11 +1,8 @@
-import {Inject, Injectable, NgZone, OnInit} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import { auth } from 'firebase/app';
-import { User } from './user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {idTokenResult} from '@angular/fire/auth-guard';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
 import {ConstantsService} from '../common/services/constants.service';
 
 @Injectable({

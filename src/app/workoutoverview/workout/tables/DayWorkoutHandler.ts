@@ -26,8 +26,8 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
   constructor(dayWorkout: DayDTO, lastSetService: LastSetService) {
     this.updatedDayWorkout = new BehaviorSubject<DayDTO>(dayWorkout);
     this.dayWorkout = dayWorkout;
-    this.loadSets(lastSetService);
     this.exercisePointer = {phaseNumber: 0, exerciseNumber: -1};
+    this.loadSets(lastSetService);
   }
 
   getWorkout(): BehaviorSubject<DayDTO> {
