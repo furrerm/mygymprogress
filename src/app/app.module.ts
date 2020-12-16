@@ -7,7 +7,6 @@ import { MenuComponent } from './menu/menu.component';
 import { ManagementComponent } from './home/management.component';
 import { WorkoutComponent } from './workoutoverview/workout/workout.component';
 import { TablesComponent } from './workoutoverview/workout/tables/tables.component';
-import { HistoryComponent } from './workoutoverview/workout/history/history.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -82,7 +81,6 @@ import 'echarts/theme/macarons.js';
     ManagementComponent,
     WorkoutComponent,
     TablesComponent,
-    HistoryComponent,
     WelcomeComponent,
     LastSetComponent,
     CurrentSetComponent,
