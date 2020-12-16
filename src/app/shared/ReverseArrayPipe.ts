@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ExerciseSetContainerDTO} from '../../../core/model/swagger-model/exerciseSetContainerDTO';
+import {ExerciseSetContainerDTO} from '../core/model/swagger-model/exerciseSetContainerDTO';
 
 @Pipe({ name: 'reverse' })
 

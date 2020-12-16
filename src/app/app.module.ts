@@ -69,7 +69,7 @@ import { WorkoutoverviewComponent } from './features/workoutoverview/workoutover
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { ReverseArrayPipe } from './features/workout-player/last-set/ReverseArrayPipe';
+import { ReverseArrayPipe } from './shared/ReverseArrayPipe';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';
