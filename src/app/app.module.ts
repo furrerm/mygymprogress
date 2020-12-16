@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/menu.component';
-import { ManagementComponent } from './home/management.component';
-import { WorkoutComponent } from './workoutoverview/workout/workout.component';
-import { TablesComponent } from './workoutoverview/workout/tables/tables.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { MenuComponent } from './shared/menu/menu.component';
+import { ManagementComponent } from './features/home/management.component';
+import { WorkoutComponent } from './features/workout-list/workout.component';
+import { TablesComponent } from './features/workout-player/tables.component';
+import { WelcomeComponent } from './features/welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {A11yModule} from '@angular/cdk/a11y';
 
@@ -52,9 +52,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LastSetComponent } from './workoutoverview/workout/tables/last-set/last-set.component';
-import { CurrentSetComponent } from './workoutoverview/workout/tables/current-set/current-set.component';
-import { ConstantsService } from './common/services/constants.service';
+import { LastSetComponent } from './features/workout-player/last-set/last-set.component';
+import { CurrentSetComponent } from './features/workout-player/current-set/current-set.component';
+import { ConstantsService } from './core/services/constants.service';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -64,12 +64,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
-import { NewWorkoutComponent } from './workoutoverview/workout/new-workout/new-workout.component';
-import { WorkoutoverviewComponent } from './workoutoverview/workoutoverview.component';
+import { NewWorkoutComponent } from './features/new-workout/new-workout.component';
+import { WorkoutoverviewComponent } from './features/workoutoverview/workoutoverview.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { ReverseArrayPipe } from './workoutoverview/workout/tables/last-set/ReverseArrayPipe';
+import { ReverseArrayPipe } from './features/workout-player/last-set/ReverseArrayPipe';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';

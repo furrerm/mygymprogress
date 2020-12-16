@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ManagementComponent } from './home/management.component';
-import { WorkoutComponent } from './workoutoverview/workout/workout.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { TablesComponent } from './workoutoverview/workout/tables/tables.component';
-import {NewWorkoutComponent} from './workoutoverview/workout/new-workout/new-workout.component';
-import {MenuComponent} from './menu/menu.component';
-import {WorkoutoverviewComponent} from './workoutoverview/workoutoverview.component';
+import { ManagementComponent } from './features/home/management.component';
+import { WorkoutComponent } from './features/workout-list/workout.component';
+import { WelcomeComponent } from './features/welcome/welcome.component';
+import { TablesComponent } from './features/workout-player/tables.component';
+import {NewWorkoutComponent} from './features/new-workout/new-workout.component';
+import {MenuComponent} from './shared/menu/menu.component';
+import {WorkoutoverviewComponent} from './features/workoutoverview/workoutoverview.component';
 
 
 

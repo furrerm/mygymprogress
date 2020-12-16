@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {WelcomeComponent} from './welcome/welcome.component';
+import {WelcomeComponent} from './features/welcome/welcome.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CurrentSetComponent} from './workoutoverview/workout/tables/current-set/current-set.component';
-import {ConstantsService} from './common/services/constants.service';
-import {UserInternal} from './common/services/UserInternal';
+import {CurrentSetComponent} from './features/workout-player/current-set/current-set.component';
+import {ConstantsService} from './core/services/constants.service';
+import {UserInternal} from './core/model/UserInternal';
 
 @Component({
   selector: 'app-root',

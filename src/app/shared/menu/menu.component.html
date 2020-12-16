@@ -1,0 +1,53 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="container-fluid outer-wrapper">
+
+  <nav class="nav-personal-settings d-flex justify-content-center">
+    <div class="inner-wrapper d-flex">
+
+      <div class="ndiv-2 col-4 col-sm-4 col-md-3 col-lg-2 h-100 d-flex justify-content-start nav-div-1 nav-div">
+        <a class="nav-link-menu" [routerLink]="['../management', 11]" routerLinkActive="active">
+          <img class="link-images logo-image" alt="home" src="../../../assets/pictures/menuButtons/sport-logo.svg">
+        </a>
+      </div>
+
+      <div class="col-7 col-sm-7 col-md-7 col-lg-8 h-100 text-center nav-div-2 nav-div">
+
+
+          <a class="d-inline-block nav-link-menu h-100" [routerLink]="['../management', 11]" routerLinkActive="active">
+            <img class="link-images" alt="home" src="../../../assets/pictures/menuButtons/menuHome2.svg">
+          </a>
+
+          <a class="d-inline-block  nav-link-menu" routerLink="/workoutoverview" routerLinkActive="active">
+            <img class="link-images" alt="home" src="../../../assets/pictures/menuButtons/dumbbell.svg">
+          </a>
+
+
+          <a class="d-inline-block  nav-link-menu" routerLink="" routerLinkActive="active">
+            <img class="link-images" alt="home" src="../../../assets/pictures/menuButtons/menuFood.svg">
+          </a>
+
+          <a class="d-inline-block  nav-link-menu" routerLink="" routerLinkActive="active">
+            <img class="link-images" alt="home" src="../../../assets/pictures/menuButtons/menuFriends.svg">
+          </a>
+          <a class="d-inline-block  nav-link-menu" routerLink="" routerLinkActive="active">
+            <img class="link-images" alt="home" src="../../../assets/pictures/menuButtons/menuPlus.svg">
+          </a>
+
+      </div>
+
+      <div class="ndiv-5 col-1 col-xs-1 col-sm-1 col-md-2 col-lg-2  h-100 nav-div-4 nav-div d-flex justify-content-end">
+        <a class="profile nav-link-menu profile-link" (click)="openCloseSideNavigation(); logout()" routerLink="" routerLinkActive="active">
+          <img class="link-images profile-link" alt="home" src="../../../assets/pictures/menuButtons/menuProfil.svg">
+        </a>
+      </div>
+
+    </div>
+  </nav>
+</div>
+<!-- non fixed equivalent to the navigation bar. Therefore nothing floats behind the bar -->
+<div class="container-fluid outer-wrapper2">
+  <nav class="nav-personal-settings d-flex justify-content-center">
+
+  </nav>
+</div>
