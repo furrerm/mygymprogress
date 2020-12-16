@@ -13,7 +13,7 @@ describe('NewWorkoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NewWorkoutComponent ],
       imports: [
-      BrowserModule /* or CommonModule */,
+      BrowserModule,
       FormsModule, ReactiveFormsModule, HttpClientTestingModule
     ],
     })
