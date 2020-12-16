@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {ConstantsService} from '../../core/services/constants.service';
-import {ImageObservable} from './workoutoverview.component';
+import {ConstantsService} from '../../../core/services/constants.service';
+import {ImageObservable} from '../workoutoverview.component';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {SaveWorkoutService} from './save-workout.service';
+import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 

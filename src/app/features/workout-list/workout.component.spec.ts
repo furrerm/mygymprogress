@@ -3,11 +3,11 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {WorkoutComponent} from './workout.component';
 import {RouterModule} from '@angular/router';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {WorkoutsService} from './workouts.service';
+import {WorkoutsService} from './shared/workouts.service';
 import {ConstantsService} from '../../core/services/constants.service';
-import {SavedWorkoutsService} from './saved-workouts.service';
+import {SavedWorkoutsService} from './shared/saved-workouts.service';
 import {Observable, of} from 'rxjs';
-import {SavedWorkouts} from './saved-workouts.Workout';
+import {SavedWorkouts} from './shared/saved-workouts.model';
 import {providerDef} from '@angular/compiler/src/view_compiler/provider_compiler';
 
 describe('WorkoutComponent', () => {

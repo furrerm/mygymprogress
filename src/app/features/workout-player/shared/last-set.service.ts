@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ConstantsService} from '../../core/services/constants.service';
-import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
+import {ConstantsService} from '../../../core/services/constants.service';
+import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {Observable} from 'rxjs';
 
 @Injectable({

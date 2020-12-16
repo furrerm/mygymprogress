@@ -1,6 +1,6 @@
 import {DayWorkoutHandler, DayWorkoutHandlerExerciseBased} from './DayWorkoutHandler';
-import {SavedWorkouts} from '../workout-list/saved-workouts.Workout';
-import {LastSetService} from './last-set.service';
+import {SavedWorkouts} from '../workout-list/shared/saved-workouts.model';
+import {LastSetService} from './shared/last-set.service';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 
 export class DayWorkoutHandlerFactory {

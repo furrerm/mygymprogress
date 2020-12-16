@@ -1,9 +1,9 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
-import {ConstantsService} from '../../core/services/constants.service';
-import {DayDTO} from '../../core/model/swagger-model/dayDTO';
-import {WorkoutSetDTO} from '../../core/model/swagger-model/workoutSetDTO';
+import {ConstantsService} from '../../../core/services/constants.service';
+import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
+import {WorkoutSetDTO} from '../../../core/model/swagger-model/workoutSetDTO';
 
 @Injectable({
   providedIn: 'root'

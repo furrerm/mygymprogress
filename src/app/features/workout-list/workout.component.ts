@@ -1,11 +1,11 @@
 import {Component, Injectable, OnInit, ElementRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {WorkoutsService} from './workouts.service';
+import {WorkoutsService} from './shared/workouts.service';
 import {ConstantsService} from '../../core/services/constants.service';
-import {WorkoutpreviewpicturesService} from '../workoutoverview/workoutpreviewpictures.service';
+import {WorkoutpreviewpicturesService} from '../workoutoverview/shared/workoutpreviewpictures.service';
 import {ImageObservable} from '../workoutoverview/workoutoverview.component';
-import {SavedWorkouts} from './saved-workouts.Workout';
-import {SavedWorkoutsService} from './saved-workouts.service';
+import {SavedWorkouts} from './shared/saved-workouts.model';
+import {SavedWorkoutsService} from './shared/saved-workouts.service';
 import {Observable} from 'rxjs';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import {Component, ElementRef, ViewChild, AfterViewInit, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
-import {WorkoutpreviewpicturesService} from './workoutpreviewpictures.service';
+import {WorkoutpreviewpicturesService} from './shared/workoutpreviewpictures.service';
 import {Observable} from 'rxjs';
 
 @Component({

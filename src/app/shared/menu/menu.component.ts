@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import {MenuServiceService} from './menu-service.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
 import {WelcomeComponent} from '../../features/welcome/welcome.component';
@@ -22,8 +21,7 @@ export class MenuComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
   private distFolderLocation: string;
 
-  constructor(private menuServiceService: MenuServiceService,
-              private router: Router,
+  constructor(private router: Router,
               private constant: ConstantsService,
               private welcomeComponent: WelcomeComponent) {
     this.opened = false;

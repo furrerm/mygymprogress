@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ManagementComponent } from './management.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {LastSetService} from '../workout-player/last-set.service';
+import {LastSetService} from '../workout-player/shared/last-set.service';
 import {ActivatedRoute, RouterModule} from '@angular/router';
 
 describe('ManagementComponent', () => {

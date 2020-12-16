@@ -1,4 +1,4 @@
-import {DayDTO} from '../../core/model/swagger-model/dayDTO';
+import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 
 export interface SavedWorkouts {
   id: number;

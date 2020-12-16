@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {SavedWorkouts} from './saved-workouts.Workout';
+import {SavedWorkouts} from './saved-workouts.model';
 import {WorkoutsService} from './workouts.service';
-import {WorkoutpreviewpicturesService} from '../workoutoverview/workoutpreviewpictures.service';
+import {WorkoutpreviewpicturesService} from '../../workoutoverview/shared/workoutpreviewpictures.service';
 import {BehaviorSubject, EMPTY, from, observable, Observable, of, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 

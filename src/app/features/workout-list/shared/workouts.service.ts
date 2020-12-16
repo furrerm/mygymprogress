@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {ConstantsService} from '../../core/services/constants.service';
+import {ConstantsService} from '../../../core/services/constants.service';
 import {Observable} from 'rxjs';
 
 @Injectable({

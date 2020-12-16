@@ -1,8 +1,8 @@
 import {Component, OnInit, AfterContentInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SavedWorkoutsService} from '../workout-list/saved-workouts.service';
-import {LastSetService} from './last-set.service';
-import {SaveSetsService} from './save-sets.service';
+import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
+import {LastSetService} from './shared/last-set.service';
+import {SaveSetsService} from './shared/save-sets.service';
 import {DayWorkoutHandlerFactory} from './DayWorkoutHandlerFactory';
 import {DayWorkoutHandler} from './DayWorkoutHandler';
 import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';

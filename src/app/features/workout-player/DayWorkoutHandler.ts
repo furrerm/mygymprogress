@@ -1,4 +1,4 @@
-import {LastSetService} from './last-set.service';
+import {LastSetService} from './shared/last-set.service';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
