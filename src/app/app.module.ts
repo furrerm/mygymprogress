@@ -58,7 +58,6 @@ import { CurrentSetComponent } from './workoutoverview/workout/tables/current-se
 import { ConstantsService } from './common/services/constants.service';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MusclegroupsComponent } from './workoutoverview/workout/musclegroups/musclegroups.component';
 
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -87,7 +86,6 @@ import 'echarts/theme/macarons.js';
     WelcomeComponent,
     LastSetComponent,
     CurrentSetComponent,
-    MusclegroupsComponent,
     NewWorkoutComponent,
     WorkoutoverviewComponent,
     ReverseArrayPipe

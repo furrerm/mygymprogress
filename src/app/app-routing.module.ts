@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagementComponent } from './home/management.component';
 import { WorkoutComponent } from './workoutoverview/workout/workout.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { MusclegroupsComponent } from './workoutoverview/workout/musclegroups/musclegroups.component';
 import { TablesComponent } from './workoutoverview/workout/tables/tables.component';
 import {NewWorkoutComponent} from './workoutoverview/workout/new-workout/new-workout.component';
 import {MenuComponent} from './menu/menu.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
   { path: 'management/:id', component: ManagementComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },
-  { path: 'workoutoverview/workout/musclegroups/:workout', component: MusclegroupsComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/tables/:savedWorkoutId/:dayId', component: TablesComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' }
 ];
