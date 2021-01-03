@@ -1,7 +1,7 @@
 import {Injectable, NgZone} from '@angular/core';
-import {auth} from 'firebase/app';
-import {Router} from '@angular/router';
-import {AngularFireAuth} from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ConstantsService} from './constants.service';
 
@@ -12,32 +12,37 @@ export class AuthenticationService {
 
   readonly distFolderLocation: string;
   private token: string;
-
+  /*
+  constructor(private http: HttpClient,
+              @Inject(DOCUMENT) private document: Document,
+              private constant: ConstantsService) {
+    this.distFolderLocation = constant.baseAppUrl;
+  }
+*/
   constructor(
     private http: HttpClient,
     private constant: ConstantsService,
     public router: Router,
     public ngZone: NgZone,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private angularFireAuth: AngularFireAuth
   ) {
-    this.distFolderLocation = constant.baseAppUrl;
+  this.distFolderLocation = constant.baseAppUrl;
   }
-
   OAuthProvider(provider) {
     return this.afAuth.signInWithRedirect(provider)
       .then((res) => {
         this.ngZone.run(() => {
           // this.router.navigate(['dashboard']);
           this.token = provider.getAuthToken;
-          // provider.getAuthToken();
+         // provider.getAuthToken();
         });
       }).catch((error) => {
         window.alert(error);
       });
   }
-
   SigninWithGoogle() {
-    console.log(new auth.GoogleAuthProvider());
+
     return this.OAuthProvider(new auth.GoogleAuthProvider())
       .then((res) => {
 
@@ -55,7 +60,6 @@ export class AuthenticationService {
       // this.router.navigate(['welcome']);
     });
   }
-
   validateLogin(exercise: string) {
     console.log(exercise);
     const getSetsUrl = 'login-service/validate';
