@@ -4,6 +4,7 @@ import {User} from '../../core/model/user';
 import {Router} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
 import {UserInternal} from '../../core/model/UserInternal';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-welcome',
@@ -20,13 +21,18 @@ export class WelcomeComponent implements OnInit {
   idToken: string;
   private sub: any;
 
-  constructor(private _authService: AuthenticationService,
-              private router: Router,
-              private constants: ConstantsService,
-              private ngZone: NgZone) {
+  constructor(
+    private _authService: AuthenticationService,
+    private router: Router,
+    private constants: ConstantsService,
+    private ngZone: NgZone,
+    private logger: NGXLogger) {
+    this.logger.debug('Your log message goes here');
+    this.logger.debug('Multiple', 'Argument', 'support');
   }
 
   ngOnInit() {
+    console.log(this.user);
     this.sub = this._authService.afAuth.authState.subscribe(user => {
       this.user = user;
     });
@@ -44,23 +50,24 @@ export class WelcomeComponent implements OnInit {
   }
 
   GetToken(): string {
+    console.log(this._authService.afAuth);
     this._authService.afAuth.onAuthStateChanged(user => {
+        console.log(user);
         if (user) {
           user.getIdToken().then(idToken => {
             this.idToken = idToken;
             // this shows the userToken
             console.log('token inside getToken method ' + this.idToken);
             this._authService.validateLogin(this.idToken).subscribe(a => {
-                console.log(a);
-                const b: UserInternal = JSON.parse(JSON.stringify(a));
-                this.constants.setUser = b;
-                this.ngZone.run(() => {
-                  if (this.constants.getUser !== undefined) {
-                    this.router.navigate(['workoutoverview']);
-                  }
-                });
-              }
-            );
+              console.log(a);
+              const b: UserInternal = JSON.parse(JSON.stringify(a));
+              this.constants.setUser = b;
+              this.ngZone.run(() => {
+                if (this.constants.getUser !== undefined) {
+                  this.router.navigate(['workoutoverview']);
+                }
+              });
+            });
           });
         }
       }
@@ -70,6 +77,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   get authService(): AuthenticationService {
-  return this._authService;
+    return this._authService;
   }
 }

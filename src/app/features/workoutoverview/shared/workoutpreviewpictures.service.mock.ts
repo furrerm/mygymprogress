@@ -1,7 +1,4 @@
-
 import {Observable, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {ConstantsService} from '../../../core/services/constants.service';
 import {ImageObservable} from '../workoutoverview.component';
 import {WorkoutpreviewpicturesService} from './workoutpreviewpictures.service';
 
