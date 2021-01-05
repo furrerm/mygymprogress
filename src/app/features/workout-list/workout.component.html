@@ -3,15 +3,6 @@
 <div class="d-flex justify-content-center content-wrapper">
 
   <div class="content-div">
-    <div class="filter-div">
-      <!--
-              <ng-template [ngIf]="this.getImageToShow()">
-                <img [src]="this.getImageToShow()" class="img-thumbnail" *ngIf="!this.getIsImageLoading();">
-              </ng-template>
-      -->
-    </div>
-
-
     <div *ngFor="let set of this.getWorkouts(); index as i" class="workoutsContainer">
       <div class = "centerContent" style="width: 400px; border: solid 1px black">
         <h2 class="centerContent"

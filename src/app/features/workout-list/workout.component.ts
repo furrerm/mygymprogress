@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-workout',
   templateUrl: './workout.component.html',
-  styleUrls: ['./workout.component.css']
+  styleUrls: ['./workout.component.css', '../../shared/shared.style.css']
 })
 export class WorkoutComponent implements OnInit {
   exercise: string;

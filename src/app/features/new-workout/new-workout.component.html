@@ -1,46 +1,52 @@
-<p>new-workout works! fff</p>
+<app-menu></app-menu>
 
-<div class="formWrapper">
-  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-    <div class="inputFieldsWrapper">
-      <input type="text" class="setInput"  formControlName="workoutName">
-      <button  type="submit">&#10003;</button>
-      <!--button class="setInputButton" type="button" (click)="pushToDB()">complete</button-->
+<div class="d-flex justify-content-center content-wrapper">
+  <div class="content-div">
+    <div class="post-type-frame">
+      <div class="simple-post-frame">
+        <img class="post-type-image simple-post-image" src="../../../assets/pictures/menuButtons/menuPlus.svg">
+      </div>
+      <div class="workout-post-frame">
+        <img class="post-type-image workout-post-image" src="../../../assets/pictures/menuButtons/dumbbell.svg">
+      </div>
     </div>
-  </form>
+    <div class="post-creation-wrapper">
+      <div class="formWrapper">
+        <div *ngIf="currentFile" class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progress + '%' }"
+          >
+            {{ progress }}%
+          </div>
+        </div>
 
-  <div *ngIf="currentFile" class="progress">
-    <div
-      class="progress-bar progress-bar-info progress-bar-striped"
-      role="progressbar"
-      attr.aria-valuenow="{{ progress }}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      [ngStyle]="{ width: progress + '%' }"
-    >
-      {{ progress }}%
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+          Upload
+        </button>
+
+        <div class="alert alert-light" role="alert">{{ message }}</div>
+
+        <div class="card">
+          <div class="card-header">List of Files</div>
+          <ul
+            class="list-group list-group-flush"
+            *ngFor="let file of fileInfos | async"
+          >
+            <li class="list-group-item">
+              <a href="{{ file.url }}">{{ file.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <label class="btn btn-default">
-    <input type="file" (change)="selectFile($event)" />
-  </label>
-
-  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-    Upload
-  </button>
-
-  <div class="alert alert-light" role="alert">{{ message }}</div>
-
-  <div class="card">
-    <div class="card-header">List of Files</div>
-    <ul
-      class="list-group list-group-flush"
-      *ngFor="let file of fileInfos | async"
-    >
-      <li class="list-group-item">
-        <a href="{{ file.url }}">{{ file.name }}</a>
-      </li>
-    </ul>
   </div>
 </div>

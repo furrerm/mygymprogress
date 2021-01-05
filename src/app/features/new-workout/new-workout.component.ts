@@ -7,7 +7,7 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
 @Component({
   selector: 'app-new-workout',
   templateUrl: './new-workout.component.html',
-  styleUrls: ['./new-workout.component.css']
+  styleUrls: ['./new-workout.component.css', '../../shared/shared.style.css']
 })
 export class NewWorkoutComponent implements OnInit {
   form: FormGroup;
@@ -20,7 +20,6 @@ export class NewWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.initializeInputValues('init text from class bal bla');
-    // this.fileInfos = this.saveWorkoutService.getFiles();
   }
   onSubmit(form: FormGroup) {
     const workoutName: string = form.get('workoutName').value;
