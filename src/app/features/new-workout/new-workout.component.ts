@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {CdkDragEnd} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-new-workout',
@@ -16,6 +17,12 @@ export class NewWorkoutComponent implements OnInit {
   progress = 0;
   message = '';
   fileInfos: Observable<any>;
+  url: string;
+  lockAx = 'y';
+  lockAx2 = 'x';
+
+  dragPosition = {x: 0, y: 0};
+
   constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) { }
 
   ngOnInit() {
@@ -31,10 +38,46 @@ export class NewWorkoutComponent implements OnInit {
       workoutName: initText
     });
   }
+  setImageSize(){
+    const width = document.getElementById('file-input-image').offsetWidth;
+    const height = document.getElementById('file-input-image').offsetHeight;
+
+    const wrapperWidth = document.getElementById('file-input-wrapper').offsetWidth;
+    const wrapperHeight = document.getElementById('file-input-wrapper').offsetHeight;
+
+    if (height > wrapperWidth && width > wrapperWidth) {
+      if (width - wrapperWidth > height - wrapperHeight){
+        document.getElementById('file-input-image').style.maxWidth = wrapperWidth + 'px';
+      } else {
+        document.getElementById('file-input-image').style.maxHeight = wrapperHeight + 'px';
+      }
+    }
+  }
+  dragTheImage(event: CdkDragEnd){
+    const width = document.getElementById('file-input-image').offsetWidth;
+    const height = document.getElementById('file-input-image').offsetHeight;
+    const wrapperWidth = document.getElementById('file-input-wrapper').offsetWidth;
+    const wrapperHeight = document.getElementById('file-input-wrapper').offsetHeight;
+    const marginTop = event.source.getFreeDragPosition().y;
+
+    if (marginTop > 0) {
+      this.dragPosition = {x: 0, y: 0};
+    } else if (marginTop < 0 && Math.abs(marginTop) > height - wrapperHeight) {
+      const res = height - wrapperHeight;
+      this.dragPosition = {x: 0, y: -res};
+    }
+  }
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    const reader = new FileReader();
+    reader.onload = (file: any) => {
+      this.url = file.target.result;
+    };
+    reader.onerror = (file: any) => {
+      console.log('File could not be read: ' + file.target.error.code);
+    };
+    reader.readAsDataURL(event.target.files[0]);
   }
-
   upload() {
     this.progress = 0;
 

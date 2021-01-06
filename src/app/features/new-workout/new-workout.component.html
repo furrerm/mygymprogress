@@ -12,22 +12,15 @@
     </div>
     <div class="post-creation-wrapper">
       <div class="formWrapper">
-        <div *ngIf="currentFile" class="progress">
-          <div
-            class="progress-bar progress-bar-info progress-bar-striped"
-            role="progressbar"
-            attr.aria-valuenow="{{ progress }}"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            [ngStyle]="{ width: progress + '%' }"
-          >
-            {{ progress }}%
-          </div>
+
+        <div id="file-input-wrapper">
+          <label *ngIf="!this.url" for="file-input">
+            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/menuPlus.svg"/>
+          </label>
+          <input id="file-input" type="file" (change)="selectFile($event)"/>
+          <img id="file-input-image" *ngIf="this.url" [src]="this.url" [cdkDragLockAxis]="this.lockAx" cdkDrag (cdkDragEnded)="this.dragTheImage($event)" (load)="this.setImageSize()" [cdkDragFreeDragPosition]="dragPosition">
         </div>
 
-        <label class="btn btn-default">
-          <input type="file" (change)="selectFile($event)"/>
-        </label>
 
         <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
           Upload
@@ -47,6 +40,7 @@
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </div>
