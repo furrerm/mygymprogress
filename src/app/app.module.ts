@@ -73,6 +73,7 @@ import { ReverseArrayPipe } from './shared/ReverseArrayPipe';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';
+import { SetImageSizeDirective } from './features/new-workout/set-image-size.directive';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import 'echarts/theme/macarons.js';
     CurrentSetComponent,
     NewWorkoutComponent,
     WorkoutoverviewComponent,
-    ReverseArrayPipe
+    ReverseArrayPipe,
+    SetImageSizeDirective
   ],
   imports: [
     BrowserModule,

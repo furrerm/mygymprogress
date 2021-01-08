@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
@@ -11,6 +11,7 @@ import {CdkDragEnd} from '@angular/cdk/drag-drop';
   styleUrls: ['./new-workout.component.css', '../../shared/shared.style.css']
 })
 export class NewWorkoutComponent implements OnInit {
+
   form: FormGroup;
   selectedFiles: FileList;
   currentFile: File;
@@ -18,55 +19,54 @@ export class NewWorkoutComponent implements OnInit {
   message = '';
   fileInfos: Observable<any>;
   url: string;
-  lockAx = 'y';
-  lockAx2 = 'x';
 
   dragPosition = {x: 0, y: 0};
+  days = [];
 
-  constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) { }
+  constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) {
+    this.days.push('day1');
+    this.days.push('day2');
+  }
 
   ngOnInit() {
     this.initializeInputValues('init text from class bal bla');
   }
+
   onSubmit(form: FormGroup) {
     const workoutName: string = form.get('workoutName').value;
     console.log(workoutName);
     form.reset();
   }
+
   private initializeInputValues(initText: string) {
     this.form = this.formBuilder.group({
       workoutName: initText
     });
   }
-  setImageSize(){
-    const width = document.getElementById('file-input-image').offsetWidth;
-    const height = document.getElementById('file-input-image').offsetHeight;
 
-    const wrapperWidth = document.getElementById('file-input-wrapper').offsetWidth;
-    const wrapperHeight = document.getElementById('file-input-wrapper').offsetHeight;
-
-    if (height > wrapperWidth && width > wrapperWidth) {
-      if (width - wrapperWidth > height - wrapperHeight){
-        document.getElementById('file-input-image').style.maxWidth = wrapperWidth + 'px';
-      } else {
-        document.getElementById('file-input-image').style.maxHeight = wrapperHeight + 'px';
-      }
-    }
-  }
-  dragTheImage(event: CdkDragEnd){
+  dragTheImage(event: CdkDragEnd) {
     const width = document.getElementById('file-input-image').offsetWidth;
     const height = document.getElementById('file-input-image').offsetHeight;
     const wrapperWidth = document.getElementById('file-input-wrapper').offsetWidth;
     const wrapperHeight = document.getElementById('file-input-wrapper').offsetHeight;
-    const marginTop = event.source.getFreeDragPosition().y;
-
+    let marginTop = event.source.getFreeDragPosition().y;
+    const marginLeft = event.source.getFreeDragPosition().x;
+    this.dragPosition = {x: marginLeft, y: marginTop};
     if (marginTop > 0) {
-      this.dragPosition = {x: 0, y: 0};
+      this.dragPosition = {x: marginLeft, y: 0};
     } else if (marginTop < 0 && Math.abs(marginTop) > height - wrapperHeight) {
       const res = height - wrapperHeight;
-      this.dragPosition = {x: 0, y: -res};
+      this.dragPosition = {x: marginLeft, y: -res};
+    }
+    marginTop = this.dragPosition.y;
+    if (marginLeft > 0) {
+      this.dragPosition = {x: 0, y: marginTop};
+    } else if (marginLeft < 0 && Math.abs(marginLeft) > width - wrapperWidth) {
+      const res = width - wrapperWidth;
+      this.dragPosition = {x: -res, y: marginTop};
     }
   }
+
   selectFile(event) {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
@@ -78,6 +78,7 @@ export class NewWorkoutComponent implements OnInit {
     };
     reader.readAsDataURL(event.target.files[0]);
   }
+
   upload() {
     this.progress = 0;
 
@@ -99,6 +100,9 @@ export class NewWorkoutComponent implements OnInit {
       });
 
     this.selectedFiles = undefined;
+  }
+  addDay(name: string) {
+    this.days.push(name);
   }
 
 }

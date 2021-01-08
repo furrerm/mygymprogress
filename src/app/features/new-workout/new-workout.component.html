@@ -13,12 +13,25 @@
     <div class="post-creation-wrapper">
       <div class="formWrapper">
 
-        <div id="file-input-wrapper">
-          <label *ngIf="!this.url" for="file-input">
-            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/menuPlus.svg"/>
+        <div id="file-input-wrapper" class="justify-content-center">
+          <label class="file-input-default-image-label" *ngIf="!this.url" for="file-input">
+            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/Picture_icon_BLACK.svg"/>
           </label>
           <input id="file-input" type="file" (change)="selectFile($event)"/>
-          <img id="file-input-image" *ngIf="this.url" [src]="this.url" [cdkDragLockAxis]="this.lockAx" cdkDrag (cdkDragEnded)="this.dragTheImage($event)" (load)="this.setImageSize()" [cdkDragFreeDragPosition]="dragPosition">
+          <img id="file-input-image" *ngIf="this.url" [src]="this.url" cdkDrag
+               (cdkDragEnded)="this.dragTheImage($event)" appSetImageSize [cdkDragFreeDragPosition]="dragPosition">
+        </div>
+
+        <div class="workout-data-creation-wrapper">
+
+          <div class="days-bar">
+            <button class="day-button" *ngFor="let day of this.days">
+              <input type="text">
+              <span class="day-button-text">{{day}}</span>
+            </button>
+            <button class="add-button" (click)="this.addDay('day3')"></button>
+
+          </div>
         </div>
 
 
