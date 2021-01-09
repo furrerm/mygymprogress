@@ -31,16 +31,12 @@
 
 .post-creation-wrapper {
   border: solid black 1px;
-  overflow: visible;
 }
 
 .formWrapper {
-  overflow: visible;
-}
-
-#file-input-image {
 
 }
+
 .file-input-image-landscape {
   height: 100%;
   width: auto;
@@ -54,7 +50,7 @@
   margin: auto;
   max-width: 500px;
   height: 400px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 #file-input {
