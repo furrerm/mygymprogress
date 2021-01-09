@@ -29,7 +29,7 @@
 #file-input-wrapper {
   border: 1px solid black;
   margin: auto;
-  width: 500px;
+  max-width: 500px;
   height: 400px;
   overflow: visible;
   display: flex;
@@ -39,7 +39,6 @@
 }
 .file-input-default-image {
   height: 50%;
-  opacity: 30%;
 }
 .file-input-default-image-label {
   margin-left: auto;
@@ -52,7 +51,7 @@
   height: 200px;
   border: black solid 1px;
   margin: auto;
-  width: 500px;
+  max-width: 500px;
   display: flex;
 
 }
@@ -78,17 +77,19 @@
   border: none;
 }
 .day-button {
-  width: 40px;
+  width: 80px;
   height: 40px;
-
-  margin-top: 0;
-  padding-top: 0;
   cursor:pointer;
   overflow: hidden;
-
-
+  border-radius: 6px;
+  background: #111110;
 }
-.day-button-text {
-  padding: 0px;
-  margin: 0px;
+.day-button-input {
+  background-color: Transparent;
+  border: none;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: antiquewhite;
+  text-align: center;
 }

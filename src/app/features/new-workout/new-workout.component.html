@@ -26,8 +26,7 @@
 
           <div class="days-bar">
             <button class="day-button" *ngFor="let day of this.days">
-              <input type="text">
-              <span class="day-button-text">{{day}}</span>
+              <input class="day-button-input" type="text" placeholder="{{day}}">
             </button>
             <button class="add-button" (click)="this.addDay('day3')"></button>
 

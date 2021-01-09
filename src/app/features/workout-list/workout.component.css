@@ -25,6 +25,10 @@
   margin-right: auto;
   background-color: white;
 }
+.frame-content {
+  max-width: 400px;
+  border: solid 1px black;
+}
 .phaseContainer {
   border-left: 3px solid black;
   border-right: 3px solid black;
