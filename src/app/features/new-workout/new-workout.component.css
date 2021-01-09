@@ -5,26 +5,49 @@
   height: 50px;
   border: solid black 2px;
 }
+
 .post-type-image {
   margin: 0px;
   padding: 0px;
   height: 100%;
 }
+
 .workout-post-image {
   margin-left: 50px;
 }
+
 .simple-post-image {
   float: right;
-  margin-right:50px;
+  margin-right: 50px;
 }
+
 .workout-post-frame {
   width: 50%;
 }
+
 .simple-post-frame {
-  width:50%;
+  width: 50%;
 }
+
 .post-creation-wrapper {
   border: solid black 1px;
+  overflow: visible;
+}
+
+.formWrapper {
+  overflow: visible;
+}
+
+#file-input-image {
+
+}
+.file-input-image-landscape {
+  height: 100%;
+  width: auto;
+}
+.file-input-image-portrait {
+  width: 100%;
+  height: auto;
 }
 #file-input-wrapper {
   border: 1px solid black;
@@ -32,21 +55,24 @@
   max-width: 500px;
   height: 400px;
   overflow: visible;
-  display: flex;
 }
+
 #file-input {
   display: none;
 }
+
 .file-input-default-image {
-  height: 50%;
+  height: 200px;
   opacity: 0.3;
 }
+
 .file-input-default-image-label {
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
 }
+
 .workout-data-creation-wrapper {
   width: 100%;
   height: 200px;
@@ -56,6 +82,7 @@
   display: flex;
 
 }
+
 .days-bar {
   margin-left: auto;
   margin-right: auto;
@@ -64,6 +91,7 @@
   height: 40px;
   display: flex;
 }
+
 .add-button {
   background-image: url(
   '../../../assets/pictures/menuButtons/menuPlus.svg');
@@ -71,20 +99,22 @@
   width: 40px;
   height: 40px;
   background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
+  background-repeat: no-repeat;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
   border: none;
 }
+
 .day-button {
   width: 80px;
   height: 40px;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
   border-radius: 6px;
   background: #111110;
 }
+
 .day-button-input {
   background-color: Transparent;
   border: none;

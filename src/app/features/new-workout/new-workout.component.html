@@ -13,12 +13,12 @@
     <div class="post-creation-wrapper">
       <div class="formWrapper">
 
-        <div id="file-input-wrapper" class="justify-content-center">
+        <div id="file-input-wrapper">
           <label class="file-input-default-image-label" *ngIf="!this.url" for="file-input">
             <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/pictureIconBlack.svg"/>
           </label>
           <input id="file-input" type="file" (change)="selectFile($event)"/>
-          <img id="file-input-image" *ngIf="this.url" [src]="this.url" cdkDrag
+          <img id="file-input-image" class="file-input-image-landscape" *ngIf="this.url" [src]="this.url" cdkDrag
                (cdkDragEnded)="this.dragTheImage($event)" appSetImageSize [cdkDragFreeDragPosition]="dragPosition">
         </div>
 

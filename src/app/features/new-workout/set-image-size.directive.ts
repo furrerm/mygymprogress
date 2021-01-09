@@ -17,17 +17,10 @@ export class SetImageSizeDirective {
     const parentNode = this.el.nativeElement.parentNode;
     const parentNodeWidth = parentNode.offsetWidth;
     const parentNodeHeight = parentNode.offsetHeight;
-    this.renderer.setStyle(node, 'width', '500px');
-    if (node.offsetWidth < parentNodeWidth || node.offsetHeight < parentNodeHeight) {
-      this.renderer.setStyle(node, 'min-width', '100%');
-      this.renderer.setStyle(node, 'min-height', '100%');
-    } else {
-      // todo: check how image scales and use trigonometric functions instead
-      if (node.offsetWidth - parentNodeWidth < node.offsetHeight - parentNodeHeight) {
-        this.renderer.setStyle(node, 'max-width', '100%');
-      } else {
-        this.renderer.setStyle(node, 'max-height', '100%');
-      }
+
+    if (node.offsetWidth < parentNodeWidth - 2) {
+      this.renderer.removeClass(this.el.nativeElement, 'file-input-image-landscape');
+      this.renderer.addClass(this.el.nativeElement, 'file-input-image-portrait');
     }
   }
 }
