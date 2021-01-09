@@ -15,7 +15,7 @@
 
         <div id="file-input-wrapper" class="justify-content-center">
           <label class="file-input-default-image-label" *ngIf="!this.url" for="file-input">
-            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/Picture_icon_BLACK.svg"/>
+            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/pictureIconBlack.svg"/>
           </label>
           <input id="file-input" type="file" (change)="selectFile($event)"/>
           <img id="file-input-image" *ngIf="this.url" [src]="this.url" cdkDrag

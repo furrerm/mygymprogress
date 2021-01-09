@@ -39,6 +39,7 @@
 }
 .file-input-default-image {
   height: 50%;
+  opacity: 0.3;
 }
 .file-input-default-image-label {
   margin-left: auto;
