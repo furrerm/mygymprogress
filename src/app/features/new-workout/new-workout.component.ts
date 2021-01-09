@@ -22,10 +22,10 @@ export class NewWorkoutComponent implements OnInit {
 
   dragPosition = {x: 0, y: 0};
   days = [];
+  selectedDay = 0;
+
 
   constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) {
-    this.days.push('day1');
-    this.days.push('day2');
   }
 
   ngOnInit() {
@@ -101,8 +101,16 @@ export class NewWorkoutComponent implements OnInit {
 
     this.selectedFiles = undefined;
   }
-  addDay(name: string) {
-    this.days.push(name);
+  addDay() {
+    const nextNumber = this.days.length;
+    this.selectedDay = nextNumber;
+    this.days.push({dayName: 'day' + nextNumber, phases: []});
   }
-
+  addPhase() {
+    const nextPhaseNumber = this.days[this.selectedDay].phases.length;
+    this.days[this.selectedDay].phases.push('phase' + nextPhaseNumber);
+  }
+  setSelectedDay(selectedDay: number) {
+    this.selectedDay = selectedDay;
+  }
 }

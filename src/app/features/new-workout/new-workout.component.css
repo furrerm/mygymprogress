@@ -58,24 +58,28 @@
 }
 
 .file-input-default-image {
-  height: 200px;
+  width: 100%;
   opacity: 0.3;
-}
-
-.file-input-default-image-label {
-  margin-left: auto;
-  margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
 }
 
+.file-input-default-image-label {
+  display: flex;
+  height: 100%;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .workout-data-creation-wrapper {
   width: 100%;
-  height: 200px;
+
   border: black solid 1px;
   margin: auto;
   max-width: 500px;
   display: flex;
+  flex-direction: column;
 
 }
 
@@ -85,6 +89,7 @@
   margin-top: 0;
   padding-top: 0;
   height: 40px;
+
   display: flex;
 }
 
@@ -119,4 +124,45 @@
   margin-right: 5%;
   color: antiquewhite;
   text-align: center;
+}
+.phase-top-Bar-dotted-1 {
+  height: 100px;
+  width: 100%;
+  border-top: black 1px dashed;
+  border-left: black 1px dashed;
+  border-right: black 1px dashed;
+  margin-top: 20px;
+  margin-top: 20px;
+}
+.phase-top-Bar-dotted-2 {
+  height: 90px;
+  width: calc(100% - 10px);
+  border-top: black 1px dashed;
+  border-left: black 1px dashed;
+  border-right: black 1px dashed;
+  margin: 10px auto 0px;
+  display: flex;
+  flex-direction: column;
+}
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.phase-container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.phase-top-Bar {
+  height: 15px;
+  width: 100%;
+  background-color: #111110;
+}
+.exercise-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-left: 5px black solid;
+  border-right: 5px black solid;
 }
