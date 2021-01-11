@@ -8,6 +8,7 @@ import { TablesComponent } from './features/workout-player/tables.component';
 import {NewWorkoutComponent} from './features/new-workout/new-workout.component';
 import {MenuComponent} from './shared/menu/menu.component';
 import {WorkoutoverviewComponent} from './features/workoutoverview/workoutoverview.component';
+import {ExercisePickerComponent} from './features/new-workout/exercise-picker/exercise-picker.component';
 
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'workoutoverview/workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/tables/:savedWorkoutId/:dayId', component: TablesComponent, pathMatch: 'full' },
-  { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' }
+  { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' },
+  { path: 'workoutoverview/workout/new-workout/exercises', component: ExercisePickerComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

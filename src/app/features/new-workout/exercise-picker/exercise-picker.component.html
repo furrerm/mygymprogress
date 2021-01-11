@@ -1,0 +1,11 @@
+<app-menu></app-menu>
+
+<div class="d-flex justify-content-center content-wrapper">
+  <div class="content-div">
+    <div class="filter-container"></div>
+
+    <div class="exercise-container align-content-center text-center" *ngFor="let exercise of this.exercises">
+      <p class="text-center-p">{{exercise}}</p>
+    </div>
+  </div>
+</div>

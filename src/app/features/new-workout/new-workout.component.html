@@ -25,7 +25,7 @@
         <div class="workout-data-creation-wrapper">
 
           <div class="days-bar">
-            <button class="day-button" (click)="setSelectedDay(i)" *ngFor="let day of this.days; index as i;">
+            <button  class="day-button" (click)="setSelectedDay(i)" *ngFor="let day of this.days; index as i;">
               <input class="day-button-input" type="text" placeholder="{{day.dayName}}">
             </button>
             <button class="add-button" (click)="this.addDay()"></button>
@@ -36,13 +36,13 @@
               <div class="phase-top-Bar">
               </div>
               <div class="exercise-container">
-                <button class="add-button margin-center"></button>
+                <button class="add-button margin-center" (click)="this.router.navigate(['./exercises'], {relativeTo: this.activatedRoute});"></button>
                 <p class="text-center">Add Exercise</p>
               </div>
 
             </div>
           </div>
-          <div class="phase-top-Bar-dotted-1">
+          <div *ngIf="this.days[this.selectedDay]" class="phase-top-Bar-dotted-1">
             <div class="phase-top-Bar-dotted-2">
               <button class="add-button margin-center" (click)="this.addPhase()"></button>
               <p class="text-center">Add Phase</p>

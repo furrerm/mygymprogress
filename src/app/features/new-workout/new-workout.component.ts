@@ -4,6 +4,7 @@ import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-workout',
@@ -25,7 +26,11 @@ export class NewWorkoutComponent implements OnInit {
   selectedDay = 0;
 
 
-  constructor(private formBuilder: FormBuilder, private saveWorkoutService: SaveWorkoutService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private saveWorkoutService: SaveWorkoutService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -101,15 +106,18 @@ export class NewWorkoutComponent implements OnInit {
 
     this.selectedFiles = undefined;
   }
+
   addDay() {
     const nextNumber = this.days.length;
     this.selectedDay = nextNumber;
     this.days.push({dayName: 'day' + nextNumber, phases: []});
   }
+
   addPhase() {
     const nextPhaseNumber = this.days[this.selectedDay].phases.length;
     this.days[this.selectedDay].phases.push('phase' + nextPhaseNumber);
   }
+
   setSelectedDay(selectedDay: number) {
     this.selectedDay = selectedDay;
   }

@@ -74,6 +74,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';
 import { SetImageSizeDirective } from './features/new-workout/set-image-size.directive';
+import { ExercisePickerComponent } from './features/new-workout/exercise-picker/exercise-picker.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { SetImageSizeDirective } from './features/new-workout/set-image-size.dir
     NewWorkoutComponent,
     WorkoutoverviewComponent,
     ReverseArrayPipe,
-    SetImageSizeDirective
+    SetImageSizeDirective,
+    ExercisePickerComponent
   ],
   imports: [
     BrowserModule,

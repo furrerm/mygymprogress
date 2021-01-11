@@ -1,0 +1,16 @@
+.filter-container {
+  width: 100%;
+  height: 100px;
+  background-color: #099FDF;
+}
+.exercise-container {
+  width: 100%;
+  height: 100px;
+  background-color: #df095f;
+  display:flex;
+}
+.text-center-p {
+  background-color: brown;
+  margin-left: auto;
+  margin-right: auto;
+}
