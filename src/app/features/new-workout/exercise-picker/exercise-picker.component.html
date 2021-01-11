@@ -5,7 +5,7 @@
     <div class="filter-container"></div>
 
     <div class="exercise-container align-content-center text-center" *ngFor="let exercise of this.exercises">
-      <p class="text-center-p">{{exercise}}</p>
+      <p class="text-center-p">{{this.getExercise()}}</p>
     </div>
   </div>
 </div>
