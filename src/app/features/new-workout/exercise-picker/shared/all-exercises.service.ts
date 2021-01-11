@@ -22,7 +22,7 @@ private getExercisesURL;
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-    const result: Observable<ExerciseDTO> = this.http.post<ExerciseDTO>(this.getExercisesURL, httpOptions);
-    return result;
+    // const result: Observable<ExerciseDTO> = this.http.post<ExerciseDTO>(this.getExercisesURL, httpOptions);
+    return null;
   }
 }
