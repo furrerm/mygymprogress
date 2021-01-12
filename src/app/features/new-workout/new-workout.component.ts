@@ -29,8 +29,8 @@ export class NewWorkoutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private saveWorkoutService: SaveWorkoutService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    router: Router,
+    activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
