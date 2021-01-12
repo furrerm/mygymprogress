@@ -36,7 +36,7 @@
               <div class="phase-top-Bar">
               </div>
               <div class="exercise-container">
-                <button class="add-button margin-center" (click)="this.router.navigate(['./exercises'], {relativeTo: this.activatedRoute});"></button>
+                <button class="add-button margin-center" (click)="this.getRoute().navigate(['./exercises'], {relativeTo: this.getActivatedRoute()});"></button>
                 <p class="text-center">Add Exercise</p>
               </div>
 
