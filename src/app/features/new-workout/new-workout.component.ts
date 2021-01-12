@@ -29,12 +29,20 @@ export class NewWorkoutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private saveWorkoutService: SaveWorkoutService,
-    router: Router,
-    activatedRoute: ActivatedRoute) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.initializeInputValues('init text from class bal bla');
+  }
+
+  public getRoute() {
+    return this.router;
+  }
+
+  public getActivatedRoute() {
+    return this.activatedRoute;
   }
 
   onSubmit(form: FormGroup) {
