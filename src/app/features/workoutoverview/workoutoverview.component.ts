@@ -20,7 +20,12 @@ export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
   @ViewChild('menu', {static: true}) menuView: ElementRef;
   constructor(private route: ActivatedRoute,
               private workoutpreviewpicturesService: WorkoutpreviewpicturesService,
-              private constants: ConstantsService) { }
+              private constants: ConstantsService) {
+    localStorage.removeItem('createdDays');
+    localStorage.removeItem('selectedDay');
+    localStorage.removeItem('selectedPhase');
+    localStorage.removeItem('chosenExercises');
+  }
 
   ngOnInit() {
     this.workoutpreviewpicturesService.getUrls().subscribe( data => {

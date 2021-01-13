@@ -13,7 +13,7 @@ export class LastSetService {
   }
 
   getSets(exerciseIds: number[]): Observable<ExerciseDTO[]> {
-    const endpoint = 'exercise/get-sets';
+    const endpoint = 'exercise-set/get-sets';
     const endpointURL = this.constant.baseAppUrl + endpoint;
     const params = new HttpParams().set('exerciseIds', exerciseIds.toString());
     return (this.http.get<ExerciseDTO[]>(endpointURL, { params }));

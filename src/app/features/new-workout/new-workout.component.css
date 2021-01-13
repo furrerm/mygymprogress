@@ -150,7 +150,7 @@
 }
 .phase-container {
   width: 100%;
-  height: 100px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
 }
@@ -159,10 +159,18 @@
   width: 100%;
   background-color: #111110;
 }
-.exercise-container {
+.exercises-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   border-left: 5px black solid;
   border-right: 5px black solid;
+}
+.single-exercise-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 300px;
+  overflow: visible;
+  border-bottom: solid black 1px;
 }

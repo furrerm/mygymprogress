@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {AfterContentInit, Component, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './new-workout.component.html',
   styleUrls: ['./new-workout.component.css', '../../shared/shared.style.css']
 })
-export class NewWorkoutComponent implements OnInit {
+export class NewWorkoutComponent implements OnInit, AfterContentInit {
 
   form: FormGroup;
   selectedFiles: FileList;
@@ -24,6 +24,7 @@ export class NewWorkoutComponent implements OnInit {
   dragPosition = {x: 0, y: 0};
   days = [];
   selectedDay = 0;
+  selectedPhase = 0;
 
 
   constructor(
@@ -35,14 +36,20 @@ export class NewWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.initializeInputValues('init text from class bal bla');
+
   }
 
-  public getRoute() {
-    return this.router;
-  }
+  ngAfterContentInit() {
 
-  public getActivatedRoute() {
-    return this.activatedRoute;
+    if (localStorage.getItem('createdDays') != null && localStorage.getItem('createdDays').length > 0) {
+      this.days = JSON.parse(localStorage.getItem('createdDays'));
+      this.selectedDay = JSON.parse(localStorage.getItem('selectedDay'));
+      this.selectedPhase = JSON.parse(localStorage.getItem('selectedPhase'));
+      if (this.days[this.selectedDay].phases[this.selectedPhase].exercises) {
+        JSON.parse(localStorage.getItem('chosenExercises')).forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex.name));
+        // this.days[this.selectedDay].phases[this.selectedPhase].exercises = JSON.parse(localStorage.getItem('chosenExercises'));
+      }
+    }
   }
 
   onSubmit(form: FormGroup) {
@@ -123,10 +130,18 @@ export class NewWorkoutComponent implements OnInit {
 
   addPhase() {
     const nextPhaseNumber = this.days[this.selectedDay].phases.length;
-    this.days[this.selectedDay].phases.push('phase' + nextPhaseNumber);
+    this.days[this.selectedDay].phases.push({name: 'phase' + nextPhaseNumber, exercises: []});
   }
 
   setSelectedDay(selectedDay: number) {
     this.selectedDay = selectedDay;
+    console.log(this.days[this.selectedDay].phases[this.selectedPhase]);
+  }
+
+  public goToExerciseSelector(selectedPhase: number) {
+    localStorage.setItem('createdDays', JSON.stringify(this.days));
+    localStorage.setItem('selectedDay', JSON.stringify(this.selectedDay));
+    localStorage.setItem('selectedPhase', JSON.stringify(selectedPhase));
+    this.router.navigate(['./exercises'], {relativeTo: this.activatedRoute});
   }
 }

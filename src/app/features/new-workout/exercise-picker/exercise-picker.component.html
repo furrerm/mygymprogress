@@ -2,10 +2,12 @@
 
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div">
-    <div class="filter-container"></div>
+    <div class="filter-container">
+      <button class="ok-button" (click)="this.done()">ok</button>
+    </div>
 
-    <div class="exercise-container align-content-center text-center" *ngFor="let exercise of this.getExercise()">
-      <p class="text-center-p">exercise: {{exercise}}</p>
+    <div (click)="this.selectExercise(exercise.id)" [ngClass]="this.isExerciseChosen(exercise)? 'gray' : ''" class="exercise-container align-content-center text-center" *ngFor="let exercise of this.getExercise();">
+      <p class="text-center-p">{{exercise.name}}</p>
     </div>
   </div>
 </div>

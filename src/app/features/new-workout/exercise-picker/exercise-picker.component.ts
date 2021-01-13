@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {AllExercisesService} from './shared/all-exercises.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-exercise-picker',
@@ -11,8 +12,12 @@ import {AllExercisesService} from './shared/all-exercises.service';
 export class ExercisePickerComponent implements OnInit {
 
   private exercises: ExerciseDTO[] = [];
+  private chosenExercises: ExerciseDTO[] = [];
 
-  constructor(private allExercises: AllExercisesService) {
+  constructor(
+    private allExercises: AllExercisesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -25,8 +30,24 @@ export class ExercisePickerComponent implements OnInit {
 
   private getAllExercises() {
     this.allExercises.getAllExercises().subscribe(data => {
-      this.exercises.push(data);
+      this.exercises = data;
+
     });
   }
+
+  public done() {
+
+    localStorage.setItem('chosenExercises', JSON.stringify(this.chosenExercises));
+    this.router.navigate(['./..'], {relativeTo: this.activatedRoute});
+  }
+
+  public selectExercise(exerciseId: number) {
+    const exercise = this.exercises.find(a => a.id === exerciseId);
+    this.chosenExercises.push(exercise);
+
+  }
+public isExerciseChosen(exercise: ExerciseDTO) {
+  return this.chosenExercises.filter(a => a.id === exercise.id).length > 0;
+}
 
 }
