@@ -13,7 +13,7 @@ export class WorkoutConverter {
         id: x.id,
         name: x.name,
         imageUrl: x.previewImageUrl,
-        creatorId: x.id,
+        creatorId: x.creator.id,
         days: x.days.map(a => ({
             id: a.id,
             name: a.name,
