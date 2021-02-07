@@ -38,7 +38,7 @@ export class TablesComponent implements OnInit, AfterContentInit {
     this.route.paramMap.subscribe(params => {
       this.savedWorkoutId = +params.get('savedWorkoutId');
       const dayId: number = +params.get('dayId');
-      this.savedWorkoutService.getSavedWorkouts.subscribe(savedWorkouts => {
+      this.savedWorkoutService.savedWorkouts.subscribe(savedWorkouts => {
         const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(savedWorkouts, this.lastSetService);
         this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(this.savedWorkoutId, dayId);
         this.dayWorkoutHandler.getWorkout().subscribe(a =>

@@ -3,7 +3,7 @@ import {WelcomeComponent} from './features/welcome/welcome.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CurrentSetComponent} from './features/workout-player/current-set/current-set.component';
 import {ConstantsService} from './core/services/constants.service';
-import {UserInternal} from './core/model/UserInternal';
+import {UserInternal} from './core/model/internal-model/UserInternal';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private constants: ConstantsService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log(this.constants.getUser);
     console.log(this.constants.getUser == null);
     if (this.constants.getUser == null) {

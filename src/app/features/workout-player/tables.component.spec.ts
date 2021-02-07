@@ -4,12 +4,9 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {WorkoutsService} from '../workout-list/shared/workouts.service';
-import {ConstantsService} from '../../core/services/constants.service';
-import {HttpClient} from '@angular/common/http';
-import {WorkoutpreviewpicturesService} from '../workoutoverview/shared/workoutpreviewpictures.service';
+
 import {Workout} from '../../core/model/internal-model/workout.model';
-import {AfterContentInit, Injectable, OnInit} from '@angular/core';
+
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {LastSetService} from './shared/last-set.service';
 import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
@@ -40,9 +37,12 @@ class LastSetServiceMock extends LastSetService {
 }
 
 class SavedWorkoutsServiceMock extends SavedWorkoutsService {
-  public savedWorkouts: BehaviorSubject<Workout[]>;
+  readonly _savedWorkouts: BehaviorSubject<Workout[]>;
+  public get savedWorkouts(): BehaviorSubject<Workout[]> {
+    return this._savedWorkouts;
+  }
 
-  public initializeWorkouts() {
+  public initializeWorkouts(): void {
     const phaseDTOs: PhaseDTO[] = [{
       id: 1,
       name: 'phase1',
@@ -60,9 +60,7 @@ class SavedWorkoutsServiceMock extends SavedWorkoutsService {
       imageUrl: '',
       creatorId: 0,
       image: 'string',
-      isCollapsed: true,
-      days,
-      toggleImage: 'toggled'
+      days
     }];
     this.savedWorkouts.next(savedWorkouts);
   }
@@ -88,9 +86,9 @@ describe('TablesComponent', () => {
       .compileComponents();
   }));
   beforeEach(() => {
-    fixture = TestBed.createComponent(TablesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      fixture = TestBed.createComponent(TablesComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
     }
   );
 

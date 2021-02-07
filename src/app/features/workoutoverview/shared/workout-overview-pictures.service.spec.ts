@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WorkoutpreviewpicturesService } from './workoutpreviewpictures.service';
+import { WorkoutOverviewPicturesService } from './workout-overview-pictures.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('WorkoutpreviewpicturesService', () => {
@@ -9,7 +9,7 @@ describe('WorkoutpreviewpicturesService', () => {
   }));
 
   it('should be created', () => {
-    const service: WorkoutpreviewpicturesService = TestBed.get(WorkoutpreviewpicturesService);
+    const service: WorkoutOverviewPicturesService = TestBed.inject(WorkoutOverviewPicturesService);
     expect(service).toBeTruthy();
   });
 });

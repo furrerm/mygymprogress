@@ -17,7 +17,7 @@ describe('WorkoutComponent', () => {
     initializeWorkouts() {
       console.log('bal bli bla blu');
     },
-    get getSavedWorkouts(): Observable<Workout[]> {
+    get savedWorkouts(): Observable<Workout[]> {
       return new Observable<Workout[]>();
     }
   };

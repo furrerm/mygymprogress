@@ -3,8 +3,8 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {WorkoutoverviewComponent} from './workoutoverview.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {WorkoutpreviewpicturesService} from './shared/workoutpreviewpictures.service';
-import {WorkoutpreviewpicturesServiceMock} from './shared/workoutpreviewpictures.service.mock';
+import {WorkoutOverviewPicturesService} from './shared/workout-overview-pictures.service';
+import {WorkoutOverviewPicturesServiceMock} from './shared/workout-overview-pictures.service.mock';
 
 describe('WorkoutoverviewComponent', () => {
   let component: WorkoutoverviewComponent;
@@ -15,7 +15,7 @@ describe('WorkoutoverviewComponent', () => {
       declarations: [WorkoutoverviewComponent],
       imports: [RouterTestingModule, HttpClientTestingModule],
       providers: [
-        {provide: WorkoutpreviewpicturesService, useClass: WorkoutpreviewpicturesServiceMock}
+        {provide: WorkoutOverviewPicturesService, useClass: WorkoutOverviewPicturesServiceMock}
       ]
     })
       .compileComponents();

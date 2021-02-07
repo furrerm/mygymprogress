@@ -5,16 +5,10 @@ export interface Workout {
   id: number;
   name: string;
   imageUrl: string;
+  // todo: return a preview image until real image is loaded
+  previewImage?: Array<string>;
+  // todo: extract the creator id
   creatorId: number;
   image: string | ArrayBuffer;
-  isCollapsed: boolean;
   days: Array<DayDTO>;
-  toggleImage: string;
-
-  id?: number;
-  name?: string;
-  previewImageUrl?: string;
-  previewImage?: Array<string>;
-  creator?: UserDTO;
-  days?: Array<DayDTO>;
 }

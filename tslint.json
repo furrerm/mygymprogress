@@ -129,6 +129,11 @@
         }
       ]
     },
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ],
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "variable-name": {

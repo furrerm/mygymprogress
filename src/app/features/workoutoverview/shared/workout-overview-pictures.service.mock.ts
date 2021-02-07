@@ -1,12 +1,10 @@
 
 import {Observable, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {ConstantsService} from '../../../core/services/constants.service';
 import {ImageObservable} from '../workoutoverview.component';
-import {WorkoutpreviewpicturesService} from './workoutpreviewpictures.service';
+import {WorkoutOverviewPicturesService} from './workout-overview-pictures.service';
 
 
-export class WorkoutpreviewpicturesServiceMock extends WorkoutpreviewpicturesService {
+export class WorkoutOverviewPicturesServiceMock extends WorkoutOverviewPicturesService {
 
   getUrls(): Observable<any> {
     return of(['url1', 'url2']);

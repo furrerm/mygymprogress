@@ -3,21 +3,21 @@
 <div class="d-flex justify-content-center content-wrapper">
 
   <div class="content-div">
-    <div *ngFor="let set of this.getWorkouts(); index as i" class="workoutsContainer">
+    <div *ngFor="let workoutListing of this.workoutListings; index as i" class="workoutsContainer">
       <div class = "centerContent frame-content">
         <h2 class="centerContent"
-           style="text-align: center;">{{set["name"]}}</h2>
+           style="text-align: center;">{{workoutListing.workout["name"]}}</h2>
         <img class="centerContent imageLimiter img-thumbnail"
-             [src]="set['image']" (click)="expandContent(set)">
+             [src]="workoutListing.workout['image']" (click)="expandContent(workoutListing)">
         <div class="expandButtonWrapper centerContent">
-          <img class="toggleImageStyle" [src]="set['toggleImage']"
-               (click)="expandContent(set)">
+          <img class="toggleImageStyle" [src]="workoutListing['toggleImage']"
+               (click)="expandContent(workoutListing)">
         </div>
-        <div [ngClass]="set.isCollapsed ? 'collapsed' : 'expanded'"
+        <div [ngClass]="workoutListing.isCollapsed ? 'collapsed' : 'expanded'"
              class="centerContent">
-          <div *ngFor="let days of set.days">
+          <div *ngFor="let days of workoutListing.workout.days">
             <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
-            {{days.name}} <img routerLink="tables/{{set.id}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
+            {{days.name}} <img routerLink="tables/{{workoutListing.workout.id}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
             </h3>
 
             <div class="phaseContainer" *ngFor="let phase of days.phases">
