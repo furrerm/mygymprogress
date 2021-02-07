@@ -9,11 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ExerciseSetContainerDTO } from './exerciseSetContainerDTO';
 
-export interface ExerciseDTO { 
-    id?: number;
-    name?: string;
-    setsContainer?: Array<ExerciseSetContainerDTO>;
-    order?: number;
+export interface Body { 
+    file?: Blob;
 }

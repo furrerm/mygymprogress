@@ -8,7 +8,7 @@ import {WorkoutsService} from '../workout-list/shared/workouts.service';
 import {ConstantsService} from '../../core/services/constants.service';
 import {HttpClient} from '@angular/common/http';
 import {WorkoutpreviewpicturesService} from '../workoutoverview/shared/workoutpreviewpictures.service';
-import {SavedWorkouts} from '../workout-list/shared/saved-workouts.model';
+import {Workout} from '../../core/model/internal-model/workout.model';
 import {AfterContentInit, Injectable, OnInit} from '@angular/core';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {LastSetService} from './shared/last-set.service';
@@ -40,7 +40,7 @@ class LastSetServiceMock extends LastSetService {
 }
 
 class SavedWorkoutsServiceMock extends SavedWorkoutsService {
-  public savedWorkouts: BehaviorSubject<SavedWorkouts[]>;
+  public savedWorkouts: BehaviorSubject<Workout[]>;
 
   public initializeWorkouts() {
     const phaseDTOs: PhaseDTO[] = [{
@@ -54,13 +54,12 @@ class SavedWorkoutsServiceMock extends SavedWorkoutsService {
       name: 'monday',
       phases: phaseDTOs
     }];
-    const savedWorkouts: SavedWorkouts[] = [{
+    const savedWorkouts: Workout[] = [{
       id: 1,
       name: 'workout1',
       imageUrl: '',
-      userId: 0,
+      creatorId: 0,
       image: 'string',
-      isImageLoaded: true,
       isCollapsed: true,
       days,
       toggleImage: 'toggled'

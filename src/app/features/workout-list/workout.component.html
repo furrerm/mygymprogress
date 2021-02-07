@@ -8,7 +8,7 @@
         <h2 class="centerContent"
            style="text-align: center;">{{set["name"]}}</h2>
         <img class="centerContent imageLimiter img-thumbnail"
-             [src]="set['image']" *ngIf="set['isImageLoaded']" (click)="expandContent(set)">
+             [src]="set['image']" (click)="expandContent(set)">
         <div class="expandButtonWrapper centerContent">
           <img class="toggleImageStyle" [src]="set['toggleImage']"
                (click)="expandContent(set)">

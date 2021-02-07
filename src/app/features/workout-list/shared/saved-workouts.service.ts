@@ -1,30 +1,29 @@
 import {Injectable} from '@angular/core';
-import {SavedWorkouts} from './saved-workouts.model';
+import {Workout} from '../../../core/model/internal-model/workout.model';
 import {WorkoutsService} from './workouts.service';
 import {WorkoutpreviewpicturesService} from '../../workoutoverview/shared/workoutpreviewpictures.service';
 import {BehaviorSubject, EMPTY, from, observable, Observable, of, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SavedWorkoutsService {
-  public savedWorkouts: BehaviorSubject<SavedWorkouts[]>;
+  public savedWorkouts: BehaviorSubject<Workout[]>;
 
   constructor(private workoutsService: WorkoutsService,
               private workoutpreviewpicturesService: WorkoutpreviewpicturesService) {
-    this.savedWorkouts = new BehaviorSubject<SavedWorkouts[]>([]);
+    this.savedWorkouts = new BehaviorSubject<Workout[]>([]);
   }
 
-  public get getSavedWorkouts(): Observable<SavedWorkouts[]> {
+  public get getSavedWorkouts(): Observable<Workout[]> {
     return this.savedWorkouts;
   }
   public initializeWorkouts() {
     if (this.savedWorkouts.getValue().length === 0) {
-      console.log('in the shit');
-      let workoutsLocal: SavedWorkouts[] = [];
-      this.workoutsService.fetchWorkouts().subscribe(data => {
-        // this.savedWorkouts.next(ada => ada.) = of(this.convertJsonDataToWorkouts(data));
+      let workoutsLocal: Workout[] = [];
+      this.workoutsService.fetchWorkouts().subscribe((data: WorkoutDTO[]) => {
         workoutsLocal = this.convertJsonDataToWorkouts(data);
         workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
         this.savedWorkouts.next(workoutsLocal);
@@ -45,7 +44,6 @@ export class SavedWorkoutsService {
     reader.addEventListener('load',
       () => {
         workouts[position].image = reader.result;
-        workouts[position].isImageLoaded = true;
         this.savedWorkouts.next(workouts);
       },
       false);
@@ -56,23 +54,17 @@ export class SavedWorkoutsService {
     }
   }
 
-  /*
-    public set setSavedWorkouts(value: Observable<SavedWorkouts[]>) {
-      this.savedWorkouts = value;
-    }
-  */
-  convertJsonDataToWorkouts(inputData) {
-    const innerWorkouts: SavedWorkouts[] = [];
-    const workoutsAsJson = JSON.parse(JSON.stringify(inputData));
+  convertJsonDataToWorkouts(inputData: WorkoutDTO[]) {
+    const innerWorkouts: Workout[] = [];
+    const workoutsAsJson = inputData;
 
     workoutsAsJson.forEach(x => {
       innerWorkouts.push({
         image: undefined,
-        isImageLoaded: false,
         id: x.id,
         name: x.name,
-        imageUrl: x.imageUrl,
-        userId: x.userId,
+        imageUrl: x.previewImageUrl,
+        creatorId: x.id,
         isCollapsed: true,
         days: x.days.map(a => ({
             id: a.id,

@@ -1,12 +1,12 @@
 import {DayWorkoutHandler, DayWorkoutHandlerExerciseBased} from './DayWorkoutHandler';
-import {SavedWorkouts} from '../workout-list/shared/saved-workouts.model';
+import {Workout} from '../../core/model/internal-model/workout.model';
 import {LastSetService} from './shared/last-set.service';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 
 export class DayWorkoutHandlerFactory {
-  private savedWorkouts: SavedWorkouts[];
+  private savedWorkouts: Workout[];
 
-  constructor(savedWorkouts: SavedWorkouts[],
+  constructor(savedWorkouts: Workout[],
               private lastSetService: LastSetService) {
     this.savedWorkouts = savedWorkouts;
   }

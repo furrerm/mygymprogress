@@ -15,7 +15,8 @@ import { UserDTO } from './userDTO';
 export interface WorkoutDTO { 
     id?: number;
     name?: string;
-    imageUrl?: string;
+    previewImageUrl?: string;
+    previewImage?: Array<string>;
     creator?: UserDTO;
     days?: Array<DayDTO>;
 }

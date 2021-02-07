@@ -4,7 +4,7 @@ import {WorkoutsService} from './shared/workouts.service';
 import {ConstantsService} from '../../core/services/constants.service';
 import {WorkoutpreviewpicturesService} from '../workoutoverview/shared/workoutpreviewpictures.service';
 import {ImageObservable} from '../workoutoverview/workoutoverview.component';
-import {SavedWorkouts} from './shared/saved-workouts.model';
+import {Workout} from '../../core/model/internal-model/workout.model';
 import {SavedWorkoutsService} from './shared/saved-workouts.service';
 import {Observable} from 'rxjs';
 
@@ -21,7 +21,7 @@ export class WorkoutComponent implements OnInit {
   private isImageLoading: boolean;
   private imageToShow;
   private previewImagesObservables: ImageObservable[] = [];
-  private workouts: SavedWorkouts[];
+  private workouts: Workout[];
 
   bntStyle = 'btn-default';
 
@@ -47,7 +47,7 @@ export class WorkoutComponent implements OnInit {
 
   }
 
-  expandContent(set: SavedWorkouts) {
+  expandContent(set: Workout) {
     set.isCollapsed = !set.isCollapsed;
     if (set.isCollapsed) {
       set.toggleImage = '../../assets/pictures/menuButtons/toggle_open.png';

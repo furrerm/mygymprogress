@@ -1,3 +1,4 @@
+export * from './body';
 export * from './dayDTO';
 export * from './exerciseDTO';
 export * from './exerciseSetContainerDTO';

@@ -4,7 +4,7 @@ import {WelcomeComponent} from './welcome.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Observable, of} from 'rxjs';
-import {UserInternal} from '../../core/model/UserInternal';
+import {UserInternal} from '../../core/model/internal-model/UserInternal';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthenticationService} from '../../core/services/authentication.service';
 import {Injectable} from '@angular/core';

@@ -12,7 +12,7 @@ export class SaveWorkoutService {
     this.appUrl = this.constant.baseAppUrl + 'save-workout-service/upload';
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  upload(file: File): Observable<string> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     const httpOptions = {
@@ -23,6 +23,6 @@ export class SaveWorkoutService {
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
 
     const params = new HttpParams().set('UserDTO', JSON.stringify(this.constant.getUser));
-    return this.http.post<HttpEvent<any>>(this.appUrl, formData, httpOptions);
+    return this.http.post<string>(this.appUrl, formData, httpOptions);
   }
 }

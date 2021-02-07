@@ -1,9 +1,9 @@
 import {Component, ElementRef, Injectable, OnInit, ViewChild, NgZone} from '@angular/core';
 import {AuthenticationService} from '../../core/services/authentication.service';
-import {User} from '../../core/model/user';
+import {User} from '../../core/model/internal-model/user';
 import {Router} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
-import {UserInternal} from '../../core/model/UserInternal';
+import {UserInternal} from '../../core/model/internal-model/UserInternal';
 
 @Component({
   selector: 'app-welcome',

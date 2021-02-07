@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ConstantsService} from '../../../core/services/constants.service';
 import {Observable} from 'rxjs';
+import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class WorkoutsService {
     this.appUrl = this.constant.baseAppUrl + 'workout-service/get-workouts';
   }
 
-  fetchWorkouts(): Observable<File> {
+  fetchWorkouts(): Observable<WorkoutDTO[]> {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
@@ -27,7 +28,7 @@ export class WorkoutsService {
     console.log(JSON.stringify(this.constant.getUser.id));
     const params = new HttpParams().set('UserDTO', JSON.stringify(this.constant.getUser));
     // return this.http.post<string>(this.appUrl, params, httpOptions);
-    const result: Observable<any> = this.http.post<string>(this.appUrl, JSON.stringify(this.constant.getUser), httpOptions);
+    const result: Observable<WorkoutDTO[]> = this.http.post<WorkoutDTO[]>(this.appUrl, JSON.stringify(this.constant.getUser), httpOptions);
     return result;
     // return (this.http.get<string>(this.appUrl));
   }
@@ -46,4 +47,12 @@ export class WorkoutsService {
       .get(urlLocal, { headers: httpOptions1.headers, responseType: 'blob' });
     return result;
   }
+  /*
+  getWorkouts(): Observable<WorkoutDTO> {
+    const testUrl = this.constant.baseAppUrl + 'workout-service/get-workouts'
+    const result: Observable<WorkoutDTO> = this.http
+      .get(urlLocal, { headers: httpOptions1.headers, responseType: 'blob' });
+    return result;
+  }
+   */
 }

@@ -4,7 +4,7 @@ import { MenuComponent } from './menu.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Observable} from 'rxjs';
-import {SavedWorkouts} from '../../features/workout-list/shared/saved-workouts.model';
+import {Workout} from '../../core/model/internal-model/workout.model';
 import {SavedWorkoutsService} from '../../features/workout-list/shared/saved-workouts.service';
 import {WelcomeComponent} from '../../features/welcome/welcome.component';
 

@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DayDTO} from '../../core/model/swagger-model/dayDTO';
+import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
 
 @Component({
   selector: 'app-new-workout',
@@ -22,7 +24,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   url: string;
 
   dragPosition = {x: 0, y: 0};
-  days = [];
+  days: DayDTO[] = [];
   selectedDay = 0;
   selectedPhase = 0;
 
@@ -46,7 +48,8 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
       this.selectedDay = JSON.parse(localStorage.getItem('selectedDay'));
       this.selectedPhase = JSON.parse(localStorage.getItem('selectedPhase'));
       if (this.days[this.selectedDay].phases[this.selectedPhase].exercises) {
-        JSON.parse(localStorage.getItem('chosenExercises')).forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex.name));
+        JSON.parse(localStorage.getItem('chosenExercises'))
+          .forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex.name));
         // this.days[this.selectedDay].phases[this.selectedPhase].exercises = JSON.parse(localStorage.getItem('chosenExercises'));
       }
     }
@@ -100,37 +103,30 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   }
 
   upload() {
-    this.progress = 0;
 
     this.currentFile = this.selectedFiles.item(0);
     this.saveWorkoutService.upload(this.currentFile).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          console.log(event);
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-          console.log(event);
-        }
-      },
-      err => {
-        this.progress = 0;
-        this.message = 'Could not upload the file!';
-        this.currentFile = undefined;
+      message => {
+        this.message = message;
       });
 
     this.selectedFiles = undefined;
   }
 
+  private createWorkout() {
+    const workoutDTO: WorkoutDTO = {id: null, name: 'testName', creator: null, previewImageUrl: this.currentFile.name, days: this.days};
+
+  }
+
   addDay() {
     const nextNumber = this.days.length;
     this.selectedDay = nextNumber;
-    this.days.push({dayName: 'day' + nextNumber, phases: []});
+    this.days.push({id: 0, name: 'day' + nextNumber, phases: []});
   }
 
   addPhase() {
     const nextPhaseNumber = this.days[this.selectedDay].phases.length;
-    this.days[this.selectedDay].phases.push({name: 'phase' + nextPhaseNumber, exercises: []});
+    this.days[this.selectedDay].phases.push({id: 0, name: 'phase' + nextPhaseNumber, exercises: []});
   }
 
   setSelectedDay(selectedDay: number) {
