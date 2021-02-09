@@ -3,7 +3,7 @@ import {AuthenticationService} from '../../core/services/authentication.service'
 import {User} from '../../core/model/internal-model/user';
 import {Router} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
-import {UserInternal} from '../../core/model/internal-model/UserInternal';
+import {UserDTO} from '../../core/model/swagger-model/userDTO';
 
 @Component({
   selector: 'app-welcome',
@@ -33,16 +33,6 @@ export class WelcomeComponent implements OnInit {
     this.GetToken();
   }
 
-  foo() {
-    console.log(this.user);
-    console.log(this.user.displayName);
-    console.log(this.user.email);
-    console.log(this.user.uid);
-    console.log(this.user.photoURL);
-    console.log(this.user);
-    console.log(document.cookie);
-  }
-
   GetToken(): string {
     this._authService.afAuth.onAuthStateChanged(user => {
         if (user) {
@@ -50,10 +40,8 @@ export class WelcomeComponent implements OnInit {
             this.idToken = idToken;
             // this shows the userToken
             console.log('token inside getToken method ' + this.idToken);
-            this._authService.validateLogin(this.idToken).subscribe(a => {
-                console.log(a);
-                const b: UserInternal = JSON.parse(JSON.stringify(a));
-                this.constants.setUser = b;
+            this._authService.validateLogin(this.idToken).subscribe((userDTO: UserDTO) => {
+                this.constants.setUser = userDTO;
                 this.ngZone.run(() => {
                   if (this.constants.getUser !== undefined) {
                     this.router.navigate(['workoutoverview']);

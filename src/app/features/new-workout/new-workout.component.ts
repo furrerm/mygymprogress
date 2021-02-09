@@ -7,6 +7,7 @@ import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
+import {ConstantsService} from '../../core/services/constants.service';
 
 @Component({
   selector: 'app-new-workout',
@@ -33,7 +34,9 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
     private formBuilder: FormBuilder,
     private saveWorkoutService: SaveWorkoutService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private constantsService: ConstantsService
+  ) {
   }
 
   ngOnInit() {
@@ -105,6 +108,16 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   upload() {
 
     this.currentFile = this.selectedFiles.item(0);
+    // todo: workout dto erstellen
+    const workoutDTO: WorkoutDTO = {
+      id: 1,
+      name: 'hans',
+      previewImageUrl: 'user1/workout1/titleImage.png',
+      previewImage: null,
+      // convert(this.constantsService.getUser): UserDTO
+      creator: this.constantsService.getUser,
+      days: this.days
+    };
     this.saveWorkoutService.upload(this.currentFile).subscribe(
       message => {
         this.message = message;

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ConstantsService} from './constants.service';
+import {UserDTO} from '../model/swagger-model/userDTO';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +62,7 @@ export class AuthenticationService {
       // this.router.navigate(['welcome']);
     });
   }
-  validateLogin(exercise: string) {
+  validateLogin(exercise: string): Observable<UserDTO> {
     console.log(exercise);
     const getSetsUrl = 'login-service/validate';
     const url = this.distFolderLocation + getSetsUrl;
@@ -76,10 +78,6 @@ export class AuthenticationService {
     console.log(exercise);
     const exerciseParsed = JSON.stringify(JSON.parse('{"tokenid":"' + exercise + '"}'));
     const params = new HttpParams().set('tokenid', exerciseParsed);
-    return this.http.post<string>(url, params, httpOptions);
-    /*
-    return this.http.post(this.urlEnvironment.jiraGetIssue(), body, {headers: headers});
-    // return this.http.post(this.urlEnvironment.jiraGetIssue(), null, {headers: this.getHeaders(), params: params});
-     */
+    return this.http.post<UserDTO>(url, params, httpOptions);
   }
 }
