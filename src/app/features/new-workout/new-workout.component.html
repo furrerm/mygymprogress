@@ -26,7 +26,7 @@
 
           <div class="days-bar">
             <button class="day-button" (click)="setSelectedDay(i)" *ngFor="let day of this.days; index as i;">
-              <input class="day-button-input" type="text" placeholder="{{day.dayName}}">
+              <input class="day-button-input" type="text" placeholder="{{day.name}}">
             </button>
             <button class="add-button" (click)="this.addDay()"></button>
 
@@ -41,7 +41,7 @@
                 <div *ngIf="this.days[this.selectedDay].phases[i]">
                   <div class="single-exercise-container" *ngFor="let exercise of this.days[this.selectedDay].phases[i].exercises">
                   <p class="text-center" >
-                    {{exercise}}</p>
+                    {{exercise.name}}</p>
                   </div>
                 </div>
 

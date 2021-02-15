@@ -1,7 +1,6 @@
 <app-menu></app-menu>
 
 <div class="d-flex justify-content-center content-wrapper">
-
   <div class="content-div">
     <div *ngFor="let workoutListing of this.workoutListings; index as i" class="workoutsContainer">
       <div class = "centerContent frame-content">
@@ -10,6 +9,7 @@
         <img class="centerContent imageLimiter img-thumbnail"
              [src]="workoutListing.workout['image']" (click)="expandContent(workoutListing)">
         <div class="expandButtonWrapper centerContent">
+          <p (click)="likeWorkout(workoutListing.workout)">is saved = {{workoutListing.workout.isSavedFromCurrentUser}}</p>
           <img class="toggleImageStyle" [src]="workoutListing['toggleImage']"
                (click)="expandContent(workoutListing)">
         </div>
@@ -19,21 +19,15 @@
             <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
             {{days.name}} <img routerLink="tables/{{workoutListing.workout.id}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
             </h3>
-
             <div class="phaseContainer" *ngFor="let phase of days.phases">
               <h4 class="phase">{{phase.name}}</h4>
-
               <p *ngFor="let exercise of phase.exercises">{{exercise.name}}</p>
-
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
-
 </div>
 
 

@@ -75,6 +75,7 @@ import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';
 import { SetImageSizeDirective } from './features/new-workout/set-image-size.directive';
 import { ExercisePickerComponent } from './features/new-workout/exercise-picker/exercise-picker.component';
+import { WorkoutDescriptionComponent } from './features/new-workout/workout-description/workout-description.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ExercisePickerComponent } from './features/new-workout/exercise-picker/
     WorkoutoverviewComponent,
     ReverseArrayPipe,
     SetImageSizeDirective,
-    ExercisePickerComponent
+    ExercisePickerComponent,
+    WorkoutDescriptionComponent
   ],
   imports: [
     BrowserModule,

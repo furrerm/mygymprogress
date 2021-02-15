@@ -12,4 +12,5 @@
 
 export interface Body { 
     file?: Blob;
+    path?: string;
 }

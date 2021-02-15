@@ -11,4 +11,5 @@ export interface Workout {
   creatorId: number;
   image: string | ArrayBuffer;
   days: Array<DayDTO>;
+  isSavedFromCurrentUser: boolean;
 }

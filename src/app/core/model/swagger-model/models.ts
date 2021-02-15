@@ -4,6 +4,7 @@ export * from './exerciseDTO';
 export * from './exerciseSetContainerDTO';
 export * from './exerciseSetDTO';
 export * from './phaseDTO';
+export * from './savedWorkoutDTO';
 export * from './userDTO';
 export * from './workoutDTO';
 export * from './workoutSetDTO';

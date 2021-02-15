@@ -3,7 +3,14 @@ import {WorkoutDTO} from '../swagger-model/workoutDTO';
 
 export class WorkoutConverter {
   convertWorkoutToDTO(workout: Workout): WorkoutDTO {
-    return null;
+    return {
+      id: workout.id,
+      name: workout.name,
+      previewImageUrl: workout.imageUrl,
+      creator: null,
+      days: workout.days,
+      savedFromCurrentUser: workout.isSavedFromCurrentUser
+    };
   }
 
   convertDTOToWorkout(workoutDTOS: WorkoutDTO[]): Workout[] {
@@ -26,7 +33,8 @@ export class WorkoutConverter {
               }))
             }))
           })
-        )
+        ),
+        isSavedFromCurrentUser: x.savedFromCurrentUser
       })
     );
   }

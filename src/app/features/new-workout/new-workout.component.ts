@@ -52,7 +52,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
       this.selectedPhase = JSON.parse(localStorage.getItem('selectedPhase'));
       if (this.days[this.selectedDay].phases[this.selectedPhase].exercises) {
         JSON.parse(localStorage.getItem('chosenExercises'))
-          .forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex.name));
+          .forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex));
         // this.days[this.selectedDay].phases[this.selectedPhase].exercises = JSON.parse(localStorage.getItem('chosenExercises'));
       }
     }
@@ -106,24 +106,22 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   }
 
   upload() {
-
     this.currentFile = this.selectedFiles.item(0);
     // todo: workout dto erstellen
     const workoutDTO: WorkoutDTO = {
-      id: 1,
+      id: null,
       name: 'hans',
       previewImageUrl: 'user1/workout1/titleImage.png',
+      // todo: preview low quality image must get stored in db
       previewImage: null,
       // convert(this.constantsService.getUser): UserDTO
       creator: this.constantsService.getUser,
       days: this.days
     };
-    this.saveWorkoutService.upload(this.currentFile).subscribe(
-      message => {
-        this.message = message;
-      });
-
+    this.saveWorkoutService.cacheWorkout(workoutDTO);
+    this.saveWorkoutService.cacheFile(this.currentFile);
     this.selectedFiles = undefined;
+    this.router.navigate(['./description'], {relativeTo: this.activatedRoute});
   }
 
   private createWorkout() {

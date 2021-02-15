@@ -40,6 +40,25 @@ export class SavedWorkoutsService {
       });
     }
   }
+  public initializeWorkoutsWithSearchCriteria(): void {
+    if (this._savedWorkouts.getValue().length === 0) {
+      let workoutsLocal: Workout[] = [];
+      this.workoutsService.fetchWorkoutsWithSearchCriteria().subscribe((data: WorkoutDTO[]) => {
+
+        workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
+        workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
+        this._savedWorkouts.next(workoutsLocal);
+        for (const i in workoutsLocal) {
+          if (data.hasOwnProperty(i)) {
+            console.log(workoutsLocal[i]);
+            this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
+              this.addImagesToWorkouts(data2, i, workoutsLocal);
+            });
+          }
+        }
+      });
+    }
+  }
 
   addImagesToWorkouts(image: Blob, position, workouts): void {
     const reader = new FileReader();
