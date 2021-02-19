@@ -11,11 +11,21 @@ export class SaveWorkoutService {
   appUrl: string;
   private _workout: WorkoutDTO;
   private _file: File;
+  private _imageUrl: string;
+  private _blob: Blob;
   constructor(
     private http: HttpClient,
     private constant: ConstantsService
   ) {
     this.appUrl = this.constant.baseAppUrl + 'save-workout-service/upload';
+  }
+
+  get blob(): Blob {
+    return this._blob;
+  }
+
+  get imageUrl(): string {
+    return this._imageUrl;
   }
 
   get file(): File {
@@ -26,8 +36,16 @@ export class SaveWorkoutService {
     this._file = file;
   }
 
+  cacheUrl(url: string): void{
+    this._imageUrl = url;
+  }
+
   cacheWorkout(workout: WorkoutDTO): void {
     this._workout = workout;
+  }
+
+  cacheBlob(blob: Blob): void {
+    this._blob = blob;
   }
 
   get workout(): WorkoutDTO {
@@ -47,7 +65,7 @@ export class SaveWorkoutService {
 
   uploadFile(path: string): Observable<string> {
     const formData: FormData = new FormData();
-    formData.append('file', this._file);
+    formData.append('file', this._blob);
     formData.append('path', path);
     const httpOptions = {
       headers: new HttpHeaders()

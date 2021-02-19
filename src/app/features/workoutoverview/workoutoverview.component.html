@@ -3,14 +3,23 @@
   <div class="d-flex justify-content-center content-wrapper">
 
     <div class="content-div">
+      <div class="search-and-create-wrapper">
+        <a class="create-link" routerLink='workout/new-workout'>
+          <div class="workoutcreation search-or-create-link">
+            <p class = "image-text">CREATE</p>
+            <img class="create-or-search-page" alt="home"
+                 src="../../../assets/pictures/menuButtons/workout-preview-page/gym-dumbbell.svg">
+          </div>
+        </a>
 
-      <a class="groupBox" routerLink='workout/new-workout'>
-        <div class="workoutcreation">
-          <p>Create your own workout</p>
-          <img alt="home" src="../../../assets/pictures/gym1.png">
-        </div>
-      </a>
-      <a routerLink="workout" [queryParams]="{criteria: '[]'}">link to all workouts</a>
+        <a class="search-link" routerLink="workout" [queryParams]="{criteria: '[]'}">
+          <div class="workoutcreation search-div search-or-create-link">
+            <p class = "image-text">SEARCH</p>
+            <img class="create-or-search-page" alt="home"
+                 src="../../../assets/pictures/menuButtons/workout-preview-page/searchIcon.svg">
+          </div>
+        </a>
+      </div>
       <a class="groupBox" routerLink="workout">
         <div class="workoutgroups">
           <div class="groupTextHolder">

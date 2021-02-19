@@ -22,6 +22,7 @@ import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
 export class WorkoutComponent implements OnInit {
   exercise: string;
   private _workoutListings: WorkoutListing[];
+  private inSavedWorkouts: boolean;
 
   bntStyle = 'btn-default';
 
@@ -39,6 +40,7 @@ export class WorkoutComponent implements OnInit {
     let fetchWorkouts: read;
     this.route.queryParamMap.subscribe(params => {
       if (params.get('criteria') == null) {
+        this.inSavedWorkouts = true;
         fetchWorkouts = () => {
           this.savedWorkoutsService.initializeWorkouts();
         };
@@ -78,9 +80,22 @@ export class WorkoutComponent implements OnInit {
   }
 
   likeWorkout(workout: Workout): void {
+    if (workout.isSavedFromCurrentUser !== true) {
+      workout.isSavedFromCurrentUser = true;
+    } else {
+      workout.isSavedFromCurrentUser = false;
+    }
+    if (this.inSavedWorkouts && !workout.isSavedFromCurrentUser) {
+      this._workoutListings = this._workoutListings.filter(a => a.workout.id !== workout.id);
+    }
+
     const savedWorkout: SavedWorkoutDTO = {userId: this.constants.getUser.id, workoutId: workout.id};
     this.workoutsService.likeWorkout(savedWorkout).subscribe(likeAnswer => {
       console.log(likeAnswer);
     });
+  }
+
+  likeButtonImage(isLiked: boolean): string {
+    return isLiked ? 'assets/pictures/menuButtons/like_active.svg' : 'assets/pictures/menuButtons/like_inactive.svg';
   }
 }

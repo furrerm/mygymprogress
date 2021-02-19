@@ -76,11 +76,9 @@ height: 100%;
   overflow-y: auto;
 }
 .workoutcreation {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
   height: 180px;
-  border: solid black 1px;
-  box-sizing: border-box;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -91,7 +89,7 @@ height: 100%;
   left: 50%;
   top:calc(50% - 15px);
   transform: translate(-50%, -50%);
-
+  margin-top: 80px;
 
 }
 
@@ -127,5 +125,22 @@ p {
   -webkit-text-fill-color: white;
 }
 
+.create-or-search-page {
+  max-width: 100px;
+}
 
+.search-div {
+  float: right;
+}
 
+.create-link {
+  width: 25%;
+  margin-left: 15%;
+}
+.search-link {
+  width: 25%;
+  margin-left: 20%;
+}
+.search-and-create-wrapper {
+  display: flex;
+}

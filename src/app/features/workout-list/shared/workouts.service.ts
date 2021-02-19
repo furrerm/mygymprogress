@@ -62,8 +62,6 @@ export class WorkoutsService {
     httpOptions1.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions1.headers.append('Access-Control-Allow-Credentials', 'true');
     const urlLocal = this.constant.baseAppUrl + 'like-service/like-workout';
-
-
     return (this.http.post<string>(urlLocal, savedWorkout));
   }
 }

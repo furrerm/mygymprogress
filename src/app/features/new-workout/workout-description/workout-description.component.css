@@ -1,4 +1,11 @@
 .upload-button {
   width: 100px;
-  height: 100px;
+  height: 60px;
+  margin-left: 100px;
+}
+.input-frame {
+  width: 100%;
+  marign-top: 80px;
+  padding-top: 80px;
+  padding-left: 50px;
 }

@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, Input, OnInit, Output} from '@angular/core';
+import {AfterContentInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
@@ -17,9 +17,7 @@ import {ConstantsService} from '../../core/services/constants.service';
 export class NewWorkoutComponent implements OnInit, AfterContentInit {
 
   form: FormGroup;
-  selectedFiles: FileList;
   currentFile: File;
-  progress = 0;
   message = '';
   fileInfos: Observable<any>;
   url: string;
@@ -29,6 +27,12 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   selectedDay = 0;
   selectedPhase = 0;
 
+  @ViewChild('canvas') canvas;
+  @ViewChild('inputImage') inputImage;
+  @ViewChild('fileInputWrapper') fileInputWrapper;
+  private cx?: CanvasRenderingContext2D;
+
+  private reader = new FileReader();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,12 +43,11 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeInputValues('init text from class bal bla');
-
   }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
 
     if (localStorage.getItem('createdDays') != null && localStorage.getItem('createdDays').length > 0) {
       this.days = JSON.parse(localStorage.getItem('createdDays'));
@@ -53,28 +56,52 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
       if (this.days[this.selectedDay].phases[this.selectedPhase].exercises) {
         JSON.parse(localStorage.getItem('chosenExercises'))
           .forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex));
-        // this.days[this.selectedDay].phases[this.selectedPhase].exercises = JSON.parse(localStorage.getItem('chosenExercises'));
       }
+    }
+    if (this.saveWorkoutService.imageUrl) {
+      this.url = this.saveWorkoutService.imageUrl;
+      // this.canvasDrawing();
     }
   }
 
-  onSubmit(form: FormGroup) {
-    const workoutName: string = form.get('workoutName').value;
-    console.log(workoutName);
-    form.reset();
+  public canvasDrawing(): void {
+
+    const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+    this.cx = canvasEl?.getContext('2d');
+    const image = new Image();
+
+    const imageWidth = this.fileInputWrapper.nativeElement.offsetWidth;
+    const imageHeight = this.fileInputWrapper.nativeElement.offsetHeight;
+
+    const realWidth = this.inputImage.nativeElement.naturalWidth;
+    const realHeight = this.inputImage.nativeElement.naturalHeight;
+
+    canvasEl.width = imageWidth;
+    canvasEl.height = imageHeight;
+
+    this.cx.lineWidth = 3;
+    this.cx.lineCap = 'round';
+    this.cx.strokeStyle = '#000';
+    image.onload = () => {
+      this.cx.drawImage(image, 0, 0, realWidth, realHeight, 0, 0, realWidth, realHeight);
+      this.cx.canvas.toBlob(a => {
+        this.saveWorkoutService.cacheBlob(a);
+      });
+    };
+    image.src = this.saveWorkoutService.imageUrl;
   }
 
-  private initializeInputValues(initText: string) {
+  private initializeInputValues(initText: string): void {
     this.form = this.formBuilder.group({
       workoutName: initText
     });
   }
 
-  dragTheImage(event: CdkDragEnd) {
-    const width = document.getElementById('file-input-image').offsetWidth;
-    const height = document.getElementById('file-input-image').offsetHeight;
-    const wrapperWidth = document.getElementById('file-input-wrapper').offsetWidth;
-    const wrapperHeight = document.getElementById('file-input-wrapper').offsetHeight;
+  dragTheImage(event: CdkDragEnd): void {
+    const width = this.inputImage.nativeElement.offsetWidth;
+    const height = this.inputImage.nativeElement.offsetHeight;
+    const wrapperWidth = this.fileInputWrapper.nativeElement.offsetWidth;
+    const wrapperHeight = this.fileInputWrapper.nativeElement.offsetHeight;
     let marginTop = event.source.getFreeDragPosition().y;
     const marginLeft = event.source.getFreeDragPosition().x;
     this.dragPosition = {x: marginLeft, y: marginTop};
@@ -91,22 +118,26 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
       const res = width - wrapperWidth;
       this.dragPosition = {x: -res, y: marginTop};
     }
+    this.canvasDrawing();
   }
 
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-    const reader = new FileReader();
-    reader.onload = (file: any) => {
+  selectFile(event): void {
+    const selectedFiles = event.target.files;
+
+    this.reader.onload = (file: any) => {
       this.url = file.target.result;
+      this.saveWorkoutService.cacheFile(selectedFiles.item(0));
+      this.saveWorkoutService.cacheUrl(file.target.result);
+      this.canvasDrawing();
     };
-    reader.onerror = (file: any) => {
+    this.reader.onerror = (file: any) => {
       console.log('File could not be read: ' + file.target.error.code);
     };
-    reader.readAsDataURL(event.target.files[0]);
+    this.reader.readAsDataURL(event.target.files[0]);
   }
 
-  upload() {
-    this.currentFile = this.selectedFiles.item(0);
+  upload(): void {
+    this.currentFile = this.saveWorkoutService.file;
     // todo: workout dto erstellen
     const workoutDTO: WorkoutDTO = {
       id: null,
@@ -120,32 +151,25 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
     };
     this.saveWorkoutService.cacheWorkout(workoutDTO);
     this.saveWorkoutService.cacheFile(this.currentFile);
-    this.selectedFiles = undefined;
     this.router.navigate(['./description'], {relativeTo: this.activatedRoute});
   }
 
-  private createWorkout() {
-    const workoutDTO: WorkoutDTO = {id: null, name: 'testName', creator: null, previewImageUrl: this.currentFile.name, days: this.days};
-
-  }
-
-  addDay() {
+  addDay(): void {
     const nextNumber = this.days.length;
     this.selectedDay = nextNumber;
     this.days.push({id: 0, name: 'day' + nextNumber, phases: []});
   }
 
-  addPhase() {
+  addPhase(): void {
     const nextPhaseNumber = this.days[this.selectedDay].phases.length;
     this.days[this.selectedDay].phases.push({id: 0, name: 'phase' + nextPhaseNumber, exercises: []});
   }
 
-  setSelectedDay(selectedDay: number) {
+  setSelectedDay(selectedDay: number): void {
     this.selectedDay = selectedDay;
-    console.log(this.days[this.selectedDay].phases[this.selectedPhase]);
   }
 
-  public goToExerciseSelector(selectedPhase: number) {
+  public goToExerciseSelector(selectedPhase: number): void {
     localStorage.setItem('createdDays', JSON.stringify(this.days));
     localStorage.setItem('selectedDay', JSON.stringify(this.selectedDay));
     localStorage.setItem('selectedPhase', JSON.stringify(selectedPhase));
