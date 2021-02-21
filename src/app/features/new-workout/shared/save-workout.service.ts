@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders, HttpEvent, HttpParams} from '@angular/common/ht
 import { Observable } from 'rxjs';
 import {ConstantsService} from '../../../core/services/constants.service';
 import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
+import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
+import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -76,5 +78,15 @@ export class SaveWorkoutService {
 
     const params = new HttpParams().set('UserDTO', JSON.stringify(this.constant.getUser));
     return this.http.post<string>(this.appUrl, formData, httpOptions);
+  }
+
+  getDays(): Observable<DayDTO[]> {
+    const getDaysEndpointUrl = this.constant.baseAppUrl + 'save-workout-service/get-days';
+    return this.http.get<DayDTO[]>(getDaysEndpointUrl);
+  }
+
+  getPhases(): Observable<PhaseDTO[]> {
+    const getDaysEndpointUrl = this.constant.baseAppUrl + 'save-workout-service/get-phases';
+    return this.http.get<PhaseDTO[]>(getDaysEndpointUrl);
   }
 }

@@ -34,6 +34,12 @@
           <div *ngIf="this.days[this.selectedDay]">
             <div *ngFor="let phase of this.days[this.selectedDay].phases; index as i" class="phase-container">
               <div class="phase-top-Bar">
+                <div ngbDropdown class="d-inline-block">
+                  <button class = "phase-toggle-button" ngbDropdownToggle>{{phase.name}}</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button *ngFor="let phaseFromAllPhases of this.allPhases" (click)="this.selectPhase(i, phaseFromAllPhases)" ngbDropdownItem>{{phaseFromAllPhases.name}}</button>
+                  </div>
+                </div>
               </div>
               <div class="exercises-container">
 
@@ -60,7 +66,6 @@
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </div>

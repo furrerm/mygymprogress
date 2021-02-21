@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
 import {ConstantsService} from '../../core/services/constants.service';
+import {PhaseDTO} from '../../core/model/swagger-model/phaseDTO';
 
 @Component({
   selector: 'app-new-workout',
@@ -33,6 +34,10 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
 
   private reader = new FileReader();
 
+  private _allDays: DayDTO[];
+  private _allPhases: PhaseDTO[];
+  private _currentlySelectedPhase: PhaseDTO;
+
   constructor(
     private formBuilder: FormBuilder,
     public saveWorkoutService: SaveWorkoutService,
@@ -44,7 +49,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
 
   ngAfterViewInit(): void {
     this.setFileInputWrapperHeight();
-    }
+  }
 
   ngOnInit(): void {
     this.initializeInputValues('init text from class bal bla');
@@ -64,6 +69,8 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     if (this.saveWorkoutService.imageUrl) {
       this.url = this.saveWorkoutService.imageUrl;
     }
+    this.loadAllDays();
+    this.loadAllPhases();
   }
 
   private setFileInputWrapperHeight(): void {
@@ -169,12 +176,14 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   addDay(): void {
     const nextNumber = this.days.length;
     this.selectedDay = nextNumber;
-    this.days.push({id: 0, name: 'day' + nextNumber, phases: []});
+    const nextDay = this.allDays[nextNumber];
+    this.days.push(nextDay);
   }
 
   addPhase(): void {
     const nextPhaseNumber = this.days[this.selectedDay].phases.length;
-    this.days[this.selectedDay].phases.push({id: 0, name: 'phase' + nextPhaseNumber, exercises: []});
+    const initialPhaseDTO: PhaseDTO = this.allPhases[nextPhaseNumber];
+    this.days[this.selectedDay].phases.push({id: initialPhaseDTO.id, name: initialPhaseDTO.name, order: nextPhaseNumber, exercises: []});
   }
 
   setSelectedDay(selectedDay: number): void {
@@ -186,5 +195,35 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     localStorage.setItem('selectedDay', JSON.stringify(this.selectedDay));
     localStorage.setItem('selectedPhase', JSON.stringify(selectedPhase));
     this.router.navigate(['./exercises'], {relativeTo: this.activatedRoute});
+  }
+
+  private loadAllDays(): void {
+    this.saveWorkoutService.getDays().subscribe(days =>
+      this._allDays = days.sort((a, b) => a.id - b.id));
+  }
+
+  private loadAllPhases(): void {
+    this.saveWorkoutService.getPhases().subscribe(phases => {
+        this._allPhases = phases.sort((a, b) => a.id - b.id);
+        this._currentlySelectedPhase = phases[0];
+      }
+    );
+  }
+
+  get allDays(): DayDTO[] {
+    return this._allDays;
+  }
+
+  get allPhases(): PhaseDTO[] {
+    return this._allPhases;
+  }
+
+  get currentlySelectedPhase(): PhaseDTO {
+    return this._currentlySelectedPhase;
+  }
+
+  selectPhase(phaseNumberOfDay: number, phase: PhaseDTO): void {
+    this._currentlySelectedPhase = phase;
+    this.days[this.selectedDay].phases[phaseNumberOfDay] = {id: phase.id, name: phase.name, order: phaseNumberOfDay, exercises: []};
   }
 }

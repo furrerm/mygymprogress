@@ -13,6 +13,7 @@ export class ExercisePickerComponent implements OnInit {
 
   private exercises: ExerciseDTO[] = [];
   private chosenExercises: ExerciseDTO[] = [];
+  private exerciseOrder = 0;
 
   constructor(
     private allExercises: AllExercisesService,
@@ -41,13 +42,15 @@ export class ExercisePickerComponent implements OnInit {
     this.router.navigate(['./..'], {relativeTo: this.activatedRoute});
   }
 
-  public selectExercise(exerciseId: number) {
+  public selectExercise(exerciseId: number): void {
     const exercise = this.exercises.find(a => a.id === exerciseId);
-    this.chosenExercises.push(exercise);
+    this.chosenExercises.push({id: exercise.id, name: exercise.name, order: this.exerciseOrder, setsContainer: []});
+    ++this.exerciseOrder;
 
   }
-public isExerciseChosen(exercise: ExerciseDTO) {
-  return this.chosenExercises.filter(a => a.id === exercise.id).length > 0;
-}
+
+  public isExerciseChosen(exercise: ExerciseDTO) {
+    return this.chosenExercises.filter(a => a.id === exercise.id).length > 0;
+  }
 
 }

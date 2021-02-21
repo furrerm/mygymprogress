@@ -175,7 +175,7 @@
 }
 .phase-top-Bar {
   margin-top: 20px;
-  height: 15px;
+  height: 20px;
   width: 100%;
   background-color: #111110;
 }
@@ -213,4 +213,14 @@
   height: 50px;
   width: 100%;
   text-align: center;
+}
+.phase-toggle-button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  color: antiquewhite;
+  font-size: 15px;
 }
