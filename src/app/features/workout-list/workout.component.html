@@ -9,7 +9,7 @@
         <img class="centerContent imageLimiter img-thumbnail"
              [src]="workoutListing.workout['image']" (click)="expandContent(workoutListing)">
         <div class="expandButtonWrapper centerContent">
-          <img [src]=this.likeButtonImage(workoutListing.workout.isSavedFromCurrentUser) class = "like-button-image" (click)="likeWorkout(workoutListing.workout)">
+          <img [src]=this.likeButtonImage(workoutListing.workout.isSavedFromCurrentUser) class = "like-button-image" (click)=this.likeWorkout(workoutListing.workout)>
           <img class="toggleImageStyle" [src]="workoutListing['toggleImage']"
                (click)="expandContent(workoutListing)">
         </div>

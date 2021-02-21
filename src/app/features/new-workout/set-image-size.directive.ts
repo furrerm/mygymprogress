@@ -12,7 +12,7 @@ export class SetImageSizeDirective {
   }
 
   @HostListener('load')
-  setSize() {
+  setSize(): void {
     const node = this.el.nativeElement;
     const parentNode = this.el.nativeElement.parentNode;
     const parentNodeWidth = parentNode.offsetWidth;

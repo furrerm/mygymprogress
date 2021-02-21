@@ -13,16 +13,20 @@ import {WorkoutConverter} from '../../../core/model/converter/workout-converter'
 export class SavedWorkoutsService {
   readonly _savedWorkouts: BehaviorSubject<Workout[]>;
 
-  constructor(private workoutsService: WorkoutsService,
-              private workoutpreviewpicturesService: WorkoutOverviewPicturesService) {
+  constructor(
+    private workoutsService: WorkoutsService,
+    private workoutpreviewpicturesService: WorkoutOverviewPicturesService) {
     this._savedWorkouts = new BehaviorSubject<Workout[]>([]);
   }
 
   public get savedWorkouts(): Observable<Workout[]> {
     return this._savedWorkouts;
   }
-  public initializeWorkouts(): void {
-    if (this._savedWorkouts.getValue().length === 0) {
+
+
+  public initializeWorkouts(reload: boolean): void {
+    console.log(this);
+    if (reload) {
       let workoutsLocal: Workout[] = [];
       this.workoutsService.fetchWorkouts().subscribe((data: WorkoutDTO[]) => {
 
@@ -40,24 +44,24 @@ export class SavedWorkoutsService {
       });
     }
   }
-  public initializeWorkoutsWithSearchCriteria(): void {
-    if (this._savedWorkouts.getValue().length === 0) {
-      let workoutsLocal: Workout[] = [];
-      this.workoutsService.fetchWorkoutsWithSearchCriteria().subscribe((data: WorkoutDTO[]) => {
 
-        workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
-        workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
-        this._savedWorkouts.next(workoutsLocal);
-        for (const i in workoutsLocal) {
-          if (data.hasOwnProperty(i)) {
-            console.log(workoutsLocal[i]);
-            this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
-              this.addImagesToWorkouts(data2, i, workoutsLocal);
-            });
-          }
+  public initializeWorkoutsWithSearchCriteria(): void {
+    let workoutsLocal: Workout[] = [];
+    this.workoutsService.fetchWorkoutsWithSearchCriteria().subscribe((data: WorkoutDTO[]) => {
+
+      workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
+      workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
+      this._savedWorkouts.next(workoutsLocal);
+      for (const i in workoutsLocal) {
+        if (data.hasOwnProperty(i)) {
+          console.log(workoutsLocal[i]);
+          this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
+            this.addImagesToWorkouts(data2, i, workoutsLocal);
+          });
         }
-      });
-    }
+      }
+    });
+
   }
 
   addImagesToWorkouts(image: Blob, position, workouts): void {

@@ -20,7 +20,7 @@
           </label>
           <input id="file-input" type="file" (change)="selectFile($event)"/>
           <img #inputImage class="file-input-image-landscape" *ngIf="this.url" [src]="this.url" cdkDrag
-               (cdkDragEnded)="this.dragTheImage($event)" appSetImageSize [cdkDragFreeDragPosition]="dragPosition">
+               (cdkDragEnded)="this.dragTheImage($event)" appSetImageSize [cdkDragFreeDragPosition]="dragPosition" (load)="this.canvasDrawing()">
         </div>
 
         <div class="workout-data-creation-wrapper">
@@ -64,4 +64,4 @@
     </div>
   </div>
 </div>
-<canvas style="border: 1px solid black" #canvas></canvas>
+<canvas style="border: 1px solid black; display: none" #canvas></canvas>

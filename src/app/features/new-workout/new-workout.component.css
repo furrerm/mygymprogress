@@ -52,15 +52,16 @@
 .file-input-image-landscape {
   height: 100%;
   width: auto;
-
+}
+.file-input-image-portrait {
+  height: auto;
+  width: 100%;
 }
 #file-input-wrapper {
   border: 1px solid black;
   margin: auto;
   max-width: 500px;
-  height: 400px;
   overflow: hidden;
-  background-color: #099FDF;
 }
 
 #file-input {

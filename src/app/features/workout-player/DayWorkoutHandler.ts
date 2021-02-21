@@ -56,7 +56,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     this.updatedExercise.next(currentExercise);
   }
 
-  public loadSets(lastSetService: LastSetService) {
+  public loadSets(lastSetService: LastSetService): void {
     const exerciseIds: number[] = [].concat(...this.dayWorkout?.phases.map(a => a.exercises))
       .map(a => a.id);
     lastSetService.getSets(exerciseIds)

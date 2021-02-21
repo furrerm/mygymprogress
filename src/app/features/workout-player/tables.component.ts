@@ -26,15 +26,13 @@ export class TablesComponent implements OnInit, AfterContentInit {
     private savedWorkoutService: SavedWorkoutsService,
     private lastSetService: LastSetService,
     private saveSetsService: SaveSetsService) {
-
-    console.log(savedWorkoutService);
   }
 
   ngOnInit() {
   }
 
   ngAfterContentInit() {
-    this.savedWorkoutService.initializeWorkouts();
+    this.savedWorkoutService.initializeWorkouts(false);
     this.route.paramMap.subscribe(params => {
       this.savedWorkoutId = +params.get('savedWorkoutId');
       const dayId: number = +params.get('dayId');

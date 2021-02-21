@@ -17,7 +17,6 @@ import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
   selector: 'app-workout',
   templateUrl: './workout.component.html',
   styleUrls: ['./workout.component.css', '../../shared/shared.style.css'],
-  providers: [SavedWorkoutsService]
 })
 export class WorkoutComponent implements OnInit {
   exercise: string;
@@ -26,7 +25,8 @@ export class WorkoutComponent implements OnInit {
 
   bntStyle = 'btn-default';
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private workoutsService: WorkoutsService,
     private constants: ConstantsService,
@@ -42,7 +42,7 @@ export class WorkoutComponent implements OnInit {
       if (params.get('criteria') == null) {
         this.inSavedWorkouts = true;
         fetchWorkouts = () => {
-          this.savedWorkoutsService.initializeWorkouts();
+          this.savedWorkoutsService.initializeWorkouts(true);
         };
       } else {
         fetchWorkouts = () => {
@@ -82,8 +82,10 @@ export class WorkoutComponent implements OnInit {
   likeWorkout(workout: Workout): void {
     if (workout.isSavedFromCurrentUser !== true) {
       workout.isSavedFromCurrentUser = true;
+      // this.savedWorkoutsService.addWorkout(workout);
     } else {
       workout.isSavedFromCurrentUser = false;
+      // remove
     }
     if (this.inSavedWorkouts && !workout.isSavedFromCurrentUser) {
       this._workoutListings = this._workoutListings.filter(a => a.workout.id !== workout.id);

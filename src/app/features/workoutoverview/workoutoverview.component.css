@@ -23,9 +23,8 @@
   }
 
   .workoutgroupsinnderdivs {
-    margin: 10px 10px 10px 10px;
-    width:calc(50% - 20px);
-    height: 250px;
+    margin: 10px auto 10px auto;
+    width:calc(40% - 20px);
     box-sizing: border-box;
     overflow: hidden;
     display: flex;
@@ -40,8 +39,8 @@
 }
 
 .previewImage {
-  max-height: 100%;
-  max-width: 100%;
+  width: 100%;
+  height: auto;
   margin: auto auto auto auto;
 }
 

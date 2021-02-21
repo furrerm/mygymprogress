@@ -1,8 +1,7 @@
-import {AfterContentInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
-import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
@@ -14,7 +13,7 @@ import {ConstantsService} from '../../core/services/constants.service';
   templateUrl: './new-workout.component.html',
   styleUrls: ['./new-workout.component.css', '../../shared/shared.style.css']
 })
-export class NewWorkoutComponent implements OnInit, AfterContentInit {
+export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewInit {
 
   form: FormGroup;
   currentFile: File;
@@ -36,12 +35,16 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private saveWorkoutService: SaveWorkoutService,
+    public saveWorkoutService: SaveWorkoutService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private constantsService: ConstantsService
   ) {
   }
+
+  ngAfterViewInit(): void {
+    this.setFileInputWrapperHeight();
+    }
 
   ngOnInit(): void {
     this.initializeInputValues('init text from class bal bla');
@@ -60,8 +63,12 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
     }
     if (this.saveWorkoutService.imageUrl) {
       this.url = this.saveWorkoutService.imageUrl;
-      // this.canvasDrawing();
     }
+  }
+
+  private setFileInputWrapperHeight(): void {
+    const fileInputWrapperWidth = this.fileInputWrapper.nativeElement.offsetWidth;
+    this.fileInputWrapper.nativeElement.style.height = (fileInputWrapperWidth / 4 * 3);
   }
 
   public canvasDrawing(): void {
@@ -70,20 +77,26 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
     this.cx = canvasEl?.getContext('2d');
     const image = new Image();
 
-    const imageWidth = this.fileInputWrapper.nativeElement.offsetWidth;
-    const imageHeight = this.fileInputWrapper.nativeElement.offsetHeight;
+    const wrapperWidth = this.fileInputWrapper.nativeElement.offsetWidth;
+    const wrapperHeight = this.fileInputWrapper.nativeElement.offsetHeight;
+
+    const presentedWidth = this.inputImage.nativeElement.offsetWidth;
+    const presentedHeight = this.inputImage.nativeElement.offsetHeight;
 
     const realWidth = this.inputImage.nativeElement.naturalWidth;
     const realHeight = this.inputImage.nativeElement.naturalHeight;
 
-    canvasEl.width = imageWidth;
-    canvasEl.height = imageHeight;
+    const xScale = realWidth / presentedWidth;
+    const yScale = realHeight / presentedHeight;
 
-    this.cx.lineWidth = 3;
-    this.cx.lineCap = 'round';
-    this.cx.strokeStyle = '#000';
+    const xPart = xScale * wrapperWidth;
+    const yPart = yScale * wrapperHeight;
+
+    canvasEl.width = xPart;
+    canvasEl.height = yPart;
+
     image.onload = () => {
-      this.cx.drawImage(image, 0, 0, realWidth, realHeight, 0, 0, realWidth, realHeight);
+      this.cx.drawImage(image, -this.dragPosition.x * xScale, -this.dragPosition.y * yScale, xPart, yPart, 0, 0, xPart, yPart);
       this.cx.canvas.toBlob(a => {
         this.saveWorkoutService.cacheBlob(a);
       });
@@ -128,7 +141,6 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit {
       this.url = file.target.result;
       this.saveWorkoutService.cacheFile(selectedFiles.item(0));
       this.saveWorkoutService.cacheUrl(file.target.result);
-      this.canvasDrawing();
     };
     this.reader.onerror = (file: any) => {
       console.log('File could not be read: ' + file.target.error.code);
