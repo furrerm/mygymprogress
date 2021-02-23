@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SaveWorkoutService} from '../shared/save-workout.service';
-import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
+import {WorkoutDTO} from '../../../../core/model/swagger-model/workoutDTO';
 
 @Component({
   selector: 'app-workout-description',

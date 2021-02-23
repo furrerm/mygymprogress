@@ -4,16 +4,16 @@ import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DayDTO} from '../../core/model/swagger-model/dayDTO';
-import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
-import {ConstantsService} from '../../core/services/constants.service';
-import {PhaseDTO} from '../../core/model/swagger-model/phaseDTO';
-import {Vector} from '../../core/types/vector';
+import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
+import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
+import {ConstantsService} from '../../../core/services/constants.service';
+import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
+import {Vector} from '../../../core/types/vector';
 
 @Component({
   selector: 'app-new-workout',
   templateUrl: './new-workout.component.html',
-  styleUrls: ['./new-workout.component.css', '../../shared/shared.style.css']
+  styleUrls: ['./new-workout.component.css', '../../../shared/shared.style.css']
 })
 export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewInit {
 

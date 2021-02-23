@@ -2,25 +2,16 @@
 
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div">
-    <div class="post-type-frame">
-      <div class="simple-post-frame">
-        <img class="post-type-image simple-post-image" src="../../../assets/pictures/menuButtons/workoutCreation/simple-post.svg">
-        <p class="text-center"> simple post</p>
-      </div>
-      <div class="workout-post-frame">
-        <img class="post-type-image workout-post-image" src="../../../assets/pictures/menuButtons/dumbbell.svg">
-        <p class="text-center"> workout </p>
-      </div>
-    </div>
+
     <div class="post-creation-wrapper">
       <div class="formWrapper">
         <div #fileInputWrapper id="file-input-wrapper">
           <label class="file-input-default-image-label" *ngIf="!this.url" for="file-input">
-            <img class="file-input-default-image" src="../../../assets/pictures/menuButtons/workoutCreation/pictureIconBlack.svg"/>
+            <img class="file-input-default-image" src="../../../../assets/pictures/menuButtons/workoutCreation/pictureIconBlack.svg"/>
           </label>
           <input #fileInput id="file-input" type="file" (change)="selectFile($event)"/>
 
-          <img *ngIf="this.url" (click)="this.removeImage()" class="close-cross-for-picture" src="../../../assets/pictures/menuButtons/workoutCreation/close-button.svg"/>
+          <img *ngIf="this.url" (click)="this.removeImage()" class="close-cross-for-picture" src="../../../../assets/pictures/menuButtons/workoutCreation/close-button.svg"/>
           <img #inputImage class="file-input-image-landscape" *ngIf="this.url" [src]="this.url" cdkDrag
                (cdkDragEnded)="this.dragTheImage($event)" appSetImageSize [cdkDragFreeDragPosition]="dragPosition.toCdkDragFreeDragPosition()" (load)="this.canvasDrawing()">
 

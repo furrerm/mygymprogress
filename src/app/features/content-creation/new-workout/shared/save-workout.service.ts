@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpEvent, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ConstantsService} from '../../../core/services/constants.service';
-import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
-import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
-import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
-import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
-import {Vector} from '../../../core/types/vector';
+import {ConstantsService} from '../../../../core/services/constants.service';
+import {WorkoutDTO} from '../../../../core/model/swagger-model/workoutDTO';
+import {DayDTO} from '../../../../core/model/swagger-model/dayDTO';
+import {PhaseDTO} from '../../../../core/model/swagger-model/phaseDTO';
+import {ExerciseDTO} from '../../../../core/model/swagger-model/exerciseDTO';
+import {Vector} from '../../../../core/types/vector';
 
 @Injectable({
   providedIn: 'root'

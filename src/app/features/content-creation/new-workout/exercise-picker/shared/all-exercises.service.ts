@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {ConstantsService} from '../../../../core/services/constants.service';
-import {ExerciseDTO} from '../../../../core/model/swagger-model/exerciseDTO';
+import {ConstantsService} from '../../../../../core/services/constants.service';
+import {ExerciseDTO} from '../../../../../core/model/swagger-model/exerciseDTO';
 
 @Injectable({
   providedIn: 'root'

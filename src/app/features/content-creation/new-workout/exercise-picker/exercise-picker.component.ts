@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
+import {ExerciseDTO} from '../../../../core/model/swagger-model/exerciseDTO';
 import {AllExercisesService} from './shared/all-exercises.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SavedWorkoutsService} from '../../workout-list/shared/saved-workouts.service';
+import {SavedWorkoutsService} from '../../../workout-list/shared/saved-workouts.service';
 import {SaveWorkoutService} from '../shared/save-workout.service';
 
 @Component({
   selector: 'app-exercise-picker',
   templateUrl: './exercise-picker.component.html',
   styleUrls: ['./exercise-picker.component.css',
-    '../../../shared/shared.style.css']
+    '../../../../shared/shared.style.css']
 })
 export class ExercisePickerComponent implements OnInit {
 

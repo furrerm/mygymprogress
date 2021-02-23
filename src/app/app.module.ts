@@ -64,7 +64,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
-import { NewWorkoutComponent } from './features/new-workout/new-workout.component';
+import { NewWorkoutComponent } from './features/content-creation/new-workout/new-workout.component';
 import { WorkoutoverviewComponent } from './features/workoutoverview/workoutoverview.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -73,9 +73,10 @@ import { ReverseArrayPipe } from './shared/ReverseArrayPipe';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import 'echarts/theme/macarons.js';
-import { SetImageSizeDirective } from './features/new-workout/set-image-size.directive';
-import { ExercisePickerComponent } from './features/new-workout/exercise-picker/exercise-picker.component';
-import { WorkoutDescriptionComponent } from './features/new-workout/workout-description/workout-description.component';
+import { SetImageSizeDirective } from './features/content-creation/new-workout/set-image-size.directive';
+import { ExercisePickerComponent } from './features/content-creation/new-workout/exercise-picker/exercise-picker.component';
+import { WorkoutDescriptionComponent } from './features/content-creation/new-workout/workout-description/workout-description.component';
+import { ContentCreationComponent } from './features/content-creation/content-creation.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { WorkoutDescriptionComponent } from './features/new-workout/workout-desc
     ReverseArrayPipe,
     SetImageSizeDirective,
     ExercisePickerComponent,
-    WorkoutDescriptionComponent
+    WorkoutDescriptionComponent,
+    ContentCreationComponent
   ],
   imports: [
     BrowserModule,
