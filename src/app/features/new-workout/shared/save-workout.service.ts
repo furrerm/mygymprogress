@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpEvent, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {ConstantsService} from '../../../core/services/constants.service';
 import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
+import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
+import {Vector} from '../../../core/types/vector';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +18,11 @@ export class SaveWorkoutService {
   private _file: File;
   private _imageUrl: string;
   private _blob: Blob;
+  private _days: DayDTO[];
+  private _pickedExercises: ExerciseDTO[];
+  private _selection: Selection;
+  private _dragPosition: Vector = new Vector(0, 0);
+
   constructor(
     private http: HttpClient,
     private constant: ConstantsService
@@ -38,7 +46,7 @@ export class SaveWorkoutService {
     this._file = file;
   }
 
-  cacheUrl(url: string): void{
+  cacheUrl(url: string): void {
     this._imageUrl = url;
   }
 
@@ -50,8 +58,40 @@ export class SaveWorkoutService {
     this._blob = blob;
   }
 
+  cacheDays(days: DayDTO[]): void {
+    this._days = days;
+  }
+
+  cachePickedExercises(pickedExercises: ExerciseDTO[]): void {
+    this._pickedExercises = pickedExercises;
+  }
+
+  cacheSelection(selection: Selection): void {
+    this._selection = selection;
+  }
+
+  cacheDragPosition(dragPosition: Vector): void {
+    this._dragPosition = dragPosition;
+  }
+
   get workout(): WorkoutDTO {
     return this._workout;
+  }
+
+  get days(): DayDTO[] {
+    return this._days;
+  }
+
+  get pickedExercises(): ExerciseDTO[] {
+    return this._pickedExercises;
+  }
+
+  get selection(): Selection {
+    return this._selection;
+  }
+
+  get dragPosition(): Vector {
+    return this._dragPosition;
   }
 
   uploadWorkout(): Observable<string> {
@@ -80,13 +120,35 @@ export class SaveWorkoutService {
     return this.http.post<string>(this.appUrl, formData, httpOptions);
   }
 
-  getDays(): Observable<DayDTO[]> {
+  getDayEnum(): Observable<DayDTO[]> {
     const getDaysEndpointUrl = this.constant.baseAppUrl + 'save-workout-service/get-days';
     return this.http.get<DayDTO[]>(getDaysEndpointUrl);
   }
 
-  getPhases(): Observable<PhaseDTO[]> {
+  getPhaseEnum(): Observable<PhaseDTO[]> {
     const getDaysEndpointUrl = this.constant.baseAppUrl + 'save-workout-service/get-phases';
     return this.http.get<PhaseDTO[]>(getDaysEndpointUrl);
   }
+
+  clearCache(): void {
+    this._days = null;
+    this._pickedExercises = null;
+    this._selection = null;
+    this._blob = null;
+    this._imageUrl = null;
+    this._file = null;
+    this._dragPosition = new Vector(0, 0);
+  }
+
+  removeImage(): void {
+    this._blob = null;
+    this._imageUrl = null;
+    this._file = null;
+    this._dragPosition = new Vector(0, 0);
+  }
+}
+
+export interface Selection {
+  selectedDay: number;
+  selectedPhase: number;
 }

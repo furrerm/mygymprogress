@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {AllExercisesService} from './shared/all-exercises.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {SavedWorkoutsService} from '../../workout-list/shared/saved-workouts.service';
+import {SaveWorkoutService} from '../shared/save-workout.service';
 
 @Component({
   selector: 'app-exercise-picker',
@@ -18,7 +20,9 @@ export class ExercisePickerComponent implements OnInit {
   constructor(
     private allExercises: AllExercisesService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private saveWorkoutService: SaveWorkoutService
+  ) {
   }
 
   ngOnInit(): void {
@@ -37,8 +41,7 @@ export class ExercisePickerComponent implements OnInit {
   }
 
   public done() {
-
-    localStorage.setItem('chosenExercises', JSON.stringify(this.chosenExercises));
+    this.saveWorkoutService.cachePickedExercises(this.chosenExercises);
     this.router.navigate(['./..'], {relativeTo: this.activatedRoute});
   }
 

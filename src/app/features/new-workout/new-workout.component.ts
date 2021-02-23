@@ -8,6 +8,7 @@ import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
 import {ConstantsService} from '../../core/services/constants.service';
 import {PhaseDTO} from '../../core/model/swagger-model/phaseDTO';
+import {Vector} from '../../core/types/vector';
 
 @Component({
   selector: 'app-new-workout',
@@ -22,7 +23,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   fileInfos: Observable<any>;
   url: string;
 
-  dragPosition = {x: 0, y: 0};
+  dragPosition: Vector = new Vector(0, 0);
   days: DayDTO[] = [];
   selectedDay = 0;
   selectedPhase = 0;
@@ -30,6 +31,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   @ViewChild('canvas') canvas;
   @ViewChild('inputImage') inputImage;
   @ViewChild('fileInputWrapper') fileInputWrapper;
+  @ViewChild('fileInput') fileInput;
   private cx?: CanvasRenderingContext2D;
 
   private reader = new FileReader();
@@ -56,13 +58,13 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   }
 
   ngAfterContentInit(): void {
-
-    if (localStorage.getItem('createdDays') != null && localStorage.getItem('createdDays').length > 0) {
-      this.days = JSON.parse(localStorage.getItem('createdDays'));
-      this.selectedDay = JSON.parse(localStorage.getItem('selectedDay'));
-      this.selectedPhase = JSON.parse(localStorage.getItem('selectedPhase'));
+    this.dragPosition = this.saveWorkoutService.dragPosition;
+    if (this.saveWorkoutService.days != null && this.saveWorkoutService.days.length > 0) {
+      this.days = this.saveWorkoutService.days;
+      this.selectedDay = this.saveWorkoutService.selection.selectedDay;
+      this.selectedPhase = this.saveWorkoutService.selection.selectedPhase;
       if (this.days[this.selectedDay].phases[this.selectedPhase].exercises) {
-        JSON.parse(localStorage.getItem('chosenExercises'))
+        this.saveWorkoutService.pickedExercises
           .forEach(ex => this.days[this.selectedDay].phases[this.selectedPhase].exercises.push(ex));
       }
     }
@@ -124,21 +126,27 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     const wrapperHeight = this.fileInputWrapper.nativeElement.offsetHeight;
     let marginTop = event.source.getFreeDragPosition().y;
     const marginLeft = event.source.getFreeDragPosition().x;
-    this.dragPosition = {x: marginLeft, y: marginTop};
+    this.dragPosition.x = marginLeft;
+    this.dragPosition.y = marginTop;
     if (marginTop > 0) {
-      this.dragPosition = {x: marginLeft, y: 0};
+      this.dragPosition.x = marginLeft;
+      this.dragPosition.y = 0;
     } else if (marginTop < 0 && Math.abs(marginTop) > height - wrapperHeight) {
       const res = height - wrapperHeight;
-      this.dragPosition = {x: marginLeft, y: -res};
+      this.dragPosition.x = marginLeft;
+      this.dragPosition.y = -res;
     }
     marginTop = this.dragPosition.y;
     if (marginLeft > 0) {
-      this.dragPosition = {x: 0, y: marginTop};
+      this.dragPosition.x = 0;
+      this.dragPosition.y = marginTop;
     } else if (marginLeft < 0 && Math.abs(marginLeft) > width - wrapperWidth) {
       const res = width - wrapperWidth;
-      this.dragPosition = {x: -res, y: marginTop};
+      this.dragPosition.x = -res;
+      this.dragPosition.y = marginTop;
     }
     this.canvasDrawing();
+    this.saveWorkoutService.cacheDragPosition(this.dragPosition);
   }
 
   selectFile(event): void {
@@ -153,6 +161,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
       console.log('File could not be read: ' + file.target.error.code);
     };
     this.reader.readAsDataURL(event.target.files[0]);
+
   }
 
   upload(): void {
@@ -191,19 +200,18 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   }
 
   public goToExerciseSelector(selectedPhase: number): void {
-    localStorage.setItem('createdDays', JSON.stringify(this.days));
-    localStorage.setItem('selectedDay', JSON.stringify(this.selectedDay));
-    localStorage.setItem('selectedPhase', JSON.stringify(selectedPhase));
+    this.saveWorkoutService.cacheDays(this.days);
+    this.saveWorkoutService.cacheSelection({selectedDay: this.selectedDay, selectedPhase});
     this.router.navigate(['./exercises'], {relativeTo: this.activatedRoute});
   }
 
   private loadAllDays(): void {
-    this.saveWorkoutService.getDays().subscribe(days =>
+    this.saveWorkoutService.getDayEnum().subscribe(days =>
       this._allDays = days.sort((a, b) => a.id - b.id));
   }
 
   private loadAllPhases(): void {
-    this.saveWorkoutService.getPhases().subscribe(phases => {
+    this.saveWorkoutService.getPhaseEnum().subscribe(phases => {
         this._allPhases = phases.sort((a, b) => a.id - b.id);
         this._currentlySelectedPhase = phases[0];
       }
@@ -225,5 +233,12 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   selectPhase(phaseNumberOfDay: number, phase: PhaseDTO): void {
     this._currentlySelectedPhase = phase;
     this.days[this.selectedDay].phases[phaseNumberOfDay] = {id: phase.id, name: phase.name, order: phaseNumberOfDay, exercises: []};
+  }
+
+  removeImage(): void {
+    this.url = null;
+    this.dragPosition = new Vector(0, 0);
+    this.saveWorkoutService.removeImage();
+    this.fileInput.nativeElement.value = '';
   }
 }

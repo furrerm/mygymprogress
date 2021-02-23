@@ -53,15 +53,18 @@
   height: 100%;
   width: auto;
 }
+
 .file-input-image-portrait {
   height: auto;
   width: 100%;
 }
+
 #file-input-wrapper {
   border: 1px solid black;
   margin: auto;
   max-width: 500px;
   overflow: hidden;
+  position: relative;
 }
 
 #file-input {
@@ -145,6 +148,7 @@
   color: antiquewhite;
   text-align: center;
 }
+
 .phase-top-Bar-dotted-1 {
   height: 100px;
   width: 100%;
@@ -153,6 +157,7 @@
   border-right: black 1px dashed;
   margin-top: 20px;
 }
+
 .phase-top-Bar-dotted-2 {
   height: 90px;
   width: calc(100% - 10px);
@@ -163,22 +168,26 @@
   display: flex;
   flex-direction: column;
 }
+
 .margin-center {
   margin-left: auto;
   margin-right: auto;
 }
+
 .phase-container {
   width: 100%;
   min-height: 100px;
   display: flex;
   flex-direction: column;
 }
+
 .phase-top-Bar {
   margin-top: 20px;
   height: 20px;
   width: 100%;
   background-color: #111110;
 }
+
 .exercises-container {
   display: flex;
   flex-direction: column;
@@ -186,6 +195,7 @@
   border-left: 5px black solid;
   border-right: 5px black solid;
 }
+
 .single-exercise-container {
   margin-left: auto;
   margin-right: auto;
@@ -194,6 +204,7 @@
   overflow: visible;
   border-bottom: solid black 1px;
 }
+
 .next-button {
 
   background-color: #030c03;
@@ -209,18 +220,31 @@
   margin-top: 15px;
   width: 80px;
 }
+
 .next-button-wrapper {
   height: 50px;
   width: 100%;
   text-align: center;
 }
+
 .phase-toggle-button {
   background-color: Transparent;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   border: none;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
   color: antiquewhite;
   font-size: 15px;
+}
+
+.close-cross-for-picture {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 2;
+  cursor: pointer;
+
 }

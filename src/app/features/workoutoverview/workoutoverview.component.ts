@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
 import {WorkoutOverviewPicturesService} from './shared/workout-overview-pictures.service';
 import {Observable} from 'rxjs';
+import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
+import {SaveWorkoutService} from '../new-workout/shared/save-workout.service';
 
 @Component({
   selector: 'app-workoutoverview',
@@ -18,11 +20,10 @@ export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
   @ViewChild('menu', {static: true}) menuView: ElementRef;
   constructor(private route: ActivatedRoute,
               private workoutpreviewpicturesService: WorkoutOverviewPicturesService,
-              private constants: ConstantsService) {
-    localStorage.removeItem('createdDays');
-    localStorage.removeItem('selectedDay');
-    localStorage.removeItem('selectedPhase');
-    localStorage.removeItem('chosenExercises');
+              private constants: ConstantsService,
+              private saveWorkoutService: SaveWorkoutService
+  ) {
+    this.saveWorkoutService.clearCache();
   }
 
   ngOnInit(): void {
