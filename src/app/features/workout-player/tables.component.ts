@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterContentInit} from '@angular/core';
+import {Component, OnInit, AfterContentInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
 import {LastSetService} from './shared/last-set.service';
@@ -7,6 +7,7 @@ import {DayWorkoutHandlerFactory} from './DayWorkoutHandlerFactory';
 import {DayWorkoutHandler} from './DayWorkoutHandler';
 import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
+import {ConstantsService} from '../../core/services/constants.service';
 
 @Component({
   selector: 'app-tables',
@@ -20,33 +21,43 @@ export class TablesComponent implements OnInit, AfterContentInit {
   private savedWorkoutId: number;
   private dayWorkoutHandler: DayWorkoutHandler;
 
+  private video: Blob;
+
+  @ViewChild('pla') playerVideo;
+  @ViewChild('videoPlayerResource') videoPlayerResource;
+  public videoSrc = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private savedWorkoutService: SavedWorkoutsService,
     private lastSetService: LastSetService,
-    private saveSetsService: SaveSetsService) {
+    private saveSetsService: SaveSetsService,
+    private constants: ConstantsService
+  ) {
   }
 
   ngOnInit() {
   }
 
-  ngAfterContentInit() {
-    this.savedWorkoutService.initializeWorkouts(false);
+  ngAfterContentInit(): void {
     this.route.paramMap.subscribe(params => {
       this.savedWorkoutId = +params.get('savedWorkoutId');
       const dayId: number = +params.get('dayId');
-      this.savedWorkoutService.savedWorkouts.subscribe(savedWorkouts => {
+      this.savedWorkoutService.savedWorkouts().subscribe(savedWorkouts => {
         const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(savedWorkouts, this.lastSetService);
         this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(this.savedWorkoutId, dayId);
         this.dayWorkoutHandler.getWorkout().subscribe(a =>
           this.currentDayWorkout = a
         );
-        this.dayWorkoutHandler.getExercise().subscribe(a =>
-          this.currentExercise = a
+        this.dayWorkoutHandler.getExercise().subscribe(a => {
+            this.currentExercise = a;
+            this.getVideoTestFunction();
+          }
         );
       });
     });
+
   }
 
   nextExercise() {
@@ -66,5 +77,19 @@ export class TablesComponent implements OnInit, AfterContentInit {
 
   isLastExerciseOfDayWorkout() {
     return this.dayWorkoutHandler?.isLastExerciseOfDayWorkout();
+  }
+
+  getVideoTestFunction(): void {
+
+    this.lastSetService.getVideoTest(this.constants, this.currentExercise.videoUrl).subscribe(a => {
+      this.video = a;
+      this.playerVideo.nativeElement.src = window.URL.createObjectURL(a);
+      setTimeout(() => {
+        // this.playerVideo.nativeElement.pause();
+
+      }, 2000);
+      // videoplayer[0].pause();
+
+    });
   }
 }

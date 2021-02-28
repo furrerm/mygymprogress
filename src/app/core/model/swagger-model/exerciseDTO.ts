@@ -16,4 +16,10 @@ export interface ExerciseDTO {
     name?: string;
     setsContainer?: Array<ExerciseSetContainerDTO>;
     order?: number;
+    videoUrl?: string;
+    image?: string;
+    userEntryRequired?: boolean;
+    timeLength?: number;
+    timeBased?: boolean;
+    weight?: boolean;
 }

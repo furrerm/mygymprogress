@@ -125,5 +125,8 @@
     align-items: center;
     background-color: RGB(250, 250, 250);
   }
+  video {
+  filter:brightness(40%);
+  }
 }
 

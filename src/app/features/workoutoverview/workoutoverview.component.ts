@@ -30,7 +30,7 @@ export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
     this.workoutpreviewpicturesService.getUrls().subscribe( data => {
       for (const i in data) {
         if (data.hasOwnProperty(i)) {
-          this.workoutpreviewpicturesService.getFiles(i, data[i]).image.subscribe(data2 => {
+          this.workoutpreviewpicturesService.getFiles(Number(i), data[i], this.constants).image.subscribe(data2 => {
               this.createImageFromBlob(data2, i);
             });
         }

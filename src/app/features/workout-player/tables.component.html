@@ -7,7 +7,7 @@
     </div>
     <div class="setDisplayWrapper">
       <div class="exerciseTitleWrapper">
-        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}}</h3>
+        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} url = {{this.getCurrentExercise().videoUrl}}</h3>
       </div>
       <div class="tableContainer">
         <div class="showIfNonMobile">
@@ -27,6 +27,9 @@
       </div>
     </div>
   </div>
+  <video #pla id = 'videoplayer' autoplay="autoplay" controls>
+    <!-- <source #videoPlayerResource src="" type="video/mp4"> -->
+  </video>
 </div>
 
 

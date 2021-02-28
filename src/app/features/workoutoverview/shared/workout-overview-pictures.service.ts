@@ -25,10 +25,10 @@ export class WorkoutOverviewPicturesService {
 
   }
 
-  getFiles(imagePosition, url1: string): ImageObservable {
+  getFiles(imagePosition: number, url1: string, constants: ConstantsService): ImageObservable {
 
-    const urlLocal = this.constant.baseAppUrl + 'workoutpreview-service/get-workoutpreview-images';
-    const imageBlob: Observable<any> = this.http
+    const urlLocal = constants.baseAppUrl + 'workoutpreview-service/get-workoutpreview-images';
+    const imageBlob: Observable<any> = constants.httpClient
       .get(urlLocal, {params: {
           url: url1,
         }, responseType: 'blob'});

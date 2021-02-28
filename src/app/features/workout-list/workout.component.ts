@@ -9,6 +9,9 @@ import {Workout} from '../../core/model/internal-model/workout.model';
 import {WorkoutConverter} from '../../core/model/converter/workout-converter';
 import {WorkoutDTO} from '../../core/model/swagger-model/workoutDTO';
 import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
+import {WorkoutListingsInterface} from './shared/workout-listings-interface';
+import {AllWorkoutListingsService} from './shared/all-workout-listings.service';
+import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,8 @@ export class WorkoutComponent implements OnInit {
 
   bntStyle = 'btn-default';
 
+  private workoutListingsService: WorkoutListingsInterface;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,28 +37,24 @@ export class WorkoutComponent implements OnInit {
     private constants: ConstantsService,
     private workoutOverviewPicturesService: WorkoutOverviewPicturesService,
     private el: ElementRef,
-    private savedWorkoutsService: SavedWorkoutsService) {
+    private savedWorkoutsService: SavedWorkoutsService,
+    private allWorkoutListingsSerivce: AllWorkoutListingsService
+  ) {
   }
 
   ngOnInit(): void {
-    type read = () => void;
-    let fetchWorkouts: read;
+
     this.route.queryParamMap.subscribe(params => {
       if (params.get('criteria') == null) {
         this.inSavedWorkouts = true;
-        fetchWorkouts = () => {
-          this.savedWorkoutsService.initializeWorkouts(true);
-        };
+        this.workoutListingsService = this.savedWorkoutsService;
       } else {
-        fetchWorkouts = () => {
-          this.savedWorkoutsService.initializeWorkoutsWithSearchCriteria();
-        };
+        this.workoutListingsService = this.allWorkoutListingsSerivce;
       }
-      fetchWorkouts();
     });
 
 
-    this.savedWorkoutsService.savedWorkouts.subscribe(workouts =>
+    this.workoutListingsService.savedWorkouts().subscribe(workouts =>
       this._workoutListings = workouts.map(a => ({
           workout: a,
           isCollapsed: true,
@@ -82,10 +83,10 @@ export class WorkoutComponent implements OnInit {
   likeWorkout(workout: Workout): void {
     if (workout.isSavedFromCurrentUser !== true) {
       workout.isSavedFromCurrentUser = true;
-      // this.savedWorkoutsService.addWorkout(workout);
+      this.savedWorkoutsService.addWorkout(workout);
     } else {
       workout.isSavedFromCurrentUser = false;
-      // remove
+      this.savedWorkoutsService.remove(workout);
     }
     if (this.inSavedWorkouts && !workout.isSavedFromCurrentUser) {
       this._workoutListings = this._workoutListings.filter(a => a.workout.id !== workout.id);
@@ -99,5 +100,10 @@ export class WorkoutComponent implements OnInit {
 
   likeButtonImage(isLiked: boolean): string {
     return isLiked ? 'assets/pictures/menuButtons/like_active.svg' : 'assets/pictures/menuButtons/like_inactive.svg';
+  }
+
+  playDayWorkout(dayDTO: DayDTO): void {
+    this.workoutsService.cacheWorkoutDayToPlay(dayDTO);
+    this.router.navigate(['tables/1/1'], { relativeTo: this.route });
   }
 }

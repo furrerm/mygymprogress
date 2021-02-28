@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {ConstantsService} from '../../../core/services/constants.service';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {SavedWorkoutDTO} from '../../../core/model/swagger-model/savedWorkoutDTO';
+import {Workout} from '../../../core/model/internal-model/workout.model';
+import {WorkoutConverter} from '../../../core/model/converter/workout-converter';
+import {ImageObservable} from '../../workoutoverview/workoutoverview.component';
+import {createObjectSnapshotChanges} from '@angular/fire/database/object/snapshot-changes';
+import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -12,48 +17,32 @@ import {SavedWorkoutDTO} from '../../../core/model/swagger-model/savedWorkoutDTO
 export class WorkoutsService {
 
   appUrl: string;
-  constructor(private http: HttpClient,
-              private constant: ConstantsService) {
+  private _dayDTO: DayDTO;
+
+  constructor(
+    private http: HttpClient,
+    private constant: ConstantsService) {
     this.appUrl = this.constant.baseAppUrl;
   }
 
-  fetchWorkouts(): Observable<WorkoutDTO[]> {
-    const endpointUrl = this.appUrl + 'workout-service/get-workouts';
+  fetchWorkouts(constants: ConstantsService): Observable<WorkoutDTO[]> {
+    const endpointUrl = constants.baseAppUrl + 'workout-service/get-workouts';
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
-    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-    const result: Observable<WorkoutDTO[]> = this.http.post<WorkoutDTO[]>(endpointUrl, JSON.stringify(this.constant.getUser), httpOptions);
+    const result: Observable<WorkoutDTO[]> = constants.httpClient.post<WorkoutDTO[]>(endpointUrl, JSON.stringify(constants.getUser), httpOptions);
     return result;
   }
 
-  fetchWorkoutsWithSearchCriteria(): Observable<WorkoutDTO[]> {
-    const endpointUrl = this.appUrl + 'workout-service/get-workouts-with-search-criteria';
+  fetchWorkoutsWithSearchCriteria(constants: ConstantsService): Observable<WorkoutDTO[]> {
+    const endpointUrl = constants.baseAppUrl + 'workout-service/get-workouts-with-search-criteria';
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
-    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
-
-    const result: Observable<WorkoutDTO[]> = this.http.post<WorkoutDTO[]>(endpointUrl, JSON.stringify(this.constant.getUser), httpOptions);
+    const result: Observable<WorkoutDTO[]> = constants.httpClient.post<WorkoutDTO[]>(endpointUrl, JSON.stringify(constants.getUser), httpOptions);
     return result;
   }
 
-  getFiles(): Observable<File> {
-    const httpOptions1 = {
-      headers: new HttpHeaders()
-    };
-    httpOptions1.headers.append('Access-Control-Allow-Origin', '*');
-    httpOptions1.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    httpOptions1.headers.append('Access-Control-Allow-Credentials', 'true');
-    const urlLocal = this.constant.baseAppUrl + 'workout-service/get-workout-images';
-    const result: Observable<any> = this.http
-      .get(urlLocal, { headers: httpOptions1.headers, responseType: 'blob' });
-    return result;
-  }
   likeWorkout(savedWorkout: SavedWorkoutDTO): Observable<string> {
     const httpOptions1 = {
       headers: new HttpHeaders()
@@ -63,5 +52,47 @@ export class WorkoutsService {
     httpOptions1.headers.append('Access-Control-Allow-Credentials', 'true');
     const urlLocal = this.constant.baseAppUrl + 'like-service/like-workout';
     return (this.http.post<string>(urlLocal, savedWorkout));
+  }
+
+  public initializeWorkouts(
+    savedWorkouts: BehaviorSubject<Workout[]>,
+    workoutFetcher: (endpointEssentials: ConstantsService) => Observable<WorkoutDTO[]>,
+    imageAdder: (imagePosition: number, url1: string, constants: ConstantsService) => ImageObservable
+  ): void {
+    let workoutsLocal: Workout[] = [];
+    workoutFetcher(this.constant).subscribe((data: WorkoutDTO[]) => {
+      workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
+      workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
+      savedWorkouts.next(workoutsLocal);
+      for (const i in workoutsLocal) {
+        if (data.hasOwnProperty(i)) {
+          imageAdder(Number(i), workoutsLocal[i].imageUrl, this.constant).image.subscribe(data2 => {
+            this.addImagesToWorkouts(data2, workoutsLocal[i]);
+          });
+        }
+      }
+    });
+  }
+
+  private addImagesToWorkouts(image: Blob, workout): void {
+    const reader = new FileReader();
+    reader.addEventListener('load',
+      () => {
+        workout.image = reader.result;
+      },
+      false);
+    if (image) {
+      if (image.type !== 'application/pdf') {
+        reader.readAsDataURL(image);
+      }
+    }
+  }
+
+  cacheWorkoutDayToPlay(dayDTO: DayDTO): void {
+    this._dayDTO = dayDTO;
+  }
+
+  get dayDTO(): DayDTO {
+    return this._dayDTO;
   }
 }

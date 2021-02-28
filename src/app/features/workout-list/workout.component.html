@@ -17,7 +17,7 @@
              class="centerContent">
           <div *ngFor="let days of workoutListing.workout.days">
             <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
-            {{days.name}} <img routerLink="tables/{{workoutListing.workout.id}}/{{days.id}}" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
+            {{days.name}} <img (click)="this.playDayWorkout(days)" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
             </h3>
             <div class="phaseContainer" *ngFor="let phase of days.phases">
               <h4 class="phase">{{phase.name}}</h4>

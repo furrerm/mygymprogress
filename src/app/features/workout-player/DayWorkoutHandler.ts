@@ -53,18 +53,22 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
       }
       currentExercise.setsContainer = this.copyLastEntry(currentExercise);
     }
+    // todo: add video to exercise
     this.updatedExercise.next(currentExercise);
   }
 
   public loadSets(lastSetService: LastSetService): void {
+
     const exerciseIds: number[] = [].concat(...this.dayWorkout?.phases.map(a => a.exercises))
       .map(a => a.id);
     lastSetService.getSets(exerciseIds)
       .subscribe((exerciseDTOSWithSets: ExerciseDTO[]) => {
         this.dayWorkout = this.addSetsToDayWorkout(exerciseDTOSWithSets);
+        // todo: load all videos
         this.updatedDayWorkout.next(this.dayWorkout);
         this.nextExercise();
       });
+
   }
 
 

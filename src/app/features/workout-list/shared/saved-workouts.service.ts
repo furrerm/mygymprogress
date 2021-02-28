@@ -6,76 +6,43 @@ import {BehaviorSubject, EMPTY, from, observable, Observable, of, Subject} from 
 import {map} from 'rxjs/operators';
 import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 import {WorkoutConverter} from '../../../core/model/converter/workout-converter';
+import {WorkoutListingsInterface} from './workout-listings-interface';
+import {ConstantsService} from '../../../core/services/constants.service';
+import {ImageObservable} from '../../workoutoverview/workoutoverview.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SavedWorkoutsService {
+export class SavedWorkoutsService implements WorkoutListingsInterface{
   readonly _savedWorkouts: BehaviorSubject<Workout[]>;
 
   constructor(
     private workoutsService: WorkoutsService,
-    private workoutpreviewpicturesService: WorkoutOverviewPicturesService) {
+    private workoutpreviewpicturesService: WorkoutOverviewPicturesService,
+    private constants: ConstantsService
+  ) {
     this._savedWorkouts = new BehaviorSubject<Workout[]>([]);
   }
-
-  public get savedWorkouts(): Observable<Workout[]> {
+  public savedWorkouts(): Observable<Workout[]> {
+    const workoutFetcher: (endpointEssentials: ConstantsService) =>
+      Observable<WorkoutDTO[]> = this.workoutsService.fetchWorkouts;
+    const imageAdder: (imagePosition: number, url1: string, constants: ConstantsService) =>
+      ImageObservable = this.workoutpreviewpicturesService.getFiles;
+    if (this._savedWorkouts.getValue().length === 0) {
+      this.workoutsService.initializeWorkouts(this._savedWorkouts, workoutFetcher, imageAdder);
+    }
     return this._savedWorkouts;
   }
 
-
-  public initializeWorkouts(reload: boolean): void {
-    console.log(this);
-    if (reload) {
-      let workoutsLocal: Workout[] = [];
-      this.workoutsService.fetchWorkouts().subscribe((data: WorkoutDTO[]) => {
-
-        workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
-        workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
-        this._savedWorkouts.next(workoutsLocal);
-        for (const i in workoutsLocal) {
-          if (data.hasOwnProperty(i)) {
-            console.log(workoutsLocal[i]);
-            this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
-              this.addImagesToWorkouts(data2, i, workoutsLocal);
-            });
-          }
-        }
-      });
-    }
+  public addWorkout(workout: Workout): void {
+    const workouts: Workout[] = this._savedWorkouts.getValue();
+    // todo: if workouts empty initialize and add if not already in
+    workouts.push(workout);
+    this._savedWorkouts.next(workouts);
   }
 
-  public initializeWorkoutsWithSearchCriteria(): void {
-    let workoutsLocal: Workout[] = [];
-    this.workoutsService.fetchWorkoutsWithSearchCriteria().subscribe((data: WorkoutDTO[]) => {
-
-      workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
-      workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
-      this._savedWorkouts.next(workoutsLocal);
-      for (const i in workoutsLocal) {
-        if (data.hasOwnProperty(i)) {
-          console.log(workoutsLocal[i]);
-          this.workoutpreviewpicturesService.getFiles(i, workoutsLocal[i].imageUrl).image.subscribe(data2 => {
-            this.addImagesToWorkouts(data2, i, workoutsLocal);
-          });
-        }
-      }
-    });
-
-  }
-
-  addImagesToWorkouts(image: Blob, position, workouts): void {
-    const reader = new FileReader();
-    reader.addEventListener('load',
-      () => {
-        workouts[position].image = reader.result;
-        this._savedWorkouts.next(workouts);
-      },
-      false);
-    if (image) {
-      if (image.type !== 'application/pdf') {
-        reader.readAsDataURL(image);
-      }
-    }
+  public remove(workout: Workout): void {
+    const workouts: Workout[] = this._savedWorkouts.getValue().filter(a => a.id !== workout.id);
+    this._savedWorkouts.next(workouts);
   }
 }
