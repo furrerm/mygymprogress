@@ -1,5 +1,4 @@
-import {DayDTO} from '../swagger-model/dayDTO';
-import {UserDTO} from '../swagger-model/userDTO';
+import {Day} from './day.model';
 
 export interface Workout {
   id: number;
@@ -10,6 +9,6 @@ export interface Workout {
   // todo: extract the creator id
   creatorId: number;
   image: string | ArrayBuffer;
-  days: Array<DayDTO>;
+  days: Array<Day>;
   isSavedFromCurrentUser: boolean;
 }

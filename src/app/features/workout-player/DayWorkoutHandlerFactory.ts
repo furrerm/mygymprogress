@@ -10,10 +10,4 @@ export class DayWorkoutHandlerFactory {
               private lastSetService: LastSetService) {
     this.savedWorkouts = savedWorkouts;
   }
-
-  createDayWorkoutHandlerFromIds(workoutId: number, dayId: number): DayWorkoutHandler {
-    const dayWorkout: DayDTO = this.savedWorkouts?.find(a => a.id === workoutId)?.days?.find(a => a.id === dayId);
-    const dayWorkoutHandler: DayWorkoutHandler = new DayWorkoutHandlerExerciseBased(dayWorkout, this.lastSetService);
-    return dayWorkoutHandler;
-  }
 }

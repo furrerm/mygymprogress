@@ -1,24 +1,25 @@
 
-.content-div {
-  width: 100%;
-  max-width: 1000px;
-  height: 100%;
-
+.content-div-common {
+  margin-top: 50px;
+  background-color: #099FDF;
+  position: relative;
 }
-.filter-div {
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100px;
-  border: solid black 1px;
-  margin: 30px 0 30px 0;
-  background-color: white;
 }
-.setDisplayWrapper {
+.setDisplay-wrapper-common {
+  position:absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   height: calc(100% - 160px);
   width: 100%;
   border: solid black 1px;
-  background-color: white;
+
 }
 .exerciseTitleWrapper {
   width: 100%;
@@ -64,6 +65,10 @@
 }
 
 @media (max-width: 767px) {
+  .content-div-media-specific {
+    width: 100%;
+    padding-top: 750%;
+  }
   .showIfMobile {
     display: flex;
     height:auto;
@@ -96,6 +101,10 @@
   }
 }
 @media (min-width: 768px) {
+  .content-div-media-specific {
+    width: 1000px;
+    padding-top: 750px;
+  }
   .showIfMobile {
     height:0;
     width:0;
@@ -123,7 +132,8 @@
     width: 100%;
     height: calc(100% - 45px);
     align-items: center;
-    background-color: RGB(250, 250, 250);
+    background-color: chartreuse;
+    /*background-color: RGB(250, 250, 250);*/
   }
   video {
   filter:brightness(40%);

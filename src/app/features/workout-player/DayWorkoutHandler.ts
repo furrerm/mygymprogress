@@ -5,11 +5,16 @@ import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {ExerciseSetContainerDTO} from '../../core/model/swagger-model/exerciseSetContainerDTO';
 import {ExerciseSetDTO} from '../../core/model/swagger-model/exerciseSetDTO';
 import {PhaseDTO} from '../../core/model/swagger-model/phaseDTO';
+import {Day} from '../../core/model/internal-model/day.model';
+import {Phase} from '../../core/model/internal-model/phase.model';
+import {Exercise} from '../../core/model/internal-model/exercise.model';
+import {ConstantsService} from '../../core/services/constants.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface DayWorkoutHandler {
   getWorkout(): BehaviorSubject<DayDTO>;
 
-  getExercise(): Subject<ExerciseDTO>;
+  getExercise(): Subject<Exercise>;
 
   nextExercise(): void;
 
@@ -18,28 +23,29 @@ export interface DayWorkoutHandler {
 
 // todo: reconsider the states eg. dayWorkout
 export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
-  private readonly updatedDayWorkout: BehaviorSubject<DayDTO>;
-  private updatedExercise: Subject<ExerciseDTO> = new Subject<ExerciseDTO>();
-  private dayWorkout: DayDTO;
+  private readonly updatedDayWorkout: BehaviorSubject<Day>;
+  private updatedExercise: Subject<Exercise> = new Subject<Exercise>();
+  private dayWorkout: Day;
   private exercisePointer: ExercisePointer;
 
-  constructor(dayWorkout: DayDTO, lastSetService: LastSetService) {
+  constructor(dayWorkout: Day, lastSetService: LastSetService, private constantsService: ConstantsService, private sanitizer: DomSanitizer) {
     this.updatedDayWorkout = new BehaviorSubject<DayDTO>(dayWorkout);
     this.dayWorkout = dayWorkout;
     this.exercisePointer = {phaseNumber: 0, exerciseNumber: -1};
     this.loadSets(lastSetService);
+    this.loadExerciseVideos(lastSetService);
   }
 
   getWorkout(): BehaviorSubject<DayDTO> {
     return this.updatedDayWorkout;
   }
 
-  getExercise(): Subject<ExerciseDTO> {
+  getExercise(): Subject<Exercise> {
     return this.updatedExercise;
   }
 
   // todo: implement iterator principle
-  nextExercise() {
+  nextExercise(): void {
     const exercises = this.dayWorkout.phases[this.exercisePointer.phaseNumber].exercises;
     let currentExercise: ExerciseDTO;
     if (!this.isLastExerciseOfDayWorkout()) {
@@ -53,7 +59,6 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
       }
       currentExercise.setsContainer = this.copyLastEntry(currentExercise);
     }
-    // todo: add video to exercise
     this.updatedExercise.next(currentExercise);
   }
 
@@ -68,9 +73,21 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
         this.updatedDayWorkout.next(this.dayWorkout);
         this.nextExercise();
       });
-
   }
 
+  public loadExerciseVideos(lastSetService: LastSetService): void {
+    const phases: Phase[] = this.dayWorkout.phases;
+    for (const phase of phases) {
+      const exercises: Exercise[] = phase.exercises;
+      for (const exercise of exercises) {
+        lastSetService.getVideoTest(this.constantsService, exercise.videoUrl).subscribe(a => {
+
+          exercise.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(a));
+          this.updatedDayWorkout.next(this.dayWorkout);
+        });
+      }
+    }
+  }
 
   private addSetsToDayWorkout(exerciseDTOSWithSets: ExerciseDTO[]): DayDTO {
     this.dayWorkout.phases = this.dayWorkout.phases.map((phase: PhaseDTO) => {

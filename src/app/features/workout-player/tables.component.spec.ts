@@ -14,6 +14,9 @@ import {ExerciseSetContainerDTO} from '../../core/model/swagger-model/exerciseSe
 import {ExerciseSetDTO} from '../../core/model/swagger-model/exerciseSetDTO';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {PhaseDTO} from '../../core/model/swagger-model/phaseDTO';
+import {WorkoutConverter} from '../../core/model/converter/workout-converter';
+import {Day} from '../../core/model/internal-model/day.model';
+import {Phase} from '../../core/model/internal-model/phase.model';
 
 class LastSetServiceMock extends LastSetService {
   getSets(exerciseIds: number[]): Observable<ExerciseDTO[]> {
@@ -38,31 +41,33 @@ class LastSetServiceMock extends LastSetService {
 
 class SavedWorkoutsServiceMock extends SavedWorkoutsService {
   readonly _savedWorkouts: BehaviorSubject<Workout[]>;
-  public get savedWorkouts(): BehaviorSubject<Workout[]> {
+  public savedWorkouts(): BehaviorSubject<Workout[]> {
     return this._savedWorkouts;
   }
 
   public initializeWorkouts(): void {
-    const phaseDTOs: PhaseDTO[] = [{
+    const phases: Phase[] = [{
       id: 1,
       name: 'phase1',
       exercises: [],
       order: 1
     }];
-    const days: DayDTO[] = [{
+    const days: Day[] = [{
       id: 1,
       name: 'monday',
-      phases: phaseDTOs
+      phases
     }];
     const savedWorkouts: Workout[] = [{
       id: 1,
       name: 'workout1',
       imageUrl: '',
+      previewImage: [],
       creatorId: 0,
       image: 'string',
-      days
+      days,
+      isSavedFromCurrentUser: true
     }];
-    this.savedWorkouts.next(savedWorkouts);
+    this.savedWorkouts().next(savedWorkouts);
   }
 }
 

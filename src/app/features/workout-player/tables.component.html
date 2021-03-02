@@ -1,17 +1,19 @@
 <app-menu></app-menu>
 
 <div class="d-flex justify-content-center content-wrapper">
-  <div class="content-div">
-    <div class="filter-div justify-content-center d-flex">
-      <p style="text-align: center; margin: auto;"> Stream coming soon </p>
-    </div>
-    <div class="setDisplayWrapper">
+  <div class="content-div-common content-div-media-specific">
+    <video class="video" [src]="currentExercise.videoSrc" #pla
+           id='videoplayer' autoplay="autoplay" controls>
+    </video>
+    <div *ngIf="showEntryPanel" class="setDisplay-wrapper-common">
       <div class="exerciseTitleWrapper">
-        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} url = {{this.getCurrentExercise().videoUrl}}</h3>
+        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} url
+          = {{this.getCurrentExercise().videoUrl}}</h3>
       </div>
       <div class="tableContainer">
         <div class="showIfNonMobile">
-          <app-last-set class="setDisplayComponents lastSetComponent" [currentExercise]="this.getCurrentExercise()"></app-last-set>
+          <app-last-set class="setDisplayComponents lastSetComponent"
+                        [currentExercise]="this.getCurrentExercise()"></app-last-set>
         </div>
         <div class="setContainer">
           <app-current-set class="setDisplayComponents" [currentExercise]="this.getCurrentExercise()"></app-current-set>
@@ -23,13 +25,19 @@
             (click)="this.nextExercise()">next</h3>
       </div>
       <div class="showIfMobile">
-        <app-last-set class="setDisplayComponents lastSetComponent" [currentExercise]="this.getCurrentExercise()"></app-last-set>
+        <app-last-set class="setDisplayComponents lastSetComponent"
+                      [currentExercise]="this.getCurrentExercise()"></app-last-set>
       </div>
     </div>
   </div>
-  <video #pla id = 'videoplayer' autoplay="autoplay" controls>
-    <!-- <source #videoPlayerResource src="" type="video/mp4"> -->
-  </video>
+  <!--
+  <div style="position: relative; width: 400px; height: 300px">
+    <video *ngIf="currentExercise && this.currentExercise.videoSrc" [src]="currentExercise.videoSrc" #pla
+           id='videoplayer' autoplay="autoplay" controls>
+    </video>
+    <div style = "width: 200px; height: 200px; position: absolute; top: 50px; left: 50px; background-color: #099FDF"></div>
+  </div>
+  -->
 </div>
 
 

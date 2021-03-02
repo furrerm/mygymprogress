@@ -4,10 +4,14 @@ import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.servic
 import {LastSetService} from './shared/last-set.service';
 import {SaveSetsService} from './shared/save-sets.service';
 import {DayWorkoutHandlerFactory} from './DayWorkoutHandlerFactory';
-import {DayWorkoutHandler} from './DayWorkoutHandler';
+import {DayWorkoutHandler, DayWorkoutHandlerExerciseBased} from './DayWorkoutHandler';
 import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {ConstantsService} from '../../core/services/constants.service';
+import {WorkoutsService} from '../workout-list/shared/workouts.service';
+import {Day} from '../../core/model/internal-model/day.model';
+import {Exercise} from '../../core/model/internal-model/exercise.model';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tables',
@@ -16,11 +20,12 @@ import {ConstantsService} from '../../core/services/constants.service';
 })
 export class TablesComponent implements OnInit, AfterContentInit {
 
-  private currentExercise: ExerciseDTO;
-  private currentDayWorkout: DayDTO;
+  public currentExercise: Exercise;
+  private currentDayWorkout: Day;
   private savedWorkoutId: number;
   private dayWorkoutHandler: DayWorkoutHandler;
 
+  public showEntryPanel: boolean;
   private video: Blob;
 
   @ViewChild('pla') playerVideo;
@@ -33,7 +38,9 @@ export class TablesComponent implements OnInit, AfterContentInit {
     private savedWorkoutService: SavedWorkoutsService,
     private lastSetService: LastSetService,
     private saveSetsService: SaveSetsService,
-    private constants: ConstantsService
+    private constants: ConstantsService,
+    private workoutsService: WorkoutsService,
+    private readonly sanitizer: DomSanitizer
   ) {
   }
 
@@ -42,26 +49,41 @@ export class TablesComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.savedWorkoutId = +params.get('savedWorkoutId');
-      const dayId: number = +params.get('dayId');
-      this.savedWorkoutService.savedWorkouts().subscribe(savedWorkouts => {
-        const dayWorkoutHandlerFactory: DayWorkoutHandlerFactory = new DayWorkoutHandlerFactory(savedWorkouts, this.lastSetService);
-        this.dayWorkoutHandler = dayWorkoutHandlerFactory.createDayWorkoutHandlerFromIds(this.savedWorkoutId, dayId);
-        this.dayWorkoutHandler.getWorkout().subscribe(a =>
-          this.currentDayWorkout = a
-        );
-        this.dayWorkoutHandler.getExercise().subscribe(a => {
-            this.currentExercise = a;
-            this.getVideoTestFunction();
-          }
-        );
-      });
+      this.currentDayWorkout = this.workoutsService.day;
+
+      this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(this.currentDayWorkout, this.lastSetService, this.constants, this.sanitizer);
+      this.dayWorkoutHandler.getWorkout().subscribe(a =>
+        this.currentDayWorkout = a
+      );
+      this.dayWorkoutHandler.getExercise().subscribe(a => {
+          this.currentExercise = a;
+          // this.playerSettings(this.currentExercise);
+          this.playerSettings(this.currentExercise);
+        }
+      );
     });
 
   }
 
+  playerSettings(currentExercise: Exercise): void {
+
+    this.showEntryPanel = false;
+    const timeToPlay = currentExercise.timeLength * 1000;
+    const timeBased = currentExercise.timeBased;
+
+    setTimeout(() => {
+      this.playerVideo.nativeElement.pause();
+      if (timeBased) {
+        this.nextExercise();
+      } else {
+        this.showEntryPanel = true;
+      }
+    }, timeToPlay);
+  }
+
   nextExercise() {
     this.dayWorkoutHandler.nextExercise();
+    console.log(this.currentExercise);
   }
 
   endWorkout() {
@@ -77,19 +99,5 @@ export class TablesComponent implements OnInit, AfterContentInit {
 
   isLastExerciseOfDayWorkout() {
     return this.dayWorkoutHandler?.isLastExerciseOfDayWorkout();
-  }
-
-  getVideoTestFunction(): void {
-
-    this.lastSetService.getVideoTest(this.constants, this.currentExercise.videoUrl).subscribe(a => {
-      this.video = a;
-      this.playerVideo.nativeElement.src = window.URL.createObjectURL(a);
-      setTimeout(() => {
-        // this.playerVideo.nativeElement.pause();
-
-      }, 2000);
-      // videoplayer[0].pause();
-
-    });
   }
 }

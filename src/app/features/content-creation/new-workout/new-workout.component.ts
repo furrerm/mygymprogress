@@ -174,7 +174,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
       // todo: preview low quality image must get stored in db
       previewImage: null,
       // convert(this.this.constant.getUser): UserDTO
-      creator: this.this.constant.getUser,
+      creator: this.constantsService.getUser,
       days: this.days
     };
     this.saveWorkoutService.cacheWorkout(workoutDTO);

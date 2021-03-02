@@ -10,6 +10,7 @@ import {WorkoutConverter} from '../../../core/model/converter/workout-converter'
 import {ImageObservable} from '../../workoutoverview/workoutoverview.component';
 import {createObjectSnapshotChanges} from '@angular/fire/database/object/snapshot-changes';
 import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
+import {Day} from '../../../core/model/internal-model/day.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 export class WorkoutsService {
 
   appUrl: string;
-  private _dayDTO: DayDTO;
+  private _day: DayDTO;
 
   constructor(
     private http: HttpClient,
@@ -88,11 +89,11 @@ export class WorkoutsService {
     }
   }
 
-  cacheWorkoutDayToPlay(dayDTO: DayDTO): void {
-    this._dayDTO = dayDTO;
+  cacheWorkoutDayToPlay(day: Day): void {
+    this._day = day;
   }
 
-  get dayDTO(): DayDTO {
-    return this._dayDTO;
+  get day(): Day {
+    return this._day;
   }
 }
