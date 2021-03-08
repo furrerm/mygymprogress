@@ -82,8 +82,8 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
       for (const exercise of exercises) {
         lastSetService.getVideoTest(this.constantsService, exercise.videoUrl).subscribe(a => {
 
-          exercise.videoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(a));
-          this.updatedDayWorkout.next(this.dayWorkout);
+          exercise.videoSrc.next(a);
+
         });
       }
     }

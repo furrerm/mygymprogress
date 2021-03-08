@@ -2,13 +2,23 @@
 
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div-common content-div-media-specific">
-    <video class="video" [src]="currentExercise.videoSrc" #pla
-           id='videoplayer' autoplay="autoplay" controls>
+
+    <video *ngIf="currentVideoSrc !== null" [@testTriggerRef]="this.testTriggerToDelete" (@testTriggerRef.done)="this.videoBlendOutCallback($event)" class="video" [src]="this.currentVideoSrc" #pla
+           id='videoplayer' autoplay="autoplay" controls loop>
     </video>
-    <div *ngIf="showEntryPanel" class="setDisplay-wrapper-common">
+
+    <div #lastSetContainer [@lastSetContainerTriggerRef]="this.lastSetContainerTrigger" class="lastTwoSetsContainer" [ngStyle]="{'top': (this.lastSetContainerPosition - 80), 'left': 20}" *ngIf="currentVideoSrc !== null && this.currentExercise.setsContainer.length > 0">
+      <div class="singleSetsContainer">
+        <p class="text-center text-white">{{this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.timeOfExercise.toDateString()}}</p>
+        <p class="text-center text-white" *ngFor="let exerciseSet of this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.exerciseSets">{{exerciseSet.repetitions}}
+          X {{exerciseSet.weight}} Kg</p>
+      </div>
+    </div>
+
+    <!--<div class="setDisplay-wrapper-common">-->
+    <div [ngStyle]="{'width.px': this.entryPanelWidth, 'height': this.entryPanelHeight}" #entryPanel *ngIf="showEntryPanel" class="setDisplay-wrapper-common">
       <div class="exerciseTitleWrapper">
-        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} url
-          = {{this.getCurrentExercise().videoUrl}}</h3>
+        <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} </h3>
       </div>
       <div class="tableContainer">
         <div class="showIfNonMobile">
@@ -21,7 +31,7 @@
       </div>
       <div class="motherBoard">
         <h3 class="endButton" (click)="this.endWorkout()">end</h3>
-        <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'black'}"
+        <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'white'}"
             (click)="this.nextExercise()">next</h3>
       </div>
       <div class="showIfMobile">

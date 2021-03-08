@@ -5,7 +5,7 @@
       <div class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
         <button (click)="this.incrementRepetitions(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityUpButtonImage controlButtonImage"
-               src="../../../../assets/pictures/menuButtons/quantityButtonUp.svg">
+               src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
         </button>
 
         <input type="number" class="setInput" step="1" min="0" max="" name="quantity"
@@ -13,16 +13,19 @@
 
         <button (click)="this.decrementRepetitions(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityDownButtonImage controlButtonImage"
-               src="../../../../assets/pictures/menuButtons/quantityButtonDown.svg">
+               src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
         </button>
       </div>
-      <div class="inputFieldsRowWrapperEntryColumn wrapper-center">
-        <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/crossProduct.svg">
+      <div *ngIf="!this.currentExercise.timeBased" class="inputFieldsRowWrapperEntryColumn wrapper-center">
+        <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/workout-player/crossProduct.svg">
       </div>
-      <div class="inputFieldsRowWrapperEntryColumn wrapper-right" formArrayName="weights">
+      <div *ngIf="this.currentExercise.timeBased" class="inputFieldsRowWrapperEntryColumn wrapper-center">
+        <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/workout-player/sec.svg">
+      </div>
+      <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn wrapper-right" formArrayName="weights">
         <button (click)="this.incrementWeight(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityUpButtonImage controlButtonImage"
-               src="../../../../assets/pictures/menuButtons/quantityButtonUp.svg">
+               src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
         </button>
         <input type="number" class="setInput" step="1" min="1" max="" name="quantity"
                value="1" title="Qty"
@@ -30,20 +33,20 @@
                pattern="" inputmode="" [formControlName]="i">
         <button (click)="this.decrementWeight(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityDownButtonImage controlButtonImage"
-               src="../../../../assets/pictures/menuButtons/quantityButtonDown.svg">
+               src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
         </button>
       </div>
-      <div class="inputFieldsRowWrapperEntryColumn wrapper-center-right">
+      <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn wrapper-center-right">
         <span class="kgSpan">kg</span>
       </div>
       <button (click)="this.removeEntry(i)" class="controlButton removeEntryButton" type="submit">
-        <img class="controlButtonImage" src="../../../../assets/pictures/menuButtons/minusButton.svg">
+        <img class="quantityControlButtonImage" src="../../../../assets/pictures/menuButtons/workout-player/minusButton.svg">
       </button>
     </div>
   </form>
   <div class="inputFieldsRowWrapper">
     <button (click)="this.addEntry()" class="controlButton addEntryButton" type="submit">
-      <img class="controlButtonImage" src="../../../../assets/pictures/menuButtons/plusButton.svg">
+      <img class="quantityControlButtonImage" src="../../../../assets/pictures/menuButtons/workout-player/plusButton.svg">
     </button>
   </div>
 </div>

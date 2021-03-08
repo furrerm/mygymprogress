@@ -6,6 +6,8 @@ import {Phase} from '../internal-model/phase.model';
 import {Day} from '../internal-model/day.model';
 import {ExerciseDTO} from '../swagger-model/exerciseDTO';
 import {Exercise} from '../internal-model/exercise.model';
+import {BehaviorSubject} from 'rxjs';
+import {ExerciseSetContainerDTO} from '../swagger-model/exerciseSetContainerDTO';
 
 export class WorkoutConverter {
   convertWorkoutToDTO(workout: Workout): WorkoutDTO {
@@ -16,6 +18,35 @@ export class WorkoutConverter {
       creator: null,
       days: workout.days,
       savedFromCurrentUser: workout.isSavedFromCurrentUser
+    };
+  }
+  convertDayToDTO(day: Day): DayDTO {
+    return {
+      id: day.id,
+      name: day.name,
+      phases: day.phases.map(a => this.convertPhaseToDTO(a))
+    };
+  }
+  convertPhaseToDTO(phase: Phase): PhaseDTO {
+    return {
+      id: phase.id,
+      name: phase.name,
+      exercises: phase.exercises.map(a => this.convertExerciseToDTO(a)),
+      order: phase.order
+    };
+  }
+  convertExerciseToDTO(exericse: Exercise): ExerciseDTO {
+    return {
+      id: exericse.id,
+      name: exericse.name,
+      setsContainer: exericse.setsContainer,
+      order: exericse.order,
+      videoUrl: exericse.videoUrl,
+      image: exericse.image,
+      userEntryRequired: exericse.userEntryRequired,
+      timeLength: exericse.timeLength,
+      timeBased: exericse.timeBased,
+      weight: exericse.weight
     };
   }
 
@@ -64,7 +95,7 @@ export class WorkoutConverter {
       timeLength: x.timeLength,
       timeBased: x.timeBased,
       weight: x.weight,
-      videoSrc: ''
+      videoSrc: new BehaviorSubject<File>(null)
       })
     );
   }

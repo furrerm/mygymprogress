@@ -1,5 +1,6 @@
 import {ExerciseSetContainerDTO} from '../swagger-model/exerciseSetContainerDTO';
 import {SafeResourceUrl} from '@angular/platform-browser';
+import {BehaviorSubject} from 'rxjs';
 
 export interface Exercise {
   id?: number;
@@ -12,5 +13,5 @@ export interface Exercise {
   timeLength?: number;
   timeBased?: boolean;
   weight?: boolean;
-  videoSrc?: SafeResourceUrl;
+  videoSrc?: BehaviorSubject<File>;
 }
