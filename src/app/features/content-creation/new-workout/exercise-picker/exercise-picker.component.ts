@@ -4,6 +4,9 @@ import {AllExercisesService} from './shared/all-exercises.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SavedWorkoutsService} from '../../../workout-list/shared/saved-workouts.service';
 import {SaveWorkoutService} from '../shared/save-workout.service';
+import {FilterGroupDTO} from '../../../../core/model/swagger-model/filterGroupDTO';
+import {FilterService} from '../../../../core/services/filter.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-exercise-picker',
@@ -16,27 +19,35 @@ export class ExercisePickerComponent implements OnInit {
   private exercises: ExerciseDTO[] = [];
   private chosenExercises: ExerciseDTO[] = [];
   private exerciseOrder = 0;
+  private filterGroups: FilterGroupDTO[] = [];
 
   constructor(
     private allExercises: AllExercisesService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private saveWorkoutService: SaveWorkoutService
+    private saveWorkoutService: SaveWorkoutService,
+    private filterService: FilterService
   ) {
   }
 
   ngOnInit(): void {
     this.getAllExercises();
+    this.getAllFilterGroups();
   }
 
   public getExercise() {
     return this.exercises;
   }
 
-  private getAllExercises() {
+  private getAllExercises(): void {
     this.allExercises.getAllExercises().subscribe(data => {
       this.exercises = data;
+    });
+  }
 
+  private getAllFilterGroups(): void {
+    this.filterService.getAllFilterGroups().subscribe(filterGroups => {
+      this.filterGroups = filterGroups;
     });
   }
 
