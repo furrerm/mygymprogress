@@ -9,6 +9,7 @@ import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
 import {ConstantsService} from '../../../core/services/constants.service';
 import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
 import {Vector} from '../../../core/types/vector';
+import {Exercise} from '../../../core/model/internal-model/exercise.model';
 
 @Component({
   selector: 'app-new-workout',
@@ -39,6 +40,8 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   private _allDays: DayDTO[];
   private _allPhases: PhaseDTO[];
   private _currentlySelectedPhase: PhaseDTO;
+
+  private _expandedExercise: ExerciseExpandPosition = {exerciseNumber: -1, phaseNumber: -1};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -149,6 +152,22 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     this.saveWorkoutService.cacheDragPosition(this.dragPosition);
   }
 
+  setTimeLength(event, exercise: Exercise): void {
+    const timeLength = event.target.value;
+    exercise.timeLength = timeLength;
+/*
+    this.reader.onload = (file: any) => {
+      this.url = file.target.result;
+      this.saveWorkoutService.cacheFile(selectedFiles.item(0));
+      this.saveWorkoutService.cacheUrl(file.target.result);
+    };
+    this.reader.onerror = (file: any) => {
+      console.log('File could not be read: ' + file.target.error.code);
+    };
+    this.reader.readAsDataURL(event.target.files[0]);
+*/
+  }
+
   selectFile(event): void {
     const selectedFiles = event.target.files;
 
@@ -196,6 +215,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   }
 
   setSelectedDay(selectedDay: number): void {
+    this._expandedExercise = {exerciseNumber: -1, phaseNumber: -1};
     this.selectedDay = selectedDay;
   }
 
@@ -241,4 +261,28 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     this.saveWorkoutService.removeImage();
     this.fileInput.nativeElement.value = '';
   }
+
+  openExercise(exerciseNumber: number, phaseNumber: number): void {
+    this._expandedExercise = {exerciseNumber, phaseNumber};
+  }
+
+  get expandedExercise(): ExerciseExpandPosition {
+    return this._expandedExercise;
+  }
+
+  setUserRequired(exercise: Exercise, userEntryRequired: boolean): void {
+    exercise.userEntryRequired = userEntryRequired;
+  }
+
+  setTimeBased(exercise: Exercise, timeBased: boolean): void {
+    exercise.timeBased = timeBased;
+  }
+
+  setWeightIncluded(exercise: Exercise, weight: boolean): void {
+    exercise.weight = weight;
+  }
+}
+export interface ExerciseExpandPosition {
+  exerciseNumber: number;
+  phaseNumber: number;
 }

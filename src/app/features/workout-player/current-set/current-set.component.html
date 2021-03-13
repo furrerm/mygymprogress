@@ -2,7 +2,13 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
 
     <div class="inputFieldsRowWrapper" *ngFor="let repetition of repetitions.controls; index as i">
-      <div class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
+      <div *ngIf="this.exerciseType() === EXERCISE_TYPE.OnlyReps" class="inputFieldsRowWrapperEntryColumn repsSpanWrapper">
+        <span class="RepsSpan">Reps:</span>
+      </div>
+      <div *ngIf="this.exerciseType() === EXERCISE_TYPE.OnlyTime" class="inputFieldsRowWrapperEntryColumn repsSpanWrapper">
+        <span class="RepsSpan">Hold:</span>
+      </div>
+      <div [ngStyle]="{'margin-left': this.currentExercise.weight === true ? '50' : '5'}" class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
         <button (click)="this.incrementRepetitions(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityUpButtonImage controlButtonImage"
                src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
@@ -16,11 +22,11 @@
                src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
         </button>
       </div>
-      <div *ngIf="!this.currentExercise.timeBased" class="inputFieldsRowWrapperEntryColumn wrapper-center">
+      <div *ngIf="this.exerciseType() === EXERCISE_TYPE.RepsAndWeight" class="inputFieldsRowWrapperEntryColumn wrapper-center">
         <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/workout-player/crossProduct.svg">
       </div>
-      <div *ngIf="this.currentExercise.timeBased" class="inputFieldsRowWrapperEntryColumn wrapper-center">
-        <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/workout-player/sec.svg">
+      <div *ngIf="this.currentExercise.timeBased === true" class="inputFieldsRowWrapperEntryColumn wrapper-center">
+        <span class="kgSpan">s</span>
       </div>
       <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn wrapper-right" formArrayName="weights">
         <button (click)="this.incrementWeight(i)" class="controlButton quantityButton" type="submit">

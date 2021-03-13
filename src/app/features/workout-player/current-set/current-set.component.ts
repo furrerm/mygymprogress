@@ -25,6 +25,18 @@ export class CurrentSetComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  exerciseType(): EXERCISE_TYPE {
+    if (this.currentExercise.weight === true && this.currentExercise.timeBased === false) {
+      return EXERCISE_TYPE.RepsAndWeight;
+    } else if (this.currentExercise.weight === true && this.currentExercise.timeBased === true) {
+      return EXERCISE_TYPE.TimeAndWeight;
+    } else if (this.currentExercise.weight === false && this.currentExercise.timeBased === true) {
+      return EXERCISE_TYPE.OnlyTime;
+    } else if (this.currentExercise.weight === false && this.currentExercise.timeBased === false) {
+      return EXERCISE_TYPE.OnlyReps;
+    }
+  }
+
   get repetitions(): FormArray {
     return this.form.get('repetitions') as FormArray;
   }
@@ -39,6 +51,7 @@ export class CurrentSetComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.changeValue();
+
   }
 
   changeValue() {
@@ -103,23 +116,34 @@ export class CurrentSetComponent implements OnInit, OnChanges {
     this.changeValue();
   }
 
-  incrementWeight(setPosition: number) {
+  incrementWeight(setPosition: number): void {
     ++this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].weight;
     this.changeValue();
   }
 
-  decrementWeight(setPosition: number) {
+  decrementWeight(setPosition: number): void {
     --this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].weight;
     this.changeValue();
   }
 
-  incrementRepetitions(setPosition: number) {
+  incrementRepetitions(setPosition: number): void {
     ++this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].repetitions;
     this.changeValue();
   }
 
-  decrementRepetitions(setPosition: number) {
+  decrementRepetitions(setPosition: number): void {
     --this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].repetitions;
     this.changeValue();
   }
+
+  public get EXERCISE_TYPE(): typeof EXERCISE_TYPE {
+    return EXERCISE_TYPE;
+  }
+}
+
+export enum EXERCISE_TYPE {
+  OnlyTime,
+  OnlyReps,
+  TimeAndWeight,
+  RepsAndWeight
 }

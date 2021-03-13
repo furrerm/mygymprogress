@@ -3,6 +3,7 @@ export * from './dayDTO';
 export * from './exerciseDTO';
 export * from './exerciseSetContainerDTO';
 export * from './exerciseSetDTO';
+export * from './filterGroupDTO';
 export * from './phaseDTO';
 export * from './savedWorkoutDTO';
 export * from './userDTO';

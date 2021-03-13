@@ -3,20 +3,13 @@ import {
   OnInit,
   AfterContentInit,
   ViewChild,
-  SecurityContext,
-  ElementRef,
-  ViewChildren,
-  QueryList,
-  AfterViewInit, AfterViewChecked, ChangeDetectorRef
+  AfterViewChecked
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
 import {LastSetService} from './shared/last-set.service';
 import {SaveSetsService} from './shared/save-sets.service';
-import {DayWorkoutHandlerFactory} from './DayWorkoutHandlerFactory';
 import {DayWorkoutHandler, DayWorkoutHandlerExerciseBased} from './DayWorkoutHandler';
-import {ExerciseDTO} from '../../core/model/swagger-model/exerciseDTO';
-import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {ConstantsService} from '../../core/services/constants.service';
 import {WorkoutsService} from '../workout-list/shared/workouts.service';
 import {Day} from '../../core/model/internal-model/day.model';
@@ -31,34 +24,32 @@ import {WorkoutConverter} from '../../core/model/converter/workout-converter';
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.css'],
   animations: [
-
-    // todo: use filter:brightness(400%);} for video brightness animation
-    trigger('testTriggerRef', [
-      state('unTriggerd', style({
+    trigger('blendOutTriggerRef', [
+      state('dark', style({
         filter: 'brightness(0%)'
       })),
-      state('triggerd', style({
+      state('bright', style({
         filter: 'brightness(100%)'
       })),
-      transition('triggerd <=> unTriggerd', animate('50ms linear')),
-      transition('unTriggerd <=> triggerd', animate('50ms linear'))
+      transition('bright <=> dark', animate('2000ms linear')),
+      transition('dark <=> bright', animate('50ms linear'))
     ]),
     trigger('lastSetContainerTriggerRef', [
-      state('triggerd', style({
+      state('opaque', style({
         opacity: 0.9
       })),
-      state('untriggerd', style({
+      state('transparent', style({
         opacity: 0.0
       })),
-      transition('triggerd <=> untriggerd', animate('2000ms linear')),
-      transition('untriggerd <=> triggerd', animate('500ms linear'))
+      transition('opaque <=> transparent', animate('2000ms linear')),
+      transition('transparent <=> opaque', animate('500ms linear'))
     ])
   ]
 })
 export class TablesComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
-  public testTriggerToDelete = 'triggerd';
-  public lastSetContainerTrigger = 'triggerd';
+  public videoBlendOutTrigger = 'bright';
+  public lastSetContainerBlendOutTrigger = 'opaque';
 
   public currentExercise: Exercise;
   private currentDayWorkout: Day;
@@ -67,21 +58,17 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
   private dayWorkoutHandler: DayWorkoutHandler;
 
   public showEntryPanel: boolean;
-  private video: Blob;
 
-  @ViewChild('pla') playerVideo;
-  @ViewChildren('pla', {read: ElementRef}) el: QueryList<ElementRef>;
-  @ViewChild('videoPlayerResource') videoPlayerResource;
+  @ViewChild('videoPlayer') videoPlayer;
   @ViewChild('entryPanel') entryPanel;
   @ViewChild('lastSetContainer') lastSetContainer;
-  public videoSrc = '';
 
   public entryPanelWidth = 0;
   public entryPanelHeight = 0;
 
   public lastSetContainerPosition;
-
-  public videoWidth;
+  public lastSetContainerDisplay = 'flex';
+  public timeCounter = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -91,8 +78,7 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
     private saveSetsService: SaveSetsService,
     private constants: ConstantsService,
     private workoutsService: WorkoutsService,
-    private readonly sanitizer: DomSanitizer,
-    private cdRef: ChangeDetectorRef
+    private readonly sanitizer: DomSanitizer
   ) {
     this.listenForVideoChanges();
   }
@@ -102,27 +88,32 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
   }
 
   ngAfterViewChecked(): void {
-    this.listenForPlotChanges(this.el);
-    this.cdRef.detectChanges();
-
   }
 
   ngAfterContentInit(): void {
     this.route.paramMap.subscribe(params => {
+      // todo: use params for reloading the right day Workout
       if (this.workoutsService.day) {
         this.currentDayWorkout = this.workoutsService.day;
-        this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(this.currentDayWorkout, this.lastSetService, this.constants, this.sanitizer);
+        this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(
+          this.currentDayWorkout,
+          this.lastSetService,
+          this.constants,
+          this.sanitizer);
         this.dayWorkoutHandler.getWorkout().subscribe(a =>
           this.currentDayWorkout = a
         );
         this.dayWorkoutHandler.getExercise().subscribe(a => {
             this.currentExercise = a;
+            if (this.currentExercise.userEntryRequired === true) {
+              this.lastSetContainerDisplay = 'flex';
+            } else {
+              this.lastSetContainerDisplay = 'none';
+            }
             a.videoSrc.subscribe(b => {
               if (b !== null) {
                 this.currentVideoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(b));
                 this.playerSettings(this.currentExercise);
-                this.cdRef.detectChanges();
-
               }
             });
           }
@@ -137,42 +128,31 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
     });
   }
 
-  listenForPlotChanges(elementQueryList: QueryList<ElementRef>): void {
-    elementQueryList.changes.subscribe(next1 => {
-        this.cdRef.detectChanges();
-      }
-    );
-  }
-
   playerSettings(currentExercise: Exercise): void {
-    this.testTriggerToDelete = 'triggerd';
+    this.timeCounter = currentExercise.timeLength;
+    this.videoBlendOutTrigger = 'bright';
     this.showEntryPanel = false;
     const timeToPlay = currentExercise.timeLength * 1000;
 
+    setTimeout(() => {
+      this.videoBlendOutTrigger = 'dark';
+    }, timeToPlay -22000);
 
     setTimeout(() => {
-      this.testTriggerToDelete = 'unTriggerd';
-
-
-    }, timeToPlay - 15000);
-
-    setTimeout(() => {
-      this.lastSetContainerTrigger = 'triggerd';
+      this.lastSetContainerBlendOutTrigger = 'opaque';
     }, 2000);
 
     setTimeout(() => {
-      this.lastSetContainerTrigger = 'untriggerd';
-    }, 8000);
+      this.lastSetContainerBlendOutTrigger = 'transparent';
+    }, 5000);
 
   }
 
-  nextExercise() {
-
+  nextExercise(): void {
     this.dayWorkoutHandler.nextExercise();
-    console.log(this.currentExercise);
   }
 
-  endWorkout() {
+  endWorkout(): void {
     const dayDTO = new WorkoutConverter().convertDayToDTO(this.currentDayWorkout);
 
     this.saveSetsService.saveSets(dayDTO, this.savedWorkoutId)
@@ -181,39 +161,36 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
       });
   }
 
-  getCurrentExercise() {
+  getCurrentExercise(): Exercise {
     return this.currentExercise;
   }
 
-  isLastExerciseOfDayWorkout() {
+  isLastExerciseOfDayWorkout(): boolean {
     return this.dayWorkoutHandler?.isLastExerciseOfDayWorkout();
   }
 
   videoBlendOutCallback(event): void {
 
-    if (this.testTriggerToDelete === 'unTriggerd') {
+    if (this.videoBlendOutTrigger === 'dark') {
       const userEntryRequired = this.currentExercise.userEntryRequired;
-      this.playerVideo.nativeElement.pause();
+      this.videoPlayer.nativeElement.pause();
       if (!userEntryRequired) {
         this.nextExercise();
       } else {
         this.showEntryPanel = true;
-        this.cdRef.detectChanges();
       }
     }
-
   }
 
   listenForVideoChanges(): void {
     let i = 0;
     setInterval(() => {
       ++i;
-      if (this.playerVideo !== undefined) {
-        this.entryPanelWidth = this.playerVideo.nativeElement.offsetWidth;
-        this.entryPanelHeight = this.playerVideo.nativeElement.offsetHeight;
-
-        this.lastSetContainerPosition = this.playerVideo.nativeElement.offsetHeight - this.lastSetContainer.nativeElement.offsetHeight;
-
+      if (this.videoPlayer !== undefined) {
+        this.entryPanelWidth = this.videoPlayer.nativeElement.offsetWidth;
+        this.entryPanelHeight = this.videoPlayer.nativeElement.offsetHeight;
+        this.lastSetContainerPosition = this.videoPlayer.nativeElement.offsetHeight - this.lastSetContainer.nativeElement.offsetHeight;
+        this.timeCounter--;
       }
     }, 1000);
   }

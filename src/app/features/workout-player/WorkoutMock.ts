@@ -27,8 +27,8 @@ export class WorkoutMock {
     image: '',
     userEntryRequired: true,
     timeLength: 20,
-    timeBased: false,
-    weight: true,
+    timeBased: true,
+    weight: false,
     videoSrc: null
   };
   private _exercise2: Exercise = {

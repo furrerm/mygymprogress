@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { ExerciseSetContainerDTO } from './exerciseSetContainerDTO';
+import { FilterGroupDTO } from './filterGroupDTO';
 
 export interface ExerciseDTO { 
     id?: number;
@@ -22,4 +23,5 @@ export interface ExerciseDTO {
     timeLength?: number;
     timeBased?: boolean;
     weight?: boolean;
+    filterGroups?: Array<FilterGroupDTO>;
 }

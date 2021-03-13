@@ -66,10 +66,9 @@ input::-webkit-inner-spin-button {
 }
 .wrapper-left {
   width: 70px;
-  margin-left: 50px;
 }
 .wrapper-center {
-  width: 30px;
+  width: 60px;
   margin: auto 10px;
 }
 .wrapper-right {
@@ -86,10 +85,29 @@ input::-webkit-inner-spin-button {
   height: 15%;
 }
 .kgSpan {
-  margin: auto;
-  text-align: center;
+  float: left;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0px;
+  text-align: left;
   font-size: 30px;
-  width: 80%;
+  width: 100%;
   height: 50px;
   color: white;
+}
+.RepsSpan {
+  color: white;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
+  font-size: 30px;
+
+  height: 50px;
+  color: white;
+}
+.repsSpanWrapper {
+
+  margin-bottom: auto;
+  margin-top: auto;
 }

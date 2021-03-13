@@ -3,11 +3,15 @@
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div-common content-div-media-specific">
 
-    <video *ngIf="currentVideoSrc !== null" [@testTriggerRef]="this.testTriggerToDelete" (@testTriggerRef.done)="this.videoBlendOutCallback($event)" class="video" [src]="this.currentVideoSrc" #pla
-           id='videoplayer' autoplay="autoplay" controls loop>
+    <video #videoPlayer *ngIf="currentVideoSrc !== null" [@blendOutTriggerRef]="this.videoBlendOutTrigger" (@blendOutTriggerRef.done)="this.videoBlendOutCallback($event)" class="video" [src]="this.currentVideoSrc"
+           id='videoplayer' autoplay="autoplay" loop>
     </video>
 
-    <div #lastSetContainer [@lastSetContainerTriggerRef]="this.lastSetContainerTrigger" class="lastTwoSetsContainer" [ngStyle]="{'top': (this.lastSetContainerPosition - 80), 'left': 20}" *ngIf="currentVideoSrc !== null && this.currentExercise.setsContainer.length > 0">
+    <div class = "time-container">
+      <span class = clock>{{this.timeCounter}} </span>
+    </div>
+
+    <div #lastSetContainer [@lastSetContainerTriggerRef]="this.lastSetContainerBlendOutTrigger" class="lastTwoSetsContainer" [ngStyle]="{'top': (this.lastSetContainerPosition - 80), 'left': 20, 'display': lastSetContainerDisplay}" *ngIf="currentVideoSrc !== null && this.currentExercise.setsContainer.length > 0">
       <div class="singleSetsContainer">
         <p class="text-center text-white">{{this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.timeOfExercise.toDateString()}}</p>
         <p class="text-center text-white" *ngFor="let exerciseSet of this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.exerciseSets">{{exerciseSet.repetitions}}
