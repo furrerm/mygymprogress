@@ -1,6 +1,6 @@
 import {HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
-import {graphic} from 'echarts';
+import {graphic, EChartsOption} from 'echarts';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {ExerciseSetContainerDTO} from '../../../core/model/swagger-model/exerciseSetContainerDTO';
 
@@ -16,8 +16,7 @@ export class LastSetComponent implements OnInit, OnChanges {
   yAxe: number[] = [];
   @Input() currentExercise: ExerciseDTO;
   updateOptions: any;
-  options = {
-    color: ['#3398DB'],
+  options: EChartsOption = {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -28,6 +27,7 @@ export class LastSetComponent implements OnInit, OnChanges {
       left: '3%',
       right: '4%',
       bottom: '3%',
+      top: '10%',
       containLabel: true
     },
     xAxis: [
@@ -35,7 +35,10 @@ export class LastSetComponent implements OnInit, OnChanges {
         type: 'category',
         data: [1, 2, 3],
         axisTick: {
-          alignWithLabel: true
+          alignWithLabel: false
+        },
+        axisLabel: {
+          show: false
         }
       }
     ],

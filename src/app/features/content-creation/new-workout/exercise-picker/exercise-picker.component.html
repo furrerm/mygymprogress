@@ -2,12 +2,28 @@
 
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div">
-    <div class="filter-container">
-      <button class="ok-button" (click)="this.done()">ok</button>
-    </div>
+    <div #filterContainer [ngClass]="this.filterDivExpanded === true? 'expanded-to-content' : 'collapsed-to-button'" class="filter-container">
+      <div *ngFor="let filterGroup of this.filterGroups" class="filterGroupContainer">
+        <p class="filterGroupTitle">{{filterGroup.name}}</p>
+        <div class="single-filters-container">
+          <span [ngClass]="filterChosen(filterGroup, singleFilter) === true? 'active-filter' : 'inactive-filter'" class = "single-filter-span" *ngFor="let singleFilter of filterGroup.filter" (click)="this.addFilter(filterGroup, singleFilter)">{{singleFilter}}</span>
+        </div>
+      </div>
 
-    <div (click)="this.selectExercise(exercise.id)" [ngClass]="this.isExerciseChosen(exercise)? 'gray' : ''" class="exercise-container align-content-center text-center" *ngFor="let exercise of this.getExercise();">
-      <p class="text-center-p">{{exercise.name}}</p>
+    </div>
+    <div class = "button-wrapper">
+      <div class = "filter-button-wrapper">
+        <img src="../../../../../assets/pictures/menuButtons/workoutCreation/filter-button.svg" class = "filter-expansion-button" (click)="this.expandCollapseFilterDiv()">
+      </div>
+      <div class = "ok-button-wrapper">
+        <button class="ok-button" (click)="this.done()">ok</button>
+      </div>
+    </div>
+    <div [ngStyle]="{'margin-top': (this.exercisesMargin + 50)}" class="all-exercises-container">
+      <div (click)="this.selectExercise(exercise.id)" [ngClass]="this.isExerciseChosen(exercise)? 'gray' : ''" class="single-exercise-container align-content-center text-center" *ngFor="let exercise of this.filteredExercises">
+        <p class="text-center-p">{{exercise.name}}</p>
+        <img class = "exercise-image" *ngIf="exercise.image != null" [src]="exercise.image">
+      </div>
     </div>
   </div>
 </div>

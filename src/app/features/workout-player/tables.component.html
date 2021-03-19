@@ -1,57 +1,67 @@
 <app-menu></app-menu>
 
 <div class="d-flex justify-content-center content-wrapper">
-  <div class="content-div-common content-div-media-specific">
+  <div #contentDiv [ngClass]="this.fullscreen === true ? 'full-screen' : 'content-div-media-specific'"
+       [ngStyle]="this.fullscreen !== true && {'height': this.paddingForContent}">
 
-    <video #videoPlayer *ngIf="currentVideoSrc !== null" [@blendOutTriggerRef]="this.videoBlendOutTrigger" (@blendOutTriggerRef.done)="this.videoBlendOutCallback($event)" class="video" [src]="this.currentVideoSrc"
+    <video #videoPlayer *ngIf="currentVideoSrc !== null" [@blendOutTriggerRef]="this.videoBlendOutTrigger"
+           (@blendOutTriggerRef.done)="this.videoBlendOutCallback($event)"
+           [ngStyle]="this.view === VIEW.MobileLandscape && {'height' : '100%'} " class="video"
+           [src]="this.currentVideoSrc"
            id='videoplayer' autoplay="autoplay" loop>
     </video>
 
-    <div class = "time-container">
-      <span class = clock>{{this.timeCounter}} </span>
-    </div>
 
-    <div #lastSetContainer [@lastSetContainerTriggerRef]="this.lastSetContainerBlendOutTrigger" class="lastTwoSetsContainer" [ngStyle]="{'top': (this.lastSetContainerPosition - 80), 'left': 20, 'display': lastSetContainerDisplay}" *ngIf="currentVideoSrc !== null && this.currentExercise.setsContainer.length > 0">
+    <div #lastSetContainer [@lastSetContainerTriggerRef]="this.lastSetContainerBlendOutTrigger"
+         class="lastTwoSetsContainer"
+         [ngStyle]="{'top': (this.lastSetContainerPosition - 80), 'left': 20, 'display': lastSetContainerDisplay}"
+         *ngIf="currentVideoSrc !== null && this.currentExercise.setsContainer.length > 0">
       <div class="singleSetsContainer">
-        <p class="text-center text-white">{{this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.timeOfExercise.toDateString()}}</p>
-        <p class="text-center text-white" *ngFor="let exerciseSet of this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.exerciseSets">{{exerciseSet.repetitions}}
+        <p class="text-center text-white">Your last set</p>
+        <p
+          class="text-center text-white">{{this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1]?.timeOfExercise.toDateString()}}</p>
+        <p class="text-center text-white"
+           *ngFor="let exerciseSet of this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.exerciseSets">{{exerciseSet.repetitions}}
           X {{exerciseSet.weight}} Kg</p>
       </div>
     </div>
 
-    <!--<div class="setDisplay-wrapper-common">-->
-    <div [ngStyle]="{'width.px': this.entryPanelWidth, 'height': this.entryPanelHeight}" #entryPanel *ngIf="showEntryPanel" class="setDisplay-wrapper-common">
+    <div [ngStyle]="{ 'width.px': this.videoPanelWidth, 'height': this.videoPanelHeight}" #entryPanel
+         *ngIf="showEntryPanel" class="setDisplay-wrapper-common">
       <div class="exerciseTitleWrapper">
         <h3 class="exerciseTitle" *ngIf="this.getCurrentExercise()">{{this.getCurrentExercise().name}} </h3>
       </div>
+
+
       <div class="tableContainer">
-        <div class="showIfNonMobile">
+
+        <div class="setContainer">
           <app-last-set class="setDisplayComponents lastSetComponent"
                         [currentExercise]="this.getCurrentExercise()"></app-last-set>
         </div>
-        <div class="setContainer">
+        <div class="showIfNonMobile">
           <app-current-set class="setDisplayComponents" [currentExercise]="this.getCurrentExercise()"></app-current-set>
         </div>
+
       </div>
+
       <div class="motherBoard">
         <h3 class="endButton" (click)="this.endWorkout()">end</h3>
         <h3 class="nextButton" [ngStyle]="{'color': this.isLastExerciseOfDayWorkout() ? 'grey': 'white'}"
             (click)="this.nextExercise()">next</h3>
       </div>
-      <div class="showIfMobile">
-        <app-last-set class="setDisplayComponents lastSetComponent"
-                      [currentExercise]="this.getCurrentExercise()"></app-last-set>
+
+      <div [ngStyle]="{'height': this.mobileEntryPanelHeight}" class="showIfMobile">
+        <app-current-set class="setDisplayComponents" [currentExercise]="this.getCurrentExercise()"></app-current-set>
       </div>
+
     </div>
+
+    <div *ngIf="this.currentExercise?.userEntryRequired === false" class="time-container">
+      <span class=clock>{{this.timeCounter}} </span>
+    </div>
+
   </div>
-  <!--
-  <div style="position: relative; width: 400px; height: 300px">
-    <video *ngIf="currentExercise && this.currentExercise.videoSrc" [src]="currentExercise.videoSrc" #pla
-           id='videoplayer' autoplay="autoplay" controls>
-    </video>
-    <div style = "width: 200px; height: 200px; position: absolute; top: 50px; left: 50px; background-color: #099FDF"></div>
-  </div>
-  -->
 </div>
 
 

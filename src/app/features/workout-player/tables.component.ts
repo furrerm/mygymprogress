@@ -3,7 +3,8 @@ import {
   OnInit,
   AfterContentInit,
   ViewChild,
-  AfterViewChecked
+  AfterViewChecked,
+  HostListener, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
@@ -46,7 +47,10 @@ import {WorkoutConverter} from '../../core/model/converter/workout-converter';
     ])
   ]
 })
-export class TablesComponent implements OnInit, AfterContentInit, AfterViewChecked {
+export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit {
+
+  screenHeight: number;
+  screenWidth: number;
 
   public videoBlendOutTrigger = 'bright';
   public lastSetContainerBlendOutTrigger = 'opaque';
@@ -62,13 +66,23 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
   @ViewChild('videoPlayer') videoPlayer;
   @ViewChild('entryPanel') entryPanel;
   @ViewChild('lastSetContainer') lastSetContainer;
+  @ViewChild('contentDiv') contentDiv;
 
-  public entryPanelWidth = 0;
-  public entryPanelHeight = 0;
+  public videoPanelWidth = 0;
+  public videoPanelHeight;
+
+  public mobileEntryPanelHeight;
+  public paddingForContent = 0;
 
   public lastSetContainerPosition;
   public lastSetContainerDisplay = 'flex';
   public timeCounter = 0;
+
+  public fullscreen = false;
+
+  private TOPMARGIN = 85;
+
+  public view: VIEW;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,19 +92,83 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
     private saveSetsService: SaveSetsService,
     private constants: ConstantsService,
     private workoutsService: WorkoutsService,
-    private readonly sanitizer: DomSanitizer
+    private readonly sanitizer: DomSanitizer,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.listenForVideoChanges();
+    this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?): void {
+    this.setHTMLFrameView();
+  }
+
+  private setHTMLFrameView(): void {
+
+    // this.setVideoPlayerDimensions();
+    if (this.contentDiv != null) {
+      const marginTopInPx = window.getComputedStyle(this.contentDiv.nativeElement, null).marginTop;
+      const marginTop = parseInt(marginTopInPx.substring(0, marginTopInPx.indexOf('px')), 0);
+      this.TOPMARGIN = 35;
+      if (marginTop != null) {
+        this.TOPMARGIN += marginTop;
+      }
+    }
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    if (this.workoutsService.day) {
+      // this.setVideoPlayerDimensions();
+      if (this.screenWidth < 450) {
+        this.videoPanelWidth = this.screenWidth;
+        this.paddingForContent = this.screenHeight - this.TOPMARGIN;
+        this.videoPanelHeight = this.screenWidth * 3 / 4;
+        this.mobileEntryPanelHeight = this.screenHeight - this.videoPanelHeight - this.TOPMARGIN;
+      } else if (this.screenHeight < 750) {
+        // this.videoPanelWidth = this.screenWidth;
+        this.view = VIEW.MobileLandscape;
+        this.fullscreen = true;
+        this.paddingForContent = this.screenHeight - this.TOPMARGIN;
+        this.videoPanelHeight = '80%';
+        this.mobileEntryPanelHeight = '80%';
+      } else {
+        this.videoPanelHeight = 750; // 700
+        this.videoPanelWidth = 1000; // 900
+        // this.paddingForContent = this.videoPanelHeight - this.TOPMARGIN;
+        // this.mobileEntryPanelHeight = '100%';
+      }
+    } else {
+      // whole else clause is only for testing and can be deleted
+      if (this.screenWidth < 450) {
+        this.videoPanelWidth = this.screenWidth;
+        this.paddingForContent = this.screenHeight - this.TOPMARGIN;
+        this.videoPanelHeight = this.screenWidth * 3 / 4;
+        // this.mobileEntryPanelHeight = this.screenHeight - this.videoPanelHeight - this.TOPMARGIN;
+      } else if (this.screenHeight < 750) {
+        this.videoPanelWidth = this.screenWidth;
+        this.videoPanelHeight = '100%';
+        this.paddingForContent = this.screenHeight - this.TOPMARGIN;
+        this.mobileEntryPanelHeight = '100%';
+      } else {
+        this.videoPanelHeight = 750; // 700
+        this.videoPanelWidth = 1000; // 900
+      }
+    }
+
+
   }
 
   ngOnInit(): void {
 
   }
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
+    this.setHTMLFrameView();
+    this.changeDetectorRef.detectChanges();
   }
 
   ngAfterContentInit(): void {
+
     this.route.paramMap.subscribe(params => {
       // todo: use params for reloading the right day Workout
       if (this.workoutsService.day) {
@@ -114,14 +192,14 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
               if (b !== null) {
                 this.currentVideoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(b));
                 this.playerSettings(this.currentExercise);
+
+                this.changeDetectorRef.detectChanges();
               }
             });
           }
         );
       } else {
         this.showEntryPanel = true;
-        this.entryPanelHeight = 700;
-        this.entryPanelWidth = 900;
         this.currentDayWorkout = new WorkoutMock().day;
         this.currentExercise = this.currentDayWorkout.phases[0].exercises[0];
       }
@@ -136,7 +214,7 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
 
     setTimeout(() => {
       this.videoBlendOutTrigger = 'dark';
-    }, timeToPlay -22000);
+    }, timeToPlay);
 
     setTimeout(() => {
       this.lastSetContainerBlendOutTrigger = 'opaque';
@@ -145,10 +223,12 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
     setTimeout(() => {
       this.lastSetContainerBlendOutTrigger = 'transparent';
     }, 5000);
-
   }
 
   nextExercise(): void {
+    if (this.view === VIEW.MobileLandscape) {
+      this.fullscreen = true;
+    }
     this.dayWorkoutHandler.nextExercise();
   }
 
@@ -178,6 +258,7 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
         this.nextExercise();
       } else {
         this.showEntryPanel = true;
+        this.fullscreen = false;
       }
     }
   }
@@ -187,11 +268,31 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewCheck
     setInterval(() => {
       ++i;
       if (this.videoPlayer !== undefined) {
-        this.entryPanelWidth = this.videoPlayer.nativeElement.offsetWidth;
-        this.entryPanelHeight = this.videoPlayer.nativeElement.offsetHeight;
-        this.lastSetContainerPosition = this.videoPlayer.nativeElement.offsetHeight - this.lastSetContainer.nativeElement.offsetHeight;
-        this.timeCounter--;
+        this.setVideoPlayerDimensions();
+        // this.lastSetContainerPosition = this.videoPlayer.nativeElement.offsetHeight - this.lastSetContainer.nativeElement.offsetHeight;
+        this.timeCounter = this.timeCounter > 0 ? --this.timeCounter : 0;
       }
     }, 1000);
   }
+
+  private setVideoPlayerDimensions(): void {
+
+    this.videoPanelWidth = this.videoPlayer.nativeElement.offsetWidth;
+    this.videoPanelHeight = this.videoPlayer.nativeElement.offsetHeight;
+
+    this.mobileEntryPanelHeight = '100%';
+
+    if (this.screenWidth < 450) {
+      this.mobileEntryPanelHeight = this.screenHeight - this.videoPanelHeight - this.TOPMARGIN;
+    }
+
+  }
+  public get VIEW(): typeof VIEW {
+    return VIEW;
+  }
+}
+export enum VIEW {
+  MobilePortrait,
+  MobileLandscape,
+  Laptop
 }

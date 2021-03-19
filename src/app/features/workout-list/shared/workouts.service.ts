@@ -18,7 +18,7 @@ import {Day} from '../../../core/model/internal-model/day.model';
 export class WorkoutsService {
 
   appUrl: string;
-  private _day: DayDTO;
+  private _day: Day;
 
   constructor(
     private http: HttpClient,

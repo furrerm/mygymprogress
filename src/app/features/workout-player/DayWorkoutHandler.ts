@@ -12,7 +12,7 @@ import {ConstantsService} from '../../core/services/constants.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 export interface DayWorkoutHandler {
-  getWorkout(): BehaviorSubject<DayDTO>;
+  getWorkout(): BehaviorSubject<Day>;
 
   getExercise(): Subject<Exercise>;
 
@@ -28,15 +28,19 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
   private dayWorkout: Day;
   private exercisePointer: ExercisePointer;
 
-  constructor(dayWorkout: Day, lastSetService: LastSetService, private constantsService: ConstantsService, private sanitizer: DomSanitizer) {
-    this.updatedDayWorkout = new BehaviorSubject<DayDTO>(dayWorkout);
+  constructor(
+    dayWorkout: Day,
+    lastSetService: LastSetService,
+    private constantsService: ConstantsService,
+    private sanitizer: DomSanitizer) {
+    this.updatedDayWorkout = new BehaviorSubject<Day>(dayWorkout);
     this.dayWorkout = dayWorkout;
     this.exercisePointer = {phaseNumber: 0, exerciseNumber: -1};
     this.loadSets(lastSetService);
     this.loadExerciseVideos(lastSetService);
   }
 
-  getWorkout(): BehaviorSubject<DayDTO> {
+  getWorkout(): BehaviorSubject<Day> {
     return this.updatedDayWorkout;
   }
 
@@ -47,7 +51,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
   // todo: implement iterator principle
   nextExercise(): void {
     const exercises = this.dayWorkout.phases[this.exercisePointer.phaseNumber].exercises;
-    let currentExercise: ExerciseDTO;
+    let currentExercise: Exercise;
     if (!this.isLastExerciseOfDayWorkout()) {
       if (exercises[this.exercisePointer.exerciseNumber + 1]) {
         this.exercisePointer.exerciseNumber++;
@@ -89,7 +93,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     }
   }
 
-  private addSetsToDayWorkout(exerciseDTOSWithSets: ExerciseDTO[]): DayDTO {
+  private addSetsToDayWorkout(exerciseDTOSWithSets: ExerciseDTO[]): Day {
     this.dayWorkout.phases = this.dayWorkout.phases.map((phase: PhaseDTO) => {
       return this.addSetsToPhase(exerciseDTOSWithSets, phase);
     });
@@ -132,7 +136,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     return this.isLastPhaseOfDayWorkout() && this.isLastExerciseOfPhase();
   }
 
-  private copyLastEntry(currentExercise: ExerciseDTO) {
+  private copyLastEntry(currentExercise: Exercise): ExerciseSetContainerDTO[] {
     const containerLength = currentExercise.setsContainer.length;
     let setsContainers: ExerciseSetContainerDTO[] = currentExercise.setsContainer;
     if (setsContainers) {

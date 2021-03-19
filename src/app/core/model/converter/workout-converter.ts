@@ -8,15 +8,17 @@ import {ExerciseDTO} from '../swagger-model/exerciseDTO';
 import {Exercise} from '../internal-model/exercise.model';
 import {BehaviorSubject} from 'rxjs';
 import {ExerciseSetContainerDTO} from '../swagger-model/exerciseSetContainerDTO';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export class WorkoutConverter {
+
   convertWorkoutToDTO(workout: Workout): WorkoutDTO {
     return {
       id: workout.id,
       name: workout.name,
       previewImageUrl: workout.imageUrl,
       creator: null,
-      days: workout.days,
+      days: workout.days.map(a => this.convertDayToDTO(a)),
       savedFromCurrentUser: workout.isSavedFromCurrentUser
     };
   }
@@ -42,7 +44,7 @@ export class WorkoutConverter {
       setsContainer: exericse.setsContainer,
       order: exericse.order,
       videoUrl: exericse.videoUrl,
-      image: exericse.image,
+      image: null,
       userEntryRequired: exericse.userEntryRequired,
       timeLength: exericse.timeLength,
       timeBased: exericse.timeBased,
@@ -82,7 +84,7 @@ export class WorkoutConverter {
       })
     );
   }
-  convertDTOToExercise(exerciseDTOs: ExerciseDTO[]): Exercise[] {
+  convertDTOToExercise(exerciseDTOs: ExerciseDTO[], sanitizer?: DomSanitizer): Exercise[] {
 
     return exerciseDTOs.map(x => ({
       id: x.id,
@@ -90,12 +92,13 @@ export class WorkoutConverter {
       setsContainer: x.setsContainer,
       order: x.order,
       videoUrl: x.videoUrl,
-      image: x.image,
+      image: x.image != null ? sanitizer?.bypassSecurityTrustResourceUrl(x.image) : null,
       userEntryRequired: x.userEntryRequired,
       timeLength: x.timeLength,
       timeBased: x.timeBased,
       weight: x.weight,
-      videoSrc: new BehaviorSubject<File>(null)
+      videoSrc: new BehaviorSubject<File>(null),
+      filterGroups: x.filterGroups
       })
     );
   }

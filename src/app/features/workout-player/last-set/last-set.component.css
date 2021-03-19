@@ -8,15 +8,8 @@
   border-bottom: solid black 1px;
   overflow: auto;
 }
-.lastTwoSetsContainer {
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  height: 20%;
-}
 .chart {
-  height: calc(80% - 20px);
+  height: 100%;
 }
 .singleSetsContainer {
 
