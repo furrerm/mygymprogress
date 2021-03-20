@@ -84,7 +84,7 @@ export class ExercisePickerComponent implements OnInit {
 
   public selectExercise(exerciseId: number): void {
     const exercise = this.exercises.find(a => a.id === exerciseId);
-    this.chosenExercises.push({id: exercise.id, name: exercise.name, order: this.exerciseOrder, setsContainer: []});
+    this.chosenExercises.push({id: exercise.id, name: exercise.name, order: this.exerciseOrder, setsContainer: [], timeLength: 10});
     ++this.exerciseOrder;
 
   }
