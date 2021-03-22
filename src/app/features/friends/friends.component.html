@@ -1,0 +1,8 @@
+<p>friends works!</p>
+<div *ngFor="let user of this.allUsers">
+  <p>{{user.name}} || {{user.id}} || {{user.email}}</p>
+  <p *ngFor="let follower of user.followers">----follower------{{follower.email}}</p>
+  <p *ngFor="let follows of user.follows">-----follows-----{{follows.email}}</p>
+  <button (click) = "this.follow(user)" *ngIf="this.followsIds" [ngClass]="this.followsIds.includes(user.id)? 'black-button': 'white-button'"> follow </button>
+</div>
+

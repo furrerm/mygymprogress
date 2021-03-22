@@ -11,6 +11,7 @@ import {WorkoutoverviewComponent} from './features/workoutoverview/workoutovervi
 import {ExercisePickerComponent} from './features/content-creation/new-workout/exercise-picker/exercise-picker.component';
 import {WorkoutDescriptionComponent} from './features/content-creation/new-workout/workout-description/workout-description.component';
 import {ContentCreationComponent} from './features/content-creation/content-creation.component';
+import {FriendsComponent} from './features/friends/friends.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: '', component: MenuComponent },
   { path: 'content-creation', component: ContentCreationComponent, pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
+  { path: 'friends', component: FriendsComponent, pathMatch: 'full' },
   { path: 'management/:id', component: ManagementComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },

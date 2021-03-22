@@ -19,4 +19,6 @@ export interface UserDTO {
     pictureUrl?: string;
     issuer?: string;
     firstSignIn?: boolean;
+    follows?: Array<UserDTO>;
+    followers?: Array<UserDTO>;
 }

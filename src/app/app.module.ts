@@ -77,6 +77,7 @@ import { SetImageSizeDirective } from './features/content-creation/new-workout/s
 import { ExercisePickerComponent } from './features/content-creation/new-workout/exercise-picker/exercise-picker.component';
 import { WorkoutDescriptionComponent } from './features/content-creation/new-workout/workout-description/workout-description.component';
 import { ContentCreationComponent } from './features/content-creation/content-creation.component';
+import { FriendsComponent } from './features/friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ContentCreationComponent } from './features/content-creation/content-cr
     SetImageSizeDirective,
     ExercisePickerComponent,
     WorkoutDescriptionComponent,
-    ContentCreationComponent
+    ContentCreationComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,

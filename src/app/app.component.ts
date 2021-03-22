@@ -23,7 +23,19 @@ export class AppComponent implements OnInit {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
       // TODO: for login uncomment next line; for developement comment it out
-      // this.router.navigate(['welcome']);
+      this.router.navigate(['welcome']);
+      const user2: UserDTO = {
+        email: '',
+        emailVerified: false,
+        firstSignIn: false,
+        issuer: '',
+        name: '',
+        pictureUrl: '',
+        uid: '',
+        id: 50,
+        follows: null,
+        followers: null
+      };
       const user: UserDTO = {
         email: '',
         emailVerified: false,
@@ -32,7 +44,9 @@ export class AppComponent implements OnInit {
         name: '',
         pictureUrl: '',
         uid: '',
-        id: 1
+        id: 1,
+        follows: [user2],
+        followers: [user2]
       };
       this.constants.setUser = user;
     }
