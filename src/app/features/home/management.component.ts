@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {PostsService} from './posts.service';
+import {PageDTO} from '../../core/model/swagger-model/pageDTO';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-management',
@@ -8,21 +11,27 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ManagementComponent implements OnInit {
 
-  exercise: string;
+  private _postPage: PageDTO;
 
-
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostsService,
+    private readonly sanitizer: DomSanitizer) {
+    this._postPage = null;
   }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      console.log(params.get('id'));
-     // console.log('rout param = ' + params.get('exercise'));
-      this.exercise = JSON.parse(params.get('id'));
-    });
-    this.route.paramMap.subscribe( paramMap => {
-      this.exercise = paramMap.get('id');
+  ngOnInit(): void {
+    this.postService.getPosts().subscribe(a => {
+      console.log(a);
+      this._postPage = a;
     });
   }
 
+  get postPage(): PageDTO {
+    return this._postPage;
+  }
+
+  saveUrl(base64Image: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
+  }
 }

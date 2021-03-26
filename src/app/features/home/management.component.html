@@ -5,6 +5,22 @@
 
   <div class="content-div d-flex">
     <p>mgmt works!</p>
+
+    <div *ngIf="this.postPage != null">
+
+      <div *ngFor="let post of this.postPage.posts">
+        <div *ngIf="post.simplePostDTO != null">
+          <p>{{post.simplePostDTO.previewImage}}</p>
+          <img [src]="this.saveUrl(post.simplePostDTO.previewImage)">
+        </div>
+        <div *ngIf="post.workoutDTO != null">
+          <p> {{post.workoutDTO.previewImageUrl}}</p>
+          <p> thats a workout </p>
+          <img [src]="this.saveUrl(post.workoutDTO.previewImage)">
+        </div>
+      </div>
+
+    </div>
   </div>
 
 </div>

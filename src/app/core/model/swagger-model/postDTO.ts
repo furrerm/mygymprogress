@@ -9,15 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { DayDTO } from './dayDTO';
-import { UserDTO } from './userDTO';
+import { SimplePostDTO } from './simplePostDTO';
+import { WorkoutDTO } from './workoutDTO';
 
-export interface WorkoutDTO { 
-    id?: number;
-    name?: string;
-    previewImageUrl?: string;
-    previewImage?: string;
-    creator?: UserDTO;
-    days?: Array<DayDTO>;
-    savedFromCurrentUser?: boolean;
+export interface PostDTO { 
+    workoutDTO?: WorkoutDTO;
+    simplePostDTO?: SimplePostDTO;
 }
