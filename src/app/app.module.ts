@@ -78,6 +78,7 @@ import { ExercisePickerComponent } from './features/content-creation/new-workout
 import { WorkoutDescriptionComponent } from './features/content-creation/new-workout/workout-description/workout-description.component';
 import { ContentCreationComponent } from './features/content-creation/content-creation.component';
 import { FriendsComponent } from './features/friends/friends.component';
+import { SimplePostComponent } from './features/content-creation/simple-post/simple-post.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { FriendsComponent } from './features/friends/friends.component';
     ExercisePickerComponent,
     WorkoutDescriptionComponent,
     ContentCreationComponent,
-    FriendsComponent
+    FriendsComponent,
+    SimplePostComponent
   ],
   imports: [
     BrowserModule,

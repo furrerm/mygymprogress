@@ -5,7 +5,7 @@ export interface Workout {
   name: string;
   imageUrl: string;
   // todo: return a preview image until real image is loaded
-  previewImage?: Array<string>;
+  previewImage?: string;
   // todo: extract the creator id
   creatorId: number;
   image: string | ArrayBuffer;

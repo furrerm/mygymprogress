@@ -22,6 +22,7 @@ export class WorkoutConverter {
       savedFromCurrentUser: workout.isSavedFromCurrentUser
     };
   }
+
   convertDayToDTO(day: Day): DayDTO {
     return {
       id: day.id,
@@ -29,6 +30,7 @@ export class WorkoutConverter {
       phases: day.phases.map(a => this.convertPhaseToDTO(a))
     };
   }
+
   convertPhaseToDTO(phase: Phase): PhaseDTO {
     return {
       id: phase.id,
@@ -37,6 +39,7 @@ export class WorkoutConverter {
       order: phase.order
     };
   }
+
   convertExerciseToDTO(exericse: Exercise): ExerciseDTO {
     return {
       id: exericse.id,
@@ -52,7 +55,8 @@ export class WorkoutConverter {
     };
   }
 
-  convertDTOToWorkout(workoutDTOS: WorkoutDTO[]): Workout[] {
+  convertDTOsToWorkouts(workoutDTOS: WorkoutDTO[]): Workout[] {
+
 
     return workoutDTOS.map(x => ({
         image: undefined,
@@ -64,41 +68,60 @@ export class WorkoutConverter {
         isSavedFromCurrentUser: x.savedFromCurrentUser
       })
     );
+
   }
+
+  convertDTOToWorkout(workoutDTO: WorkoutDTO): Workout {
+
+    return {
+      image: workoutDTO.previewImage,
+      id: workoutDTO.id,
+      name: workoutDTO.name,
+      imageUrl: workoutDTO.previewImageUrl,
+      previewImage: workoutDTO.previewImage,
+      creatorId: workoutDTO.creator.id,
+      days: this.convertDTOsToDay(workoutDTO.days),
+      isSavedFromCurrentUser: workoutDTO.savedFromCurrentUser
+    };
+
+  }
+
   convertDTOsToDay(dayDTOs: DayDTO[]): Day[] {
 
     return dayDTOs.map(x => ({
-      id: x.id,
-      name: x.name,
-      phases: this.convertDTOToPhase(x.phases)
+        id: x.id,
+        name: x.name,
+        phases: this.convertDTOToPhase(x.phases)
       })
     );
   }
+
   convertDTOToPhase(phaseDTOs: PhaseDTO[]): Phase[] {
 
     return phaseDTOs.map(x => ({
-      id: x.id,
-      name: x.name,
-      exercises: this.convertDTOToExercise(x.exercises),
-      order: x.order
+        id: x.id,
+        name: x.name,
+        exercises: this.convertDTOToExercise(x.exercises),
+        order: x.order
       })
     );
   }
+
   convertDTOToExercise(exerciseDTOs: ExerciseDTO[], sanitizer?: DomSanitizer): Exercise[] {
 
     return exerciseDTOs.map(x => ({
-      id: x.id,
-      name: x.name,
-      setsContainer: x.setsContainer,
-      order: x.order,
-      videoUrl: x.videoUrl,
-      image: x.image != null ? sanitizer?.bypassSecurityTrustResourceUrl(x.image) : null,
-      userEntryRequired: x.userEntryRequired,
-      timeLength: x.timeLength,
-      timeBased: x.timeBased,
-      weight: x.weight,
-      videoSrc: new BehaviorSubject<File>(null),
-      filterGroups: x.filterGroups
+        id: x.id,
+        name: x.name,
+        setsContainer: x.setsContainer,
+        order: x.order,
+        videoUrl: x.videoUrl,
+        image: x.image != null ? sanitizer?.bypassSecurityTrustResourceUrl(x.image) : null,
+        userEntryRequired: x.userEntryRequired,
+        timeLength: x.timeLength,
+        timeBased: x.timeBased,
+        weight: x.weight,
+        videoSrc: new BehaviorSubject<File>(null),
+        filterGroups: x.filterGroups
       })
     );
   }

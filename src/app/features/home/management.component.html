@@ -3,9 +3,8 @@
 <app-menu></app-menu>
 <div class="d-flex justify-content-center content-wrapper">
 
-  <div class="content-div d-flex">
-    <p>mgmt works!</p>
-
+  <div class="content-div">
+    <!--
     <div *ngIf="this.postPage != null">
 
       <div *ngFor="let post of this.postPage.posts">
@@ -21,6 +20,42 @@
       </div>
 
     </div>
+    -->
+    <div *ngFor="let post of this.postListings; index as i" class="workoutsContainer">
+      <div *ngIf="post.simplePost != null" class = "centerContent frame-content">
+
+        <img [src]="this.saveUrl(post.simplePost.previewImage)" class="centerContent imageLimiter img-thumbnail">
+        <p>{{post.simplePost.description}}</p>
+      </div>
+      <div *ngIf="post.workout != null" class = "centerContent frame-content">
+        <h2 class="centerContent"
+            style="text-align: center;">{{post.workout.name}}</h2>
+        <img class="centerContent imageLimiter img-thumbnail"
+             [src]="this.saveUrl(post.workout.previewImage)" (click)="expandContent(post)">
+        <div class="expandButtonWrapper centerContent">
+          <img [src]=this.likeButtonImage(post.workout.isSavedFromCurrentUser) class = "like-button-image" (click)=this.likeWorkout(post.workout)>
+          <img class="toggleImageStyle" [src]="post.toggleImage"
+               (click)="expandContent(post)">
+        </div>
+        <div [ngClass]="post.isCollapsed ? 'collapsed' : 'expanded'"
+             class="centerContent">
+          <div *ngFor="let days of post.workout.days">
+            <h3 style = "text-align: center; margin-top: 30px" class = "centerContent">
+              {{days.name}} <img (click)="this.playDayWorkout(days)" class = "playButton" alt="play" src="../../assets/pictures/menuButtons/square-play-button.svg">
+            </h3>
+            <div class="phaseContainer" *ngFor="let phase of days.phases">
+              <h4 class="phase">{{phase.name}}</h4>
+              <p *ngFor="let exercise of phase.exercises">{{exercise.name}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 
 </div>

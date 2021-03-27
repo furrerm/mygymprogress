@@ -12,6 +12,7 @@ import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
 import {WorkoutListingsInterface} from './shared/workout-listings-interface';
 import {AllWorkoutListingsService} from './shared/all-workout-listings.service';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
+import {Day} from '../../core/model/internal-model/day.model';
 
 @Injectable({
   providedIn: 'root'
@@ -102,8 +103,8 @@ export class WorkoutComponent implements OnInit {
     return isLiked ? 'assets/pictures/menuButtons/like_active.svg' : 'assets/pictures/menuButtons/like_inactive.svg';
   }
 
-  playDayWorkout(dayDTO: DayDTO): void {
-    this.workoutsService.cacheWorkoutDayToPlay(dayDTO);
+  playDayWorkout(day: Day): void {
+    this.workoutsService.cacheWorkoutDayToPlay(day);
     this.router.navigate(['tables/1/1'], { relativeTo: this.route });
   }
 }

@@ -62,7 +62,7 @@ export class WorkoutsService {
   ): void {
     let workoutsLocal: Workout[] = [];
     workoutFetcher(this.constant).subscribe((data: WorkoutDTO[]) => {
-      workoutsLocal = new WorkoutConverter().convertDTOToWorkout(data);
+      workoutsLocal = new WorkoutConverter().convertDTOsToWorkouts(data);
       workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
       savedWorkouts.next(workoutsLocal);
       for (const i in workoutsLocal) {

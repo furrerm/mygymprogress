@@ -12,6 +12,7 @@ import {ExercisePickerComponent} from './features/content-creation/new-workout/e
 import {WorkoutDescriptionComponent} from './features/content-creation/new-workout/workout-description/workout-description.component';
 import {ContentCreationComponent} from './features/content-creation/content-creation.component';
 import {FriendsComponent} from './features/friends/friends.component';
+import {SimplePostComponent} from './features/content-creation/simple-post/simple-post.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/tables/:savedWorkoutId/:dayId', component: TablesComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' },
+  { path: 'workoutoverview/workout/simple-post', component: SimplePostComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout/exercises', component: ExercisePickerComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout/description', component: WorkoutDescriptionComponent, pathMatch: 'full' }
 ];
