@@ -4,6 +4,7 @@ import {SimplePostDTO} from '../../../core/model/swagger-model/simplePostDTO';
 import {Vector} from '../../../core/types/vector';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ConstantsService} from '../../../core/services/constants.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-simple-post',
@@ -26,7 +27,8 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
 
   constructor(
     private simplePostService: SaveSimplePostService,
-    private constants: ConstantsService
+    private constants: ConstantsService,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
       userDTO: this.constants.getUser
     };
     this.simplePostService.uploadSimpleWorkout(this.simplePostDTO).subscribe(a => {
-      console.log(a);
+      this.router.navigate(['/management/1']);
     });
 
   }

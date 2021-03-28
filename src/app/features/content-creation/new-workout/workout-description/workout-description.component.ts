@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SaveWorkoutService} from '../shared/save-workout.service';
 import {WorkoutDTO} from '../../../../core/model/swagger-model/workoutDTO';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-workout-description',
@@ -12,7 +13,9 @@ export class WorkoutDescriptionComponent implements OnInit {
   private answerMessage: string;
   private _workoutTitle: string;
 
-  constructor(private saveWorkoutService: SaveWorkoutService) {
+  constructor(
+    private saveWorkoutService: SaveWorkoutService,
+    private router: Router,) {
     this.workout = this.saveWorkoutService.workout;
   }
 
@@ -31,6 +34,7 @@ export class WorkoutDescriptionComponent implements OnInit {
           this.saveWorkoutService.uploadFile(this.workout.previewImageUrl).subscribe(
             imageAnswer => {
               this.answerMessage = imageAnswer;
+              this.router.navigate(['/management/1']);
             });
         });
     } catch (e) {
