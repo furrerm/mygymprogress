@@ -11,15 +11,24 @@
   margin-left: auto;
   margin-top: 30px;
   padding-bottom: 30px;
-  width: 60%;
   border-bottom: 1px solid black;
   display: flex;
 }
 .user-name {
-  width: 90%;
+  width: calc(100% - 60px);
   margin: auto;
 }
 .follow-button {
-  width:10%;
+  width:60px;
   margin: auto;
+}
+@media (min-width: 768px) {
+  .single-user-container-width {
+    width: 60%;
+  }
+}
+@media (max-width: 767px) {
+  .single-user-container-width {
+    width: 100%;
+  }
 }

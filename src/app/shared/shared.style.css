@@ -29,3 +29,10 @@
   margin: 30px 0 30px 0;
   background-color: white;
 }
+.black-white-text {
+  font-family: Roboto;
+  color: white;
+  text-decoration: none;
+  -webkit-text-stroke: 1px black;
+  -webkit-text-fill-color: white;
+}

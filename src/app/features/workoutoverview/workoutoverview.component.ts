@@ -9,7 +9,7 @@ import {SaveWorkoutService} from '../content-creation/new-workout/shared/save-wo
 @Component({
   selector: 'app-workoutoverview',
   templateUrl: './workoutoverview.component.html',
-  styleUrls: ['./workoutoverview.component.css']
+  styleUrls: ['./workoutoverview.component.css', '../../shared/shared.style.css']
 })
 export class WorkoutoverviewComponent implements AfterViewInit, OnInit {
 
