@@ -1,8 +1,12 @@
-<p>friends works!</p>
-<div *ngFor="let user of this.allUsers">
-  <p>{{user.name}} || {{user.id}} || {{user.email}}</p>
-  <p *ngFor="let follower of user.followers">----follower------{{follower.email}}</p>
-  <p *ngFor="let follows of user.follows">-----follows-----{{follows.email}}</p>
-  <button (click) = "this.follow(user)" *ngIf="this.followsIds" [ngClass]="this.followsIds.includes(user.id)? 'black-button': 'white-button'"> follow </button>
+<app-menu></app-menu>
+<div class="d-flex justify-content-center content-wrapper">
+  <div class="content-div">
+    <div class="single-user-container" *ngFor="let user of this.allUsers">
+      <p class="user-name">{{user.name}} || {{user.id}} || {{user.email}}</p>
+      <button class="follow-button" (click)="this.follow(user)" *ngIf="this.followsIds"
+              [ngClass]="this.followsIds.includes(user.id)? 'black-button': 'white-button'"> follow
+      </button>
+    </div>
+  </div>
 </div>
 

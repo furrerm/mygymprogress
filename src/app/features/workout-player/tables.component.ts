@@ -48,7 +48,7 @@ import {WorkoutConverter} from '../../core/model/converter/workout-converter';
   ]
 })
 export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit {
-
+// todo: try removing the audio with "HandBrake" or the online audion remover. If it works try programticaly
   screenHeight: number;
   screenWidth: number;
 

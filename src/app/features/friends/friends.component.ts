@@ -6,7 +6,7 @@ import {ConstantsService} from '../../core/services/constants.service';
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
-  styleUrls: ['./friends.component.css']
+  styleUrls: ['./friends.component.css', '../../shared/shared.style.css']
 })
 export class FriendsComponent implements OnInit {
 

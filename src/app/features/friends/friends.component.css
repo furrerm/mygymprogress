@@ -6,3 +6,20 @@
   background-color: white;
   color: #111110;
 }
+.single-user-container {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  width: 60%;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+.user-name {
+  width: 90%;
+  margin: auto;
+}
+.follow-button {
+  width:10%;
+  margin: auto;
+}
