@@ -8,7 +8,7 @@ export interface Workout {
   previewImage?: string;
   // todo: extract the creator id
   creatorId: number;
-  image: string | ArrayBuffer;
+  image: string;
   days: Array<Day>;
   isSavedFromCurrentUser: boolean;
 }

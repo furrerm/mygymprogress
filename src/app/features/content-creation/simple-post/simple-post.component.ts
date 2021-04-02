@@ -5,13 +5,14 @@ import {Vector} from '../../../core/types/vector';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ConstantsService} from '../../../core/services/constants.service';
 import {Router} from '@angular/router';
+import {max} from 'rxjs/operators';
 
 @Component({
   selector: 'app-simple-post',
   templateUrl: './simple-post.component.html',
   styleUrls: ['./simple-post.component.css', '../new-workout/new-workout.component.css', '../../../shared/shared.style.css']
 })
-export class SimplePostComponent implements OnInit, AfterViewInit{
+export class SimplePostComponent implements OnInit, AfterViewInit {
 
   url: string;
   private _selectedFile;
@@ -20,6 +21,7 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
   private _description: string;
   dragPosition: Vector = new Vector(0, 0);
   private cx?: CanvasRenderingContext2D;
+  private newImageBase64: string;
   @ViewChild('canvas') canvas;
   @ViewChild('fileInputWrapper') fileInputWrapper;
   @ViewChild('inputImage') inputImage;
@@ -29,17 +31,21 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
     private simplePostService: SaveSimplePostService,
     private constants: ConstantsService,
     private router: Router,
-    ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
+
   ngAfterViewInit(): void {
     this.setFileInputWrapperHeight();
   }
+
   private setFileInputWrapperHeight(): void {
     const fileInputWrapperWidth = this.fileInputWrapper.nativeElement.offsetWidth;
     this.fileInputWrapper.nativeElement.style.height = (fileInputWrapperWidth / 4 * 3);
   }
+
   selectFile(event): void {
 
 
@@ -65,7 +71,7 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
     this.simplePostDTO = {
       postId: null,
       description: this.description,
-      previewImage: this.url,
+      previewImage: this.newImageBase64,
       previewImageUrl: 'resources/' + this.constants.getUser.id + '/simple-posts/' + timeNow,
       userDTO: this.constants.getUser
     };
@@ -77,6 +83,54 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
 
   public canvasDrawing(): void {
 
+    const maxWidth = 1080;
+    const heightToMaxWidth = 1080 * 3 / 4;
+
+    const realWidth = this.inputImage.nativeElement.naturalWidth;
+    const realHeight = this.inputImage.nativeElement.naturalHeight;
+
+    if (realWidth > maxWidth && realHeight > heightToMaxWidth) {
+      this.scaleForOversize();
+    } else {
+      this.scaleForUndersized();
+    }
+  }
+
+  scaleForOversize(): void {
+    const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+    this.cx = canvasEl?.getContext('2d');
+    const image = new Image();
+
+    const canvasWidth = 1080;
+    const canvasHeight = 1080 * 3 / 4;
+
+    const realWidth = this.inputImage.nativeElement.naturalWidth;
+    const realHeight = this.inputImage.nativeElement.naturalHeight;
+
+    let scale = canvasWidth / realWidth;
+
+    if (realHeight * scale < canvasHeight) {
+      scale = (canvasHeight) / realHeight;
+    }
+    const presentedWidth = this.inputImage.nativeElement.offsetWidth;
+
+    const imageWidthInCanvas = realWidth * scale;
+
+    const scale2 = presentedWidth / realWidth;
+
+    canvasEl.width = canvasWidth;
+    canvasEl.height = canvasHeight;
+
+    image.onload = () => {
+      this.cx.drawImage(image, -this.dragPosition.x / scale2, -this.dragPosition.y / scale2, canvasWidth / scale, canvasHeight / scale, 0, 0, canvasWidth, canvasHeight);
+
+      this.newImageBase64 = this.cx.canvas.toDataURL('image/jpeg', 0.5);
+
+    };
+    image.src = this.url;
+  }
+
+  scaleForUndersized(): void {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl?.getContext('2d');
     const image = new Image();
@@ -101,15 +155,11 @@ export class SimplePostComponent implements OnInit, AfterViewInit{
 
     image.onload = () => {
       this.cx.drawImage(image, -this.dragPosition.x * xScale, -this.dragPosition.y * yScale, xPart, yPart, 0, 0, xPart, yPart);
-      /*
-      this.cx.canvas.toBlob(a => {
-        this.saveWorkoutService.cacheBlob(a);
-      });
-       */
+      this.newImageBase64 = this.cx.canvas.toDataURL('image/jpeg', 0.5);
     };
-    // image.src = this.saveWorkoutService.imageUrl;
-
+    image.src = this.url;
   }
+
   dragTheImage(event: CdkDragEnd): void {
     const width = this.inputImage.nativeElement.offsetWidth;
     const height = this.inputImage.nativeElement.offsetHeight;

@@ -4,6 +4,7 @@ export class Vector {
   }
 
   toCdkDragFreeDragPosition(): any {
+    console.log('get fre drag pos *** x = ' + this._x + 'and y = ' + this._y);
     return {x: this._x, y: this._y};
   }
 

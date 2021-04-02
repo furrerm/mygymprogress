@@ -65,6 +65,7 @@ export class WorkoutsService {
       workoutsLocal = new WorkoutConverter().convertDTOsToWorkouts(data);
       workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
       savedWorkouts.next(workoutsLocal);
+      /*
       for (const i in workoutsLocal) {
         if (data.hasOwnProperty(i)) {
           imageAdder(Number(i), workoutsLocal[i].imageUrl, this.constant).image.subscribe(data2 => {
@@ -72,9 +73,11 @@ export class WorkoutsService {
           });
         }
       }
+
+       */
     });
   }
-
+/*
   private addImagesToWorkouts(image: Blob, workout): void {
     const reader = new FileReader();
     reader.addEventListener('load',
@@ -88,7 +91,7 @@ export class WorkoutsService {
       }
     }
   }
-
+*/
   cacheWorkoutDayToPlay(day: Day): void {
     this._day = day;
   }

@@ -15,7 +15,7 @@ export class WorkoutDescriptionComponent implements OnInit {
 
   constructor(
     private saveWorkoutService: SaveWorkoutService,
-    private router: Router,) {
+    private router: Router) {
     this.workout = this.saveWorkoutService.workout;
   }
 
@@ -31,11 +31,7 @@ export class WorkoutDescriptionComponent implements OnInit {
       this.saveWorkoutService.uploadWorkout().subscribe(
         workoutAnswer => {
           this.answerMessage = workoutAnswer;
-          this.saveWorkoutService.uploadFile(this.workout.previewImageUrl).subscribe(
-            imageAnswer => {
-              this.answerMessage = imageAnswer;
-              this.router.navigate(['/management/1']);
-            });
+          this.router.navigate(['/management/1']);
         });
     } catch (e) {
       console.log(e);

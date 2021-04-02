@@ -17,11 +17,11 @@ export class SaveWorkoutService {
   private _workout: WorkoutDTO;
   private _file: File;
   private _imageUrl: string;
-  private _blob: Blob;
+  private _base64Image: string;
   private _days: DayDTO[];
   private _pickedExercises: ExerciseDTO[];
   private _selection: Selection;
-  private _dragPosition: Vector = new Vector(0, 0);
+  private _dragPosition: Vector;
 
   constructor(
     private http: HttpClient,
@@ -30,8 +30,8 @@ export class SaveWorkoutService {
     this.appUrl = this.constant.baseAppUrl + 'save-workout-service/upload';
   }
 
-  get blob(): Blob {
-    return this._blob;
+  get base64Image(): string {
+    return this._base64Image;
   }
 
   get imageUrl(): string {
@@ -54,8 +54,8 @@ export class SaveWorkoutService {
     this._workout = workout;
   }
 
-  cacheBlob(blob: Blob): void {
-    this._blob = blob;
+  cacheWorkoutImage(base64Image: string): void {
+    this._base64Image = base64Image;
   }
 
   cacheDays(days: DayDTO[]): void {
@@ -71,7 +71,7 @@ export class SaveWorkoutService {
   }
 
   cacheDragPosition(dragPosition: Vector): void {
-    this._dragPosition = dragPosition;
+    this._dragPosition = new Vector(dragPosition.x, dragPosition.y);
   }
 
   get workout(): WorkoutDTO {
@@ -91,10 +91,12 @@ export class SaveWorkoutService {
   }
 
   get dragPosition(): Vector {
+    console.log('x = ' + this._dragPosition.x + ' and y = ' + this._dragPosition.y);
     return this._dragPosition;
   }
 
   uploadWorkout(): Observable<string> {
+    this.workout.previewImage = this._base64Image;
     const httpOptions = {
       headers: new HttpHeaders()
     };
@@ -104,7 +106,7 @@ export class SaveWorkoutService {
     const saveWorkoutEndpoint = this.constant.baseAppUrl + 'save-workout-service/upload-workout';
     return this.http.post<string>(saveWorkoutEndpoint, this.workout, httpOptions);
   }
-
+/*
   uploadFile(path: string): Observable<string> {
     const formData: FormData = new FormData();
     formData.append('file', this._blob);
@@ -119,7 +121,7 @@ export class SaveWorkoutService {
     const params = new HttpParams().set('UserDTO', JSON.stringify(this.constant.getUser));
     return this.http.post<string>(this.appUrl, formData, httpOptions);
   }
-
+*/
   getDayEnum(): Observable<DayDTO[]> {
     const getDaysEndpointUrl = this.constant.baseAppUrl + 'save-workout-service/get-days';
     return this.http.get<DayDTO[]>(getDaysEndpointUrl);
@@ -134,14 +136,14 @@ export class SaveWorkoutService {
     this._days = null;
     this._pickedExercises = null;
     this._selection = null;
-    this._blob = null;
+    this._base64Image = null;
     this._imageUrl = null;
     this._file = null;
     this._dragPosition = new Vector(0, 0);
   }
 
   removeImage(): void {
-    this._blob = null;
+    this._base64Image = null;
     this._imageUrl = null;
     this._file = null;
     this._dragPosition = new Vector(0, 0);

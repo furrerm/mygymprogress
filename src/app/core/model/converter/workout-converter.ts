@@ -59,7 +59,7 @@ export class WorkoutConverter {
 
 
     return workoutDTOS.map(x => ({
-        image: undefined,
+        image: x.previewImage,
         id: x.id,
         name: x.name,
         imageUrl: x.previewImageUrl,

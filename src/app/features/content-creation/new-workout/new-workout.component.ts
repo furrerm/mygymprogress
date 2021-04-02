@@ -1,8 +1,8 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SaveWorkoutService} from './shared/save-workout.service';
 import {Observable} from 'rxjs';
-import {CdkDragEnd} from '@angular/cdk/drag-drop';
+import {CdkDragEnd, CdkDragExit} from '@angular/cdk/drag-drop';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 import {WorkoutDTO} from '../../../core/model/swagger-model/workoutDTO';
@@ -10,6 +10,7 @@ import {ConstantsService} from '../../../core/services/constants.service';
 import {PhaseDTO} from '../../../core/model/swagger-model/phaseDTO';
 import {Vector} from '../../../core/types/vector';
 import {Exercise} from '../../../core/model/internal-model/exercise.model';
+import {DragRef, Point} from '@angular/cdk/drag-drop/drag-ref';
 
 @Component({
   selector: 'app-new-workout',
@@ -84,7 +85,57 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   }
 
   public canvasDrawing(): void {
+    console.log('lets see');
+    const maxWidth = 1080;
+    const heightToMaxWidth = 1080 * 3 / 4;
 
+    const realWidth = this.inputImage.nativeElement.naturalWidth;
+    const realHeight = this.inputImage.nativeElement.naturalHeight;
+
+    if (realWidth > maxWidth && realHeight > heightToMaxWidth) {
+      this.scaleForOversize();
+    } else {
+      this.scaleForUndersized();
+    }
+  }
+
+  scaleForOversize(): void {
+    const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+    this.cx = canvasEl?.getContext('2d');
+    const image = new Image();
+
+    const canvasWidth = 1080;
+    const canvasHeight = 1080 * 3 / 4;
+
+    const realWidth = this.inputImage.nativeElement.naturalWidth;
+    const realHeight = this.inputImage.nativeElement.naturalHeight;
+
+    let scale = canvasWidth / realWidth;
+
+    if (realHeight * scale < canvasHeight) {
+      scale = (canvasHeight) / realHeight;
+    }
+    const presentedWidth = this.inputImage.nativeElement.offsetWidth;
+
+    const imageWidthInCanvas = realWidth * scale;
+
+    const scale2 = presentedWidth / realWidth;
+
+    canvasEl.width = canvasWidth;
+    canvasEl.height = canvasHeight;
+
+    image.onload = () => {
+
+      this.cx.drawImage(image, -this.dragPosition.x / scale2, -this.dragPosition.y / scale2, canvasWidth / scale, canvasHeight / scale, 0, 0, canvasWidth, canvasHeight);
+
+      const workoutImageBase64 = this.cx.canvas.toDataURL('image/jpeg', 0.5);
+      this.saveWorkoutService.cacheWorkoutImage(workoutImageBase64);
+
+    };
+    image.src = this.url;
+  }
+
+  scaleForUndersized(): void {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl?.getContext('2d');
     const image = new Image();
@@ -109,11 +160,10 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
 
     image.onload = () => {
       this.cx.drawImage(image, -this.dragPosition.x * xScale, -this.dragPosition.y * yScale, xPart, yPart, 0, 0, xPart, yPart);
-      this.cx.canvas.toBlob(a => {
-        this.saveWorkoutService.cacheBlob(a);
-      });
+      const workoutImageBase64 = this.cx.canvas.toDataURL('image/jpeg', 0.5);
+      this.saveWorkoutService.cacheWorkoutImage(workoutImageBase64);
     };
-    image.src = this.saveWorkoutService.imageUrl;
+    image.src = this.url;
   }
 
   private initializeInputValues(initText: string): void {
@@ -129,6 +179,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     const wrapperHeight = this.fileInputWrapper.nativeElement.offsetHeight;
     let marginTop = event.source.getFreeDragPosition().y;
     const marginLeft = event.source.getFreeDragPosition().x;
+
     this.dragPosition.x = marginLeft;
     this.dragPosition.y = marginTop;
     if (marginTop > 0) {
@@ -148,6 +199,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
       this.dragPosition.x = -res;
       this.dragPosition.y = marginTop;
     }
+
     this.canvasDrawing();
     this.saveWorkoutService.cacheDragPosition(this.dragPosition);
   }
@@ -155,17 +207,17 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
   setTimeLength(event, exercise: Exercise): void {
     const timeLength = event.target.value;
     exercise.timeLength = timeLength;
-/*
-    this.reader.onload = (file: any) => {
-      this.url = file.target.result;
-      this.saveWorkoutService.cacheFile(selectedFiles.item(0));
-      this.saveWorkoutService.cacheUrl(file.target.result);
-    };
-    this.reader.onerror = (file: any) => {
-      console.log('File could not be read: ' + file.target.error.code);
-    };
-    this.reader.readAsDataURL(event.target.files[0]);
-*/
+    /*
+        this.reader.onload = (file: any) => {
+          this.url = file.target.result;
+          this.saveWorkoutService.cacheFile(selectedFiles.item(0));
+          this.saveWorkoutService.cacheUrl(file.target.result);
+        };
+        this.reader.onerror = (file: any) => {
+          console.log('File could not be read: ' + file.target.error.code);
+        };
+        this.reader.readAsDataURL(event.target.files[0]);
+    */
   }
 
   selectFile(event): void {
@@ -282,6 +334,7 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     exercise.weight = weight;
   }
 }
+
 export interface ExerciseExpandPosition {
   exerciseNumber: number;
   phaseNumber: number;
