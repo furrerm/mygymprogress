@@ -1,9 +1,18 @@
 <div class="dashboard-wrapper">
-  <app-remaining-time-chart [totalTime]=this.totalTimeInExercise
-                            [timeLeft]="this.timeLeftInExercise"></app-remaining-time-chart>
+  <div class="time-and-position-chart-wrapper">
+    <app-remaining-time-chart [totalTime]=this.totalTimeInExercise
+                              [timeLeft]="this.timeLeftInExercise"></app-remaining-time-chart>
+    <app-workout-position-chart [totalTime]=this.totalTimeInExercise
+                                [timeLeft]="this.timeLeftInExercise"></app-workout-position-chart>
+  </div>
+
   <app-entry-panel [currentExercise]="this.currentExercise"></app-entry-panel>
   <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
   <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
   <app-last-set [currentExercise]="this.currentExercise"></app-last-set>
+  <div class="kpi-chart-wrapper">
+    <app-kpi [title]="'muscle Grow Index'" [value]=22></app-kpi>
+    <app-kpi [title]="'calories burned'" [value]="2089"></app-kpi>
+  </div>
+  <app-next-exercise-preview [exercises]="this.currentDayWorkout.phases[0].exercises" [position]=1></app-next-exercise-preview>
 </div>
-

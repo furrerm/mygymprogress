@@ -9,11 +9,10 @@
 }
 
 .entry-panel-wrapper {
-  border: 1px solid black;
-  height: 240px;
-  width: 500px;
+  margin: 0;
+  height: 100%;
+  width: 100%;
   overflow-x: auto;
-  width: content-box;
   display: flex;
   flex-direction: row;
 }
@@ -22,7 +21,7 @@
   margin-right: auto;
   margin-left: auto;
   width: 100%;
-  height: 45px;
+  max-height: 45px;
 }
 
 .removeEntryButton {
@@ -39,7 +38,7 @@
 }
 
 .controlButtonImage {
-  width: 30px;
+  max-width: 30px;
 }
 
 .quantityControlButtonImage {
@@ -66,13 +65,12 @@ input::-webkit-inner-spin-button {
   width: 100px;
   height: 100%;
 }
-
 .setInput {
   margin-right: auto;
   margin-left: auto;
-  height: 50px;
+  max-height: 50px;
   width: 100%;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
   outline: none;
   background: transparent;
@@ -109,7 +107,7 @@ input::-webkit-inner-spin-button {
 }
 
 .kgSpan {
-  font-size: 30px;
+  font-size: 20px;
   display: table-cell;
   vertical-align: middle;
 
@@ -142,9 +140,24 @@ input::-webkit-inner-spin-button {
 .verticalCentered {
   display: table-cell;
   vertical-align: middle;
+
 }
 
 .entriesHeight {
   display: table;
   height: 90%;
+}
+.form-grouping {
+  margin: 0;
+  padding: 0;
+}
+.entry-panel-outer-wrapper {
+
+  height: 240px;
+  max-width: 498px;
+  min-width: 300px;
+  overflow-x: auto;
+  display: flex;
+  padding: 0;
+  margin: 0;
 }

@@ -1,10 +1,25 @@
 .dashboard-wrapper {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   max-width: 1080px;
   width: 100%;
-  border: 1px solid black;
   height: 100%;
-  min-height: 400px;
+  min-height: 480px;
   max-height: 700px;
+  margin: 0;
+  padding: 0;
+}
+.kpi-chart-wrapper {
+  width: 240px;
+  height: 240px;
+}
+.time-and-position-chart-wrapper {
+  width: 100px;
+  height: 240px;
+  display: flex;
+
+  flex-wrap: wrap;
+  align-content: space-between;
 }

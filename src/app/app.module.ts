@@ -84,6 +84,9 @@ import { EntryPanelComponent } from './features/workout-player/entry-panel/entry
 import { DashboardComponent } from './features/workout-player/dashboard/dashboard.component';
 import { VideoPlayerComponent } from './features/workout-player/video-player/video-player.component';
 import { PieChartComponent } from './features/workout-player/pie-chart/pie-chart.component';
+import { NextExercisePreviewComponent } from './features/workout-player/next-exercise-preview/next-exercise-preview.component';
+import { KpiComponent } from './features/workout-player/kpi/kpi.component';
+import { WorkoutPositionChartComponent } from './features/workout-player/workout-position-chart/workout-position-chart.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +111,10 @@ import { PieChartComponent } from './features/workout-player/pie-chart/pie-chart
     EntryPanelComponent,
     DashboardComponent,
     VideoPlayerComponent,
-    PieChartComponent
+    PieChartComponent,
+    NextExercisePreviewComponent,
+    KpiComponent,
+    WorkoutPositionChartComponent
   ],
   imports: [
     BrowserModule,
