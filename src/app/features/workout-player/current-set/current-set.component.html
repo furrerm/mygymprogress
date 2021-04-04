@@ -1,7 +1,10 @@
+
 <div *ngIf="this.currentExercise && this.currentExercise.setsContainer.length > 0">
+
   <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
 
     <div class="inputFieldsRowWrapper" *ngFor="let repetition of repetitions.controls; index as i">
+      <p>gfaddsgfdsgsdfgsdfg</p>
       <div *ngIf="this.exerciseType() === EXERCISE_TYPE.OnlyReps" class="inputFieldsRowWrapperEntryColumn repsSpanWrapper">
         <span class="RepsSpan">Reps:</span>
       </div>
@@ -9,6 +12,7 @@
         <span class="RepsSpan">Hold:</span>
       </div>
       <div [ngStyle]="{'margin-left': this.currentExercise.weight === true ? '50' : '5'}" class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
+        <p>00000000000000</p>
         <button (click)="this.incrementRepetitions(i)" class="controlButton quantityButton" type="submit">
           <img class="quantityUpButtonImage controlButtonImage"
                src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
@@ -22,7 +26,9 @@
                src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
         </button>
       </div>
+      <p>1111111111111111111</p>
       <div *ngIf="this.exerciseType() === EXERCISE_TYPE.RepsAndWeight" class="inputFieldsRowWrapperEntryColumn wrapper-center">
+        <p>22222222222222</p>
         <img class="xTimesImage" src="../../../../assets/pictures/menuButtons/workout-player/crossProduct.svg">
       </div>
       <div *ngIf="this.currentExercise.timeBased === true" class="inputFieldsRowWrapperEntryColumn wrapper-center">

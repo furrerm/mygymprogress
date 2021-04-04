@@ -51,17 +51,21 @@ export class NewWorkoutComponent implements OnInit, AfterContentInit, AfterViewI
     private activatedRoute: ActivatedRoute,
     private constantsService: ConstantsService
   ) {
+    console.log('new workout constructed');
   }
 
   ngAfterViewInit(): void {
     this.setFileInputWrapperHeight();
+    console.log('new workout after view init');
   }
 
   ngOnInit(): void {
+    console.log('new workout initialized');
     this.initializeInputValues('init text from class bal bla');
   }
 
   ngAfterContentInit(): void {
+    console.log('new workout after ocntennt init');
     this.dragPosition = this.saveWorkoutService.dragPosition;
     if (this.saveWorkoutService.days != null && this.saveWorkoutService.days.length > 0) {
       this.days = this.saveWorkoutService.days;

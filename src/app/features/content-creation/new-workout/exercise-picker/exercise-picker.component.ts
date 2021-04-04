@@ -79,7 +79,7 @@ export class ExercisePickerComponent implements OnInit {
 
   public done() {
     this.saveWorkoutService.cachePickedExercises(this.chosenExercises);
-    this.router.navigate(['./..'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['/workoutoverview/workout/new-workout']);
   }
 
   public selectExercise(exerciseId: number): void {

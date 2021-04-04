@@ -1,0 +1,78 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+<div class="entry-panel-wrapper" *ngIf="this.currentExercise && this.currentExercise.setsContainer.length > 0">
+
+
+    <div class="inputFieldsRowWrapper" *ngFor="let repetition of repetitions.controls; index as i">
+
+      <div class="inputFieldsRowWrapperEntryColumn wrapper-left" formArrayName="repetitions">
+        <div class="verticalCentered">
+          <button (click)="this.incrementRepetitions(i)" class="controlButton quantityButton" type="submit">
+            <img class="quantityUpButtonImage controlButtonImage"
+                 src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
+          </button>
+
+          <input type="number" class="setInput" step="1" min="0" max="" name="quantity"
+                 value="1" title="Qty" size="4" pattern="" inputmode="" [formControlName]="i" placeholder="0">
+
+          <button (click)="this.decrementRepetitions(i)" class="controlButton quantityButton" type="submit">
+            <img class="quantityDownButtonImage controlButtonImage"
+                 src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn wrapper-right"
+           formArrayName="weights">
+        <div class="verticalCentered">
+          <button (click)="this.incrementWeight(i)" class="controlButton quantityButton" type="submit">
+            <img class="quantityUpButtonImage controlButtonImage"
+                 src="../../../../assets/pictures/menuButtons/workout-player/arrowUp2.svg">
+          </button>
+          <input type="number" class="setInput" step="1" min="1" max="" name="quantity"
+                 value="1" title="Qty"
+                 size="4"
+                 pattern="" inputmode="" [formControlName]="i">
+          <button (click)="this.decrementWeight(i)" class="controlButton quantityButton" type="submit">
+            <img class="quantityDownButtonImage controlButtonImage"
+                 src="../../../../assets/pictures/menuButtons/workout-player/arrowDown2.svg">
+          </button>
+        </div>
+      </div>
+
+      <button (click)="this.removeEntry(i)" class="controlButton removeEntryButton" type="submit">
+        <img class="quantityControlButtonImage"
+             src="../../../../assets/pictures/menuButtons/workout-player/minusButton.svg">
+      </button>
+
+    </div>
+
+
+    <div class="postfixesWrapper">
+      <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn">
+        <span class="kgSpan">Reps</span>
+      </div>
+      <div *ngIf="this.currentExercise.weight===true" class="inputFieldsRowWrapperEntryColumn">
+        <span class="kgSpan">kg</span>
+      </div>
+
+    </div>
+
+    <div class="inputFieldsRowWrapper">
+      <div class="entriesHeight">
+        <div class="verticalCentered">
+          <button (click)="this.addEntry()" class="controlButton addEntryButton" type="submit">
+            <img class="quantityControlButtonImage"
+                 src="../../../../assets/pictures/menuButtons/workout-player/plusButton.svg">
+          </button>
+        </div>
+      </div>
+    </div>
+
+</div>
+</form>
+<div *ngIf="this.exerciseType() === EXERCISE_TYPE.OnlyReps" class="inputFieldsRowWrapperEntryColumn repsSpanWrapper">
+  <span class="RepsSpan">Reps:</span>
+</div>
+<div *ngIf="this.exerciseType() === EXERCISE_TYPE.OnlyTime" class="inputFieldsRowWrapperEntryColumn repsSpanWrapper">
+  <span class="RepsSpan">Hold:</span>
+</div>

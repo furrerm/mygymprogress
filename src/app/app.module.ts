@@ -79,6 +79,11 @@ import { WorkoutDescriptionComponent } from './features/content-creation/new-wor
 import { ContentCreationComponent } from './features/content-creation/content-creation.component';
 import { FriendsComponent } from './features/friends/friends.component';
 import { SimplePostComponent } from './features/content-creation/simple-post/simple-post.component';
+import { RemainingTimeChartComponent } from './features/workout-player/remaining-time-chart/remaining-time-chart.component';
+import { EntryPanelComponent } from './features/workout-player/entry-panel/entry-panel.component';
+import { DashboardComponent } from './features/workout-player/dashboard/dashboard.component';
+import { VideoPlayerComponent } from './features/workout-player/video-player/video-player.component';
+import { PieChartComponent } from './features/workout-player/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +103,12 @@ import { SimplePostComponent } from './features/content-creation/simple-post/sim
     WorkoutDescriptionComponent,
     ContentCreationComponent,
     FriendsComponent,
-    SimplePostComponent
+    SimplePostComponent,
+    RemainingTimeChartComponent,
+    EntryPanelComponent,
+    DashboardComponent,
+    VideoPlayerComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,

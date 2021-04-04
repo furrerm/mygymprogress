@@ -13,6 +13,8 @@ import {WorkoutDescriptionComponent} from './features/content-creation/new-worko
 import {ContentCreationComponent} from './features/content-creation/content-creation.component';
 import {FriendsComponent} from './features/friends/friends.component';
 import {SimplePostComponent} from './features/content-creation/simple-post/simple-post.component';
+import {RemainingTimeChartComponent} from './features/workout-player/remaining-time-chart/remaining-time-chart.component';
+import {DashboardComponent} from './features/workout-player/dashboard/dashboard.component';
 
 
 
@@ -28,7 +30,10 @@ const routes: Routes = [
   { path: 'workoutoverview/workout/new-workout', component: NewWorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/simple-post', component: SimplePostComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout/exercises', component: ExercisePickerComponent, pathMatch: 'full' },
-  { path: 'workoutoverview/workout/new-workout/description', component: WorkoutDescriptionComponent, pathMatch: 'full' }
+  { path: 'workoutoverview/workout/new-workout/description', component: WorkoutDescriptionComponent, pathMatch: 'full' },
+  { path: 'workout-player/remaining-time-chart', component: RemainingTimeChartComponent, pathMatch: 'full' },
+  { path: 'workout-player/dashboard', component: DashboardComponent, pathMatch: 'full' }
+
 ];
 
 @NgModule({

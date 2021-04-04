@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {WelcomeComponent} from './features/welcome/welcome.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CurrentSetComponent} from './features/workout-player/current-set/current-set.component';
 import {ConstantsService} from './core/services/constants.service';
 import {UserDTO} from './core/model/swagger-model/userDTO';
 
@@ -23,7 +21,7 @@ export class AppComponent implements OnInit {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
       // TODO: for login uncomment next line; for developement comment it out
-      this.router.navigate(['welcome']);
+      // this.router.navigate(['welcome']);
       const user2: UserDTO = {
         email: '',
         emailVerified: false,

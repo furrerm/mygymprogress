@@ -1,0 +1,10 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1080px;
+  width: 100%;
+  border: 1px solid black;
+  height: 100%;
+  min-height: 400px;
+  max-height: 700px;
+}

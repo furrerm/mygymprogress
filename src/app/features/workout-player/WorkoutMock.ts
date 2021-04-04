@@ -4,6 +4,7 @@ import {Exercise} from '../../core/model/internal-model/exercise.model';
 import {ExerciseSetContainerDTO} from '../../core/model/swagger-model/exerciseSetContainerDTO';
 import {SafeResourceUrl} from '@angular/platform-browser';
 import {ExerciseSetDTO} from '../../core/model/swagger-model/exerciseSetDTO';
+import {NamedNumber} from '../../core/model/internal-model/NamedNumber';
 
 export class WorkoutMock {
 
@@ -18,6 +19,9 @@ export class WorkoutMock {
     exerciseSets: [this.exerciseSet, this.exerciseSet]
   };
 
+  private muscleTargets: NamedNumber[] = [{name: 'Chest', value: 70}, {name: 'Biceps', value: 20}, {name: 'Triceps', value: 10}];
+  private stretchingTargets: NamedNumber[] = [{name: 'Leg', value: 40}, {name: 'Arm', value: 35}, {name: 'Back', value: 25}];
+
   private _exercise1: Exercise = {
     id: 1,
     name: 'squats',
@@ -27,9 +31,11 @@ export class WorkoutMock {
     image: '',
     userEntryRequired: true,
     timeLength: 20,
-    timeBased: true,
-    weight: false,
-    videoSrc: null
+    timeBased: false,
+    weight: true,
+    videoSrc: null,
+    muscleTarget: this.muscleTargets,
+    stretchingTarget: this.stretchingTargets
   };
   private _exercise2: Exercise = {
     id: 2,

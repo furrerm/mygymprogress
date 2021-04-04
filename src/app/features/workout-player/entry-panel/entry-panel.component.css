@@ -1,37 +1,54 @@
 .controlButton {
   background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
+  background-repeat: no-repeat;
+  cursor: pointer;
   overflow: hidden;
-  outline:none;
+  outline: none;
   border: none;
 
 }
+
+.entry-panel-wrapper {
+  border: 1px solid black;
+  height: 240px;
+  width: 500px;
+  overflow-x: auto;
+  width: content-box;
+  display: flex;
+  flex-direction: row;
+}
+
 .quantityButton {
   margin-right: auto;
   margin-left: auto;
-  width: 60px;
+  width: 100%;
   height: 45px;
 }
+
 .removeEntryButton {
-  margin: auto auto auto 20px;
+  margin: auto;
   width: 35px;
-  height: 35px;
+  height: 10%;
 }
+
 .addEntryButton {
   margin-left: auto;
   margin-right: auto;
   height: 45px;
   width: 45px;
 }
+
 .controlButtonImage {
   width: 30px;
 }
+
 .quantityControlButtonImage {
   width: 100%;
 }
+
 .quantityDownButtonImage {
 }
+
 .quantityUpButtonImage {
 }
 
@@ -42,61 +59,64 @@ input::-webkit-inner-spin-button {
   -moz-appearance: none;
   margin: 0;
 }
+
 .inputFieldsRowWrapper {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
+  width: 100px;
+  height: 100%;
 }
+
 .setInput {
   margin-right: auto;
   margin-left: auto;
   height: 50px;
-  width: 60px;
+  width: 100%;
   font-size: 30px;
   text-align: center;
-  outline:none;
+  outline: none;
   background: transparent;
   border: none;
   color: black;
 }
+
 .inputFieldsRowWrapperEntryColumn {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  height: 45%;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  display: table;
 }
+
 .wrapper-left {
   width: 70px;
 }
+
 .wrapper-center {
   width: 60px;
   margin: auto 10px;
 }
+
 .wrapper-right {
   width: 70px;
 }
-.wrapper-center-right {
-  width: 60px;
-  margin-bottom: auto;
-  margin-top: auto;
-}
+
 .xTimesImage {
   margin: auto;
   width: 60%;
   height: 15%;
 }
+
 .kgSpan {
-  float: left;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 0px;
-  text-align: left;
   font-size: 30px;
-  width: 100%;
-  height: 50px;
-  color: white;
+  display: table-cell;
+  vertical-align: middle;
+
 }
+
 .RepsSpan {
-  color: white;
+
   margin-left: 20px;
   margin-top: auto;
   margin-bottom: auto;
@@ -104,10 +124,27 @@ input::-webkit-inner-spin-button {
   font-size: 30px;
 
   height: 50px;
-  color: white;
+
 }
+
 .repsSpanWrapper {
 
   margin-bottom: auto;
   margin-top: auto;
+}
+
+.postfixesWrapper {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.verticalCentered {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.entriesHeight {
+  display: table;
+  height: 90%;
 }
