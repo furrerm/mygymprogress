@@ -1,1 +1,18 @@
-<p>video-player works!</p>
+
+<div class="playerWrapper" (mouseenter) ="mouseEnter()"  (mouseleave) ="mouseLeave()">
+  <video #videoPlayer *ngIf="videoHandler.currentVideoSrc !== null"
+         [@blendOutTriggerRef]="this.videoBlendOutTrigger"
+         (@blendOutTriggerRef.done)="this.videoBlendOutCallback($event)"
+         class="video"
+         [src]="this.videoHandler.currentVideoSrc" (loadeddata)="setUpVideoPlayer()"
+         [ngClass]="videoHandler.showEntryPanel === true ? 'bright' : 'dark'"
+         [ngStyle]="this.showVideoControls === true && {'opacity': 0.7}"
+         id='videoplayer' autoplay="autoplay" loop muted>
+  </video>
+
+
+  <app-video-top-bar *ngIf="this.showVideoControls === true"></app-video-top-bar>
+
+  <app-video-bottom-bar *ngIf="this.showVideoControls === true" [videoHandler]="this.videoHandler"></app-video-bottom-bar>
+
+</div>

@@ -19,4 +19,5 @@ export interface Exercise {
   filterGroups?: Array<FilterGroupDTO>;
   muscleTarget?: Array<NamedNumber>;
   stretchingTarget?: Array<NamedNumber>;
+  caloriesPerSecond?: number;
 }

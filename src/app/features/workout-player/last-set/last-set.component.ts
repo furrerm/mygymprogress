@@ -11,7 +11,6 @@ import {ExerciseSetContainerDTO} from '../../../core/model/swagger-model/exercis
 })
 export class LastSetComponent implements OnInit, OnChanges {
   updatedExercise: ExerciseDTO;
-  lastTwoSets: ExerciseSetContainerDTO[] = [];
   xAxe: number[] = [];
   yAxe: number[] = [];
   @Input() currentExercise: ExerciseDTO;
@@ -103,7 +102,7 @@ export class LastSetComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     this.updatedExercise = this.currentExercise;
     if (this.updatedExercise) {
-      this.lastTwoSets = this.createLastTwoSets();
+
       this.updateOptions = {
         xAxis: [
           {
@@ -112,23 +111,15 @@ export class LastSetComponent implements OnInit, OnChanges {
         ],
         series: [
           {
-            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+            data: this.updatedExercise.setsContainer
               .map(a => a.exerciseSets.reduce((sum, b) => sum + b.repetitions, 0))
           },
           {
-            data: this.updatedExercise.setsContainer.slice(0, this.updatedExercise.setsContainer.length - 1)
+            data: this.updatedExercise.setsContainer
               .map(a => a.exerciseSets.reduce((sum, b) => sum + b.weight, 0))
           }
         ]
       };
     }
-  }
-
-  private createLastTwoSets(): ExerciseSetContainerDTO[] {
-    const numberOfSetsMadeInThisExercise: number = this.currentExercise.setsContainer.length;
-    const lastTwoSets: ExerciseSetContainerDTO[] = [];
-    lastTwoSets.push(this.currentExercise.setsContainer[numberOfSetsMadeInThisExercise - 2]);
-    lastTwoSets.push(this.currentExercise.setsContainer[numberOfSetsMadeInThisExercise - 3]);
-    return lastTwoSets;
   }
 }

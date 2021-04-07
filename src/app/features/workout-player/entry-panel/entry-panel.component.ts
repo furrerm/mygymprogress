@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, Output, SimpleChanges, EventEmitter, OnChanges} from '@angular/core';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import {ExerciseSetContainerDTO} from '../../../core/model/swagger-model/exerciseSetContainerDTO';
@@ -9,9 +9,10 @@ import {ExerciseSetDTO} from '../../../core/model/swagger-model/exerciseSetDTO';
   templateUrl: './entry-panel.component.html',
   styleUrls: ['./entry-panel.component.css']
 })
-export class EntryPanelComponent implements OnInit {
+export class EntryPanelComponent implements OnInit, OnChanges {
 
   @Input() currentExercise: ExerciseDTO;
+  @Output() currentExerciseEvent = new EventEmitter<ExerciseDTO>();
   form: FormGroup = new FormGroup({
     repetitions: new FormArray([new FormControl()]),
     weights: new FormArray([new FormControl()])
@@ -20,7 +21,7 @@ export class EntryPanelComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   exerciseType(): EXERCISE_TYPE {
@@ -43,20 +44,24 @@ export class EntryPanelComponent implements OnInit {
     return this.form.get('weights') as FormArray;
   }
 
-  onSubmit(form: FormGroup) {
+  onSubmit(form: FormGroup): void {
     form.reset();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.changeValue();
-
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeInput();
   }
 
-  changeValue() {
+  changeOutput(): void {
+    this.currentExerciseEvent.emit({...this.currentExercise});
+  }
+
+  changeInput(): void {
+
     this.form = this.initializeTheForm();
   }
 
-  private initializeTheForm() {
+  private initializeTheForm(): FormGroup {
 
     if (this.currentExercise) {
       const setLength = this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets.length;
@@ -81,7 +86,7 @@ export class EntryPanelComponent implements OnInit {
   }
 
 
-  private setTheFormValues(setLength: number, formGroup: FormGroup) {
+  private setTheFormValues(setLength: number, formGroup: FormGroup): FormGroup {
 
     const lastSetContainerId = this.currentExercise.setsContainer.length - 1;
     const repetitions = this.currentExercise.setsContainer[lastSetContainerId].exerciseSets.map(a => a.repetitions);
@@ -99,39 +104,45 @@ export class EntryPanelComponent implements OnInit {
     return formGroup;
   }
 
-  removeEntry(position: number) {
+  removeEntry(position: number): void {
     const setContainers: ExerciseSetContainerDTO[] = this.currentExercise.setsContainer;
     const lastSetContainer: ExerciseSetContainerDTO = setContainers[setContainers.length - 1];
     lastSetContainer.exerciseSets.splice(position, 1);
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
-  addEntry() {
+  addEntry(): void {
     const setContainers: ExerciseSetContainerDTO[] = this.currentExercise.setsContainer;
     const lastSetContainer: ExerciseSetContainerDTO = setContainers[setContainers.length - 1];
     const lastExerciseSet: ExerciseSetDTO = lastSetContainer.exerciseSets[lastSetContainer.exerciseSets.length - 1];
     lastSetContainer.exerciseSets.push({id: 0, weight: lastExerciseSet.weight, repetitions: lastExerciseSet.repetitions});
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
   incrementWeight(setPosition: number): void {
     ++this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].weight;
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
   decrementWeight(setPosition: number): void {
     --this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].weight;
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
   incrementRepetitions(setPosition: number): void {
     ++this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].repetitions;
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
   decrementRepetitions(setPosition: number): void {
     --this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1].exerciseSets[setPosition].repetitions;
-    this.changeValue();
+    this.changeInput();
+    this.changeOutput();
   }
 
   public get EXERCISE_TYPE(): typeof EXERCISE_TYPE {

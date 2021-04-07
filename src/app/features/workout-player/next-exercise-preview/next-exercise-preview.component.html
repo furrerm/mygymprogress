@@ -1,5 +1,8 @@
-<div class="chart">
-  <div class="exercise-wrapper" *ngFor="let exercise of exercises">
-    {{exercise.name}}
-  </div>
+<div class="chart" (click)="this.nextExercise()">
+  <p> Next: {{this.tablesComponent.getNextExercise().name}}</p>
+  <video *ngIf="this.nextExerciseVideo !== null"
+         class="video"
+         [src]="this.nextExerciseVideo"
+         autoplay="autoplay" loop muted>
+  </video>
 </div>

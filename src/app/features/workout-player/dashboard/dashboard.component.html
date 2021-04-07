@@ -6,13 +6,13 @@
                                 [timeLeft]="this.timeLeftInExercise"></app-workout-position-chart>
   </div>
 
-  <app-entry-panel [currentExercise]="this.currentExercise"></app-entry-panel>
+  <app-entry-panel [currentExercise]="this.currentExercise" (currentExerciseEvent)="this.currentExerciseChangeListener($event)"></app-entry-panel>
   <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
   <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
   <app-last-set [currentExercise]="this.currentExercise"></app-last-set>
   <div class="kpi-chart-wrapper">
-    <app-kpi [title]="'muscle Grow Index'" [value]=22></app-kpi>
-    <app-kpi [title]="'calories burned'" [value]="2089"></app-kpi>
+    <app-kpi [kpi]="this.strengthIndex"></app-kpi>
+    <app-kpi [kpi]="this.burnedCalories"></app-kpi>
   </div>
-  <app-next-exercise-preview [exercises]="this.currentDayWorkout.phases[0].exercises" [position]=1></app-next-exercise-preview>
+  <app-next-exercise-preview [tablesComponent]="this.tablesComponent"  [exercises]="this.currentDayWorkout.phases[0].exercises" [position]=1></app-next-exercise-preview>
 </div>

@@ -9,8 +9,14 @@ import {Exercise} from '../internal-model/exercise.model';
 import {BehaviorSubject} from 'rxjs';
 import {ExerciseSetContainerDTO} from '../swagger-model/exerciseSetContainerDTO';
 import {DomSanitizer} from '@angular/platform-browser';
+import {NamedNumber} from '../internal-model/NamedNumber';
 
 export class WorkoutConverter {
+  private muscleTargets: NamedNumber[] = [{name: 'Chest', value: 70}, {name: 'Biceps', value: 20}, {name: 'Triceps', value: 10}];
+  private stretchingTargets: NamedNumber[] = [{name: 'Leg', value: 40}, {name: 'Arm', value: 35}, {name: 'Back', value: 25}];
+
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   convertWorkoutToDTO(workout: Workout): WorkoutDTO {
     return {
@@ -107,7 +113,7 @@ export class WorkoutConverter {
     );
   }
 
-  convertDTOToExercise(exerciseDTOs: ExerciseDTO[], sanitizer?: DomSanitizer): Exercise[] {
+  convertDTOToExercise(exerciseDTOs: ExerciseDTO[]): Exercise[] {
 
     return exerciseDTOs.map(x => ({
         id: x.id,
@@ -115,13 +121,16 @@ export class WorkoutConverter {
         setsContainer: x.setsContainer,
         order: x.order,
         videoUrl: x.videoUrl,
-        image: x.image != null ? sanitizer?.bypassSecurityTrustResourceUrl(x.image) : null,
+        image: x.image != null ? this.sanitizer.bypassSecurityTrustResourceUrl(x.image) : null,
         userEntryRequired: x.userEntryRequired,
         timeLength: x.timeLength,
         timeBased: x.timeBased,
         weight: x.weight,
         videoSrc: new BehaviorSubject<File>(null),
-        filterGroups: x.filterGroups
+        filterGroups: x.filterGroups,
+        muscleTarget: this.muscleTargets,
+        stretchingTarget: this.stretchingTargets,
+        caloriesPerSecond: 17.2
       })
     );
   }

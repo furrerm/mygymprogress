@@ -1,0 +1,28 @@
+.playerWrapper {
+  width: 100%;
+  background-color: black;
+  position: relative;
+}
+.video {
+  background-color: black;
+  width: 100%;
+  postion: absolute;
+  top: 0;
+  left: 0;
+}
+.bright {
+
+  filter: brightness(100%);
+  width: 1500px;
+  height: 3000px;
+  display: none;
+}
+
+.dark {
+
+}
+.motherBoard {
+  width: 100%;
+  position: absolute;
+  top: 800px;
+}

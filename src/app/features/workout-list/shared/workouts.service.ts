@@ -11,6 +11,7 @@ import {ImageObservable} from '../../workoutoverview/workoutoverview.component';
 import {createObjectSnapshotChanges} from '@angular/fire/database/object/snapshot-changes';
 import {DayDTO} from '../../../core/model/swagger-model/dayDTO';
 import {Day} from '../../../core/model/internal-model/day.model';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,9 @@ export class WorkoutsService {
 
   constructor(
     private http: HttpClient,
-    private constant: ConstantsService) {
+    private constant: ConstantsService,
+    private sanitizer: DomSanitizer
+  ) {
     this.appUrl = this.constant.baseAppUrl;
   }
 
@@ -62,7 +65,7 @@ export class WorkoutsService {
   ): void {
     let workoutsLocal: Workout[] = [];
     workoutFetcher(this.constant).subscribe((data: WorkoutDTO[]) => {
-      workoutsLocal = new WorkoutConverter().convertDTOsToWorkouts(data);
+      workoutsLocal = new WorkoutConverter(this.sanitizer).convertDTOsToWorkouts(data);
       workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
       savedWorkouts.next(workoutsLocal);
       /*

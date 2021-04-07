@@ -15,6 +15,8 @@ import {FriendsComponent} from './features/friends/friends.component';
 import {SimplePostComponent} from './features/content-creation/simple-post/simple-post.component';
 import {RemainingTimeChartComponent} from './features/workout-player/remaining-time-chart/remaining-time-chart.component';
 import {DashboardComponent} from './features/workout-player/dashboard/dashboard.component';
+import {VideoTopBarComponent} from './features/workout-player/video-top-bar/video-top-bar.component';
+import {VideoBottomBarComponent} from './features/workout-player/video-bottom-bar/video-bottom-bar.component';
 
 
 
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'workoutoverview/workout/new-workout/exercises', component: ExercisePickerComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout/new-workout/description', component: WorkoutDescriptionComponent, pathMatch: 'full' },
   { path: 'workout-player/remaining-time-chart', component: RemainingTimeChartComponent, pathMatch: 'full' },
-  { path: 'workout-player/dashboard', component: DashboardComponent, pathMatch: 'full' }
+  { path: 'workout-player/dashboard', component: DashboardComponent, pathMatch: 'full' },
+  { path: 'workout-player/video-top-bar', component: VideoTopBarComponent, pathMatch: 'full' },
+  { path: 'workout-player/video-bottom-bar', component: VideoBottomBarComponent, pathMatch: 'full' }
 
 ];
 

@@ -31,7 +31,7 @@ export class ManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe(a => {
-      const workoutConverter = new WorkoutConverter();
+      const workoutConverter = new WorkoutConverter(this.sanitizer);
       this._postPage = a;
       this._postListings = this.postPage.posts.map(post => ({
         workout: post.workoutDTO ? workoutConverter.convertDTOToWorkout(post.workoutDTO) : null,

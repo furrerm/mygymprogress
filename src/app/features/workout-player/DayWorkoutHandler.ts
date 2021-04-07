@@ -19,6 +19,8 @@ export interface DayWorkoutHandler {
   nextExercise(): void;
 
   isLastExerciseOfDayWorkout(): boolean;
+
+  getNextExercise(): Exercise;
 }
 
 // todo: reconsider the states eg. dayWorkout
@@ -50,20 +52,33 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
 
   // todo: implement iterator principle
   nextExercise(): void {
+    const nextExercise: Exercise = this.getNextExercise();
+    if (nextExercise !== null) {
+      nextExercise.setsContainer = this.copyLastEntry(nextExercise);
+      this.updatedExercise.next(nextExercise);
+      this.exercisePointer = this.getNextPointerPosition();
+    }
+    // todo: handle last exercise
+  }
+
+  public getNextExercise(): Exercise {
+    const pointer = this.getNextPointerPosition();
+    if (pointer !== null) {
+      return this.dayWorkout.phases[pointer.phaseNumber].exercises[pointer.exerciseNumber];
+    }
+    return null;
+  }
+
+  private getNextPointerPosition(): ExercisePointer {
     const exercises = this.dayWorkout.phases[this.exercisePointer.phaseNumber].exercises;
-    let currentExercise: Exercise;
     if (!this.isLastExerciseOfDayWorkout()) {
       if (exercises[this.exercisePointer.exerciseNumber + 1]) {
-        this.exercisePointer.exerciseNumber++;
-        currentExercise = exercises[this.exercisePointer.exerciseNumber];
+        return {phaseNumber: this.exercisePointer.phaseNumber, exerciseNumber: this.exercisePointer.exerciseNumber + 1};
       } else if (this.dayWorkout.phases[this.exercisePointer.phaseNumber + 1]) {
-        this.exercisePointer.phaseNumber++;
-        this.exercisePointer.exerciseNumber = 0;
-        currentExercise = this.dayWorkout.phases[this.exercisePointer.phaseNumber].exercises[0];
+        return {phaseNumber: this.exercisePointer.phaseNumber + 1, exerciseNumber: 0};
       }
-      currentExercise.setsContainer = this.copyLastEntry(currentExercise);
     }
-    this.updatedExercise.next(currentExercise);
+    return null;
   }
 
   public loadSets(lastSetService: LastSetService): void {
@@ -117,7 +132,7 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
     return exercise;
   }
 
-// todo: why is it called 1000 times
+  // todo: why is it called 1000 times
   private isLastPhaseOfDayWorkout(): boolean {
     const currentPhaseId = this.exercisePointer.phaseNumber;
     const phases = this.dayWorkout.phases;

@@ -62,7 +62,7 @@ export class ExercisePickerComponent implements OnInit {
 
   private getAllExercises(): void {
     this.allExercises.getAllExercises().subscribe(data => {
-      this.exercises = new WorkoutConverter().convertDTOToExercise(data, this.sanitizer);
+      this.exercises = new WorkoutConverter(this.sanitizer).convertDTOToExercise(data);
       this.updateFilteredExercises();
     });
   }

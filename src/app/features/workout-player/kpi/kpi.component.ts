@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Kpi} from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-kpi',
@@ -7,8 +8,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 })
 export class KpiComponent implements OnInit, OnChanges{
 
-  @Input() title: string;
-  @Input() value: number;
+  @Input() kpi: Kpi;
 
   constructor() {
   }

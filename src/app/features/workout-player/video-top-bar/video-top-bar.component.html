@@ -1,0 +1,22 @@
+<div id="top-bar-wrapper">
+
+
+  <div class="exerciseTitleWrapper">
+    <h3 class="exerciseTitle" *ngIf="this.currentExercise">{{this.currentExercise.name}} </h3>
+    <!--<img class = "exercise-image" *ngIf="this.currentExercise.image != null" [src]="this.currentExercise.image">-->
+  </div>
+
+  <div id="last-set-dropdown" ngbDropdown class="d-inline-block">
+    <button class="phase-toggle-button" ngbDropdownToggle>last Set</button>
+    <div class="dropdown-container" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <div class="singleSetsContainer">
+        <p
+          class="text-center text-white text-underline">{{this.currentExercise.setsContainer[this.currentExercise.setsContainer.length - 1]?.timeOfExercise.toDateString()}}</p>
+        <p class="text-center text-white"
+           *ngFor="let exerciseSet of this.currentExercise.setsContainer[this.currentExercise.setsContainer.length-1]?.exerciseSets">{{exerciseSet.repetitions}}
+          X {{exerciseSet.weight}} Kg</p>
+      </div>
+    </div>
+  </div>
+
+</div>
