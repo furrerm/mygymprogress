@@ -31,7 +31,7 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
 
 
   public currentExercise: Exercise;
-  private currentDayWorkout: Day;
+  currentDayWorkout: Day;
   public currentVideoSrc: SafeResourceUrl = null;
   private savedWorkoutId: number;
   private dayWorkoutHandler: DayWorkoutHandler;
@@ -105,8 +105,8 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
         );
       } else {
         this.showEntryPanel = true;
-        this.currentDayWorkout = new WorkoutMock(this.sanitizer).day;
-        this.currentExercise = this.currentDayWorkout.phases[0].exercises[0];
+        // this.currentDayWorkout = new WorkoutMock(this.sanitizer).day;
+        // this.currentExercise = this.currentDayWorkout.phases[0].exercises[0];
       }
     });
   }

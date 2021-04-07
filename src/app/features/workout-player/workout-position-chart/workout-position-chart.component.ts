@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {graphic} from 'echarts';
 
 @Component({
   selector: 'app-workout-position-chart',
@@ -18,69 +19,53 @@ export class WorkoutPositionChartComponent implements OnInit, OnChanges {
     series: [{
       name: 'Pressure',
       type: 'gauge',
-      max: 177,
+      splitNumber: 6,
+      max: 12,
       detail: {
         formatter: '{value}'
       },
       data: [{
-        value: 90,
-        name: 'Time Left',
+        value: 9,
+
         title: {
           offsetCenter: [0, '-14%']
         },
         detail: {
-          offsetCenter: [0, 0],
-          fontSize: 10,
-
+          offsetCenter: [0, 30],
+          fontSize: 40,
+          formatter: () =>
+            String(6 ) + ' / ' + String(12)
         }
       }],
-      startAngle: 90,
-      endAngle: -269.9999,
+      startAngle: 200,
+      endAngle: -20,
       axisLine: {
         lineStyle: {
-          width: 15,
-          color: [[1, '#f6f8f6']]
-          /*
-          color: [[1, new graphic.RadialGradient(0.5, 0.5, 0.6, [
-            {offset: 0.6, color: '#f6f8f6'},
-            {offset: 0.95, color: '#dcdcd7'},
-            {offset: 1, color: '#cecccc'},
-          ])]]*/
+          width: 10,
+
+          color: [[1, 'rgba(0, 0, 0, 0.5)']]
+
         }
       },
       axisTick: {
-        show: false
+        show: false,
+        distance: -10,
+
       },
       splitLine: {
-        show: false
+        show: true,
+        distance: -10
       },
       axisLabel: {
-        show: false
+        show: true,
+        fontSize: 8,
+        distance: 15
       },
       pointer: {
-        show: false
+        show: true
       },
       itemStyle: {},
-      progress: {
-        show: true,
-        width: 15,
-        itemStyle: {
-          color: {
-            type: 'linear',
-            x: 0.5,
-            y: 0,
-            x2: 0.5,
-            y2: 1,
-            colorStops: [{
-              offset: 0, color: '#f6f8f6' // color at 0% position
-            }, {
-              offset: 1, color: '#0e0d0d' // color at 100% position
-            }],
-            global: false // false by default
-          },
-          opacity: 1
-        }
-      }
+
     }]
   };
 
@@ -94,14 +79,14 @@ export class WorkoutPositionChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const timeDone = this.totalTime - this.timeLeft;
+
     this.updateOptions = {
 
       series: [
         {
-          max: this.totalTime,
+          max: 11,
           data: [{
-            value: timeDone,
+            value: 5,
             title: {
               offsetCenter: [0, '-14%']
             },
@@ -109,7 +94,7 @@ export class WorkoutPositionChartComponent implements OnInit, OnChanges {
               offsetCenter: [0, 2],
               fontSize: 27,
               formatter: () =>
-                String(this.timeLeft)
+                String(6)
 
             }
           }]

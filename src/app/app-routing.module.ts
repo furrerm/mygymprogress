@@ -17,6 +17,7 @@ import {RemainingTimeChartComponent} from './features/workout-player/remaining-t
 import {DashboardComponent} from './features/workout-player/dashboard/dashboard.component';
 import {VideoTopBarComponent} from './features/workout-player/video-top-bar/video-top-bar.component';
 import {VideoBottomBarComponent} from './features/workout-player/video-bottom-bar/video-bottom-bar.component';
+import {WorkoutPositionChartComponent} from './features/workout-player/workout-position-chart/workout-position-chart.component';
 
 
 
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'workout-player/remaining-time-chart', component: RemainingTimeChartComponent, pathMatch: 'full' },
   { path: 'workout-player/dashboard', component: DashboardComponent, pathMatch: 'full' },
   { path: 'workout-player/video-top-bar', component: VideoTopBarComponent, pathMatch: 'full' },
-  { path: 'workout-player/video-bottom-bar', component: VideoBottomBarComponent, pathMatch: 'full' }
+  { path: 'workout-player/video-bottom-bar', component: VideoBottomBarComponent, pathMatch: 'full' },
+  { path: 'workout-player/workout-position-chart', component: WorkoutPositionChartComponent, pathMatch: 'full' }
 
 ];
 
