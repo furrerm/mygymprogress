@@ -1,5 +1,5 @@
 <div class="chart" (click)="this.nextExercise()">
-  <p> Next: {{this.tablesComponent.getNextExercise().name}}</p>
+  <p class="next-exercise-title"> Next: {{this.tablesComponent.getNextExercise().name}}</p>
   <video *ngIf="this.nextExerciseVideo !== null"
          class="video"
          [src]="this.nextExerciseVideo"

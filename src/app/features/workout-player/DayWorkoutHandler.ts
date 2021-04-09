@@ -21,6 +21,10 @@ export interface DayWorkoutHandler {
   isLastExerciseOfDayWorkout(): boolean;
 
   getNextExercise(): Exercise;
+
+  getTotalExercises(): number;
+
+  getCurrentExerciseNumber(): number;
 }
 
 // todo: reconsider the states eg. dayWorkout
@@ -79,6 +83,26 @@ export class DayWorkoutHandlerExerciseBased implements DayWorkoutHandler {
       }
     }
     return null;
+  }
+
+  getCurrentExerciseNumber(): number {
+    let result = 0;
+    let phaseCounter = 0;
+    while (phaseCounter < this.exercisePointer.phaseNumber) {
+      result += this.dayWorkout.phases[phaseCounter].exercises.length;
+      ++phaseCounter;
+    }
+    result += this.exercisePointer.exerciseNumber + 1;
+    return result;
+  }
+
+  getTotalExercises(): number {
+    let result = 0;
+
+    for (const phase of this.dayWorkout.phases) {
+      result += phase.exercises.length;
+    }
+    return result;
   }
 
   public loadSets(lastSetService: LastSetService): void {

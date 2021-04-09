@@ -1,14 +1,12 @@
 <div class="dashboard-wrapper">
   <div class="time-and-position-chart-wrapper">
-    <app-remaining-time-chart [totalTime]=this.totalTimeInExercise
-                              [timeLeft]="this.timeLeftInExercise"></app-remaining-time-chart>
-    <app-workout-position-chart [totalTime]=this.totalTimeInExercise
-                                [timeLeft]="this.timeLeftInExercise"></app-workout-position-chart>
+    <img class = "exercise-image" *ngIf="this.currentExercise.image != null" [src]="this.currentExercise.image">
+    <app-workout-position-chart [tableComponent]=this.tablesComponent></app-workout-position-chart>
   </div>
 
   <app-entry-panel [currentExercise]="this.currentExercise" (currentExerciseEvent)="this.currentExerciseChangeListener($event)"></app-entry-panel>
-  <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
-  <app-pie-chart [currentExercise]="this.currentExercise"></app-pie-chart>
+  <app-pie-chart [title]="'muscle target'" [namedNumbers]="this.currentExercise.muscleTarget"></app-pie-chart>
+  <app-pie-chart [title]="'stretching target'" [namedNumbers]="this.currentExercise.stretchingTarget"></app-pie-chart>
   <app-last-set [currentExercise]="this.currentExercise"></app-last-set>
   <div class="kpi-chart-wrapper">
     <app-kpi [kpi]="this.strengthIndex"></app-kpi>

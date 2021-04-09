@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Exercise} from '../../../core/model/internal-model/exercise.model';
+import {NamedNumber} from '../../../core/model/internal-model/NamedNumber';
 
 @Component({
   selector: 'app-pie-chart',
@@ -8,15 +9,38 @@ import {Exercise} from '../../../core/model/internal-model/exercise.model';
 })
 export class PieChartComponent implements OnInit, OnChanges {
 
-  @Input() currentExercise: Exercise;
+  @Input() namedNumbers: NamedNumber[];
+  @Input() title: string;
+  // namedNumbers: NamedNumber[] = [{name: 'Leg', value: 40}, {name: 'Arm', value: 35}, {name: 'Back', value: 25}];
+  private itemStyle = {
+    normal: {
+      opacity: 0.7,
 
+      borderWidth: 1,
+      borderColor: '#000000'
+    }
+  };
   options = {
-    title: {
-      text: 'Customized Pie',
-      left: 'center',
-      top: 20,
-      textStyle: {
-        color: '#171515'
+    /*
+    xAxis: {
+      splitLine: {
+        lineStyle: {
+          width: 20
+        }
+      }
+    },*/
+    visualMap: {
+      show: false,
+      type: 'piecewise',
+      splitNumber: 20,
+      min: 0,
+      max: 100,
+      inRange: {
+        color: ['#f87500', '#ffff00', '#00ff00',
+          '#00ffff', '#0000ff', '#ff00ff',
+          '#ff0000', '#ffb400', '#78fa78',
+          '#ff78ff'],
+
       }
     },
     tooltip: {
@@ -25,9 +49,8 @@ export class PieChartComponent implements OnInit, OnChanges {
 
     series: [
       {
-        name: '访问来源',
         type: 'pie',
-        radius: ['35%', '74%'],
+        radius: ['58%', '65%'],
         center: ['50%', '50%'],
 
 
@@ -35,18 +58,17 @@ export class PieChartComponent implements OnInit, OnChanges {
           color: 'rgb(7,7,7)',
         },
         labelLine: {
+          show: true,
           lineStyle: {
             color: 'rgba(10,10,10)'
           },
           smooth: 1,
-          length: 10,
-          length2: 20
+          length: 3,
+          length2: 5
         },
-        data: [
 
-        ],
-        roseType: 'radius',
-        itemStyle: {
+        // roseType: 'radius',
+        /* itemStyle: {
 
           color: {
             type: 'linear',
@@ -62,7 +84,8 @@ export class PieChartComponent implements OnInit, OnChanges {
             global: false // false by default
           },
 
-        },
+        },*/
+        itemStyle: this.itemStyle,
 
         animationType: 'scale',
         animationEasing: 'elasticOut',
@@ -83,10 +106,19 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.optionsToMerge = {
+      title: {
+        text: this.title,
+        left: 'center',
+        top: 5,
 
+        textStyle: {
+          color: '#171515',
+          fontSize: 15,
+        }
+      },
       series: [
         {
-          data: this.currentExercise.muscleTarget,
+          data: this.namedNumbers,
         }]
     };
   }

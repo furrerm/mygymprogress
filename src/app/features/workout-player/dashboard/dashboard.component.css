@@ -23,3 +23,7 @@
   flex-wrap: wrap;
   align-content: space-between;
 }
+.exercise-image {
+  width: 100px;
+  height: 100px;
+}

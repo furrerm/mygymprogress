@@ -10,7 +10,7 @@
 
 .entry-panel-wrapper {
   margin: 0;
-  height: 100%;
+  height: calc(100% - 20px);
   width: 100%;
   overflow-x: auto;
   display: flex;
@@ -26,7 +26,7 @@
 
 .removeEntryButton {
   margin: auto;
-  width: 35px;
+  max-width: 35px;
   height: 10%;
 }
 
@@ -42,7 +42,8 @@
 }
 
 .quantityControlButtonImage {
-  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .quantityDownButtonImage {
@@ -148,6 +149,7 @@ input::-webkit-inner-spin-button {
   height: 90%;
 }
 .form-grouping {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -160,4 +162,13 @@ input::-webkit-inner-spin-button {
   display: flex;
   padding: 0;
   margin: 0;
+}
+.entry-panel-title {
+  height: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
 }

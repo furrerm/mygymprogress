@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {WorkoutMock} from '../WorkoutMock';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ExerciseDTO} from '../../../core/model/swagger-model/exerciseDTO';
 import {Day} from '../../../core/model/internal-model/day.model';
@@ -14,7 +13,7 @@ import {TablesComponent} from '../tables.component';
 export class DashboardComponent implements OnInit, OnChanges{
 
   strengthIndex: Kpi = {name: 'Strength Index', value: 0};
-  burnedCalories: Kpi = {name: 'BurnedCalories', value: 0};
+  burnedCalories: Kpi = {name: 'Burned Calories', value: 0};
 
   timeLeftInExercise;
   totalTimeInExercise;

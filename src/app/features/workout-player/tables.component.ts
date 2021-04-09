@@ -115,6 +115,14 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
     return this.dayWorkoutHandler.getNextExercise();
   }
 
+  public getCurrentExerciseNumber(): number {
+    return this.dayWorkoutHandler.getCurrentExerciseNumber();
+  }
+
+  public getTotalExercises(): number {
+    return this.dayWorkoutHandler.getTotalExercises();
+  }
+
 
   nextExercise(): void {
     if (this.view === VIEW.MobileLandscape) {

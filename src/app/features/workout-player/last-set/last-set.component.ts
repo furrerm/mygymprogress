@@ -23,6 +23,7 @@ export class LastSetComponent implements OnInit, OnChanges {
       }
     },
     grid: {
+      show: false,
       left: '3%',
       right: '4%',
       bottom: '3%',
@@ -31,6 +32,7 @@ export class LastSetComponent implements OnInit, OnChanges {
     },
     xAxis: [
       {
+        show: true,
         type: 'category',
         data: [1, 2, 3],
         axisTick: {
@@ -38,59 +40,123 @@ export class LastSetComponent implements OnInit, OnChanges {
         },
         axisLabel: {
           show: false
-        }
+        },
+
       }
     ],
     yAxis: [
       {
-        type: 'value'
+        type: 'value',
+
+        splitLine: {
+          show: false
+        },
+        position: 'right',
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#f6838d'
+          }
+        },
+        axisLabel: {
+          formatter: '{value} kg'
+        }
+      },
+      {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+
+        position: 'left',
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#83bff6'
+          }
+        },
+        axisLabel: {
+          formatter: '{value} reps'
+        }
       }
     ],
+    series: [
+
+
+      {
+        name: 'Repetitions',
+        type: 'bar',
+        yAxisIndex: 1,
+        data: [120, 150, 180],
+        itemStyle: {
+          color: new graphic.LinearGradient(
+            0, 0, 0, 1,
+            [
+              {offset: 0, color: '#83bff6'},
+              {offset: 0.5, color: '#188df0'},
+              {offset: 1, color: '#188df0'}
+            ]
+          )
+        },
+        emphasis: {
+          itemStyle: {
+            color: new graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                {offset: 0, color: '#2378f7'},
+                {offset: 0.7, color: '#2378f7'},
+                {offset: 1, color: '#83bff6'}
+              ]
+            )
+          }
+        },
+      },
+
+      {
+        name: 'Weight',
+        type: 'bar',
+        yAxisIndex: 0,
+        data: [5, 24, 23],
+        itemStyle: {
+          color: new graphic.LinearGradient(
+            0, 0, 0, 1,
+            [
+              {offset: 0, color: '#f6838d'},
+              {offset: 0.5, color: '#ee3d4c'},
+              {offset: 1, color: '#f0181f'}
+            ]
+          )
+        },
+        emphasis: {
+          itemStyle: {
+            color: new graphic.LinearGradient(
+              0, 0, 0, 1,
+              [
+                {offset: 0, color: '#f0181f'},
+                {offset: 0.7, color: '#ee3d4c'},
+                {offset: 1, color: '#f6838d'}
+              ]
+            )
+          }
+        },
+      },
+    ],
+    /*
     series: [
       {
         name: 'Counters',
         type: 'bar',
-        /*
-        itemStyle: {
-          normal: {
-            color: new graphic.LinearGradient(0, 0, 0, 1, [
-              {offset: 0, color: '#F3E412'},
-              {offset: 0.5, color: '#928903'},
-              {offset: 1, color: '#403C03'},
-            ]),
-          },
-          emphasis: {
-            color: new graphic.LinearGradient(0, 0, 0, 1, [
-              {offset: 0, color: '#F3E412'},
-              {offset: 0.7, color: '#928903'},
-              {offset: 1, color: '#403C03'},
-            ]),
-          }
-        },*/
+
         data: this.yAxe
       },
       {
         name: 'Counters2',
         type: 'bar',
         itemStyle: {
-          /*
-          normal: {
-            color: new graphic.LinearGradient(0, 0, 0, 1, [
-              {offset: 0, color: '#83bff6'},
-              {offset: 0.5, color: '#188df0'},
-              {offset: 1, color: '#188df0'},
-            ]),
-          },
-          emphasis: {
-            color: new graphic.LinearGradient(0, 0, 0, 1, [
-              {offset: 0, color: '#2378f7'},
-              {offset: 0.7, color: '#2378f7'},
-              {offset: 1, color: '#83bff6'},
-            ]),
-          },*/
+
         },
         data: []
-      }]
+      }]*/
   };
 
   constructor() {

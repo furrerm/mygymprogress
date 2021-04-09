@@ -1,5 +1,6 @@
 <div class="entry-panel-outer-wrapper">
   <form class="form-grouping" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+    <h3 class = "entry-panel-title" *ngIf="this.currentExercise">{{this.currentExercise.name}}</h3>
     <div class="entry-panel-wrapper" *ngIf="this.currentExercise && this.currentExercise.setsContainer.length > 0">
 
 
