@@ -9,12 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UserDTO } from './userDTO';
 
-export interface SimplePostDTO { 
-    postId?: number;
-    description?: string;
-    previewImage?: string;
-    previewImageUrl?: string;
-    userDTO?: UserDTO;
+export interface MuscleTargetDTO { 
+    name?: string;
+    value?: number;
 }

@@ -128,8 +128,8 @@ export class WorkoutConverter {
         weight: x.weight,
         videoSrc: new BehaviorSubject<File>(null),
         filterGroups: x.filterGroups,
-        muscleTarget: this.muscleTargets,
-        stretchingTarget: this.stretchingTargets,
+        muscleTarget: x.muscleTargets,
+        stretchingTarget: x.stretchingTargets,
         caloriesPerSecond: 17.2
       })
     );
