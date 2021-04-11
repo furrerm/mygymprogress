@@ -17,6 +17,9 @@ export interface UserDTO {
     emailVerified?: boolean;
     name?: string;
     pictureUrl?: string;
+    pictureUrlSmall?: string;
+    profileImage?: string;
+    profileImageSmall?: string;
     issuer?: string;
     firstSignIn?: boolean;
     follows?: Array<UserDTO>;

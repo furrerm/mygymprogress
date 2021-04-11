@@ -20,6 +20,7 @@ import {VideoBottomBarComponent} from './features/workout-player/video-bottom-ba
 import {WorkoutPositionChartComponent} from './features/workout-player/workout-position-chart/workout-position-chart.component';
 import {PieChartComponent} from './features/workout-player/pie-chart/pie-chart.component';
 import {LastSetComponent} from './features/workout-player/last-set/last-set.component';
+import {ProfileComponent} from './features/profile/profile.component';
 
 
 
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'content-creation', component: ContentCreationComponent, pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent, pathMatch: 'full' },
   { path: 'friends', component: FriendsComponent, pathMatch: 'full' },
+  { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
   { path: 'management/:id', component: ManagementComponent, pathMatch: 'full' },
   { path: 'workoutoverview/workout', component: WorkoutComponent, pathMatch: 'full' },
   { path: 'workoutoverview', component: WorkoutoverviewComponent, pathMatch: 'full' },

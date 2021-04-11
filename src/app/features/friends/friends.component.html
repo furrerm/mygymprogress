@@ -3,6 +3,7 @@
   <div class="content-div">
     <div class="single-user-container single-user-container-width" *ngFor="let user of this.allUsers">
       <p class="user-name">{{user.name}} || {{user.id}} || {{user.email}}</p>
+      <img [src]="this.trustThisUrl(user.profileImageSmall)">
       <button class="follow-button" (click)="this.follow(user)" *ngIf="this.followsIds"
               [ngClass]="this.followsIds.includes(user.id)? 'black-button': 'white-button'"> follow
       </button>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserListService} from './user-list.service';
 import {UserDTO} from '../../core/model/swagger-model/userDTO';
 import {ConstantsService} from '../../core/services/constants.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-friends',
@@ -15,7 +16,8 @@ export class FriendsComponent implements OnInit {
 
   constructor(
     private userService: UserListService,
-    private constants: ConstantsService) {
+    private constants: ConstantsService,
+    private readonly sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -48,5 +50,9 @@ export class FriendsComponent implements OnInit {
 
   get followsIds(): number[] {
     return this._followsIds;
+  }
+
+  trustThisUrl(base64Image: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
   }
 }

@@ -10,24 +10,11 @@ import {WelcomeComponent} from '../../features/welcome/welcome.component';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  opened: boolean;
-  status: boolean;
-  title = 'CRS';
-  exerciseGroups: ExerciseGroup[];
-  workoutGroups: string;
-  exercises: string;
-  group: string;
-  mySubscription;
-  @ViewChild('sidenav') sidenav: MatSidenav;
-  private distFolderLocation: string;
+  title = 'Placeholder';
 
   constructor(private router: Router,
               private constant: ConstantsService,
               private welcomeComponent: WelcomeComponent) {
-    this.opened = false;
-    this.workoutGroups = 'hiddenWorkouts';
-    this.exercises = 'hiddenExercises';
-    this.distFolderLocation = constant.baseAppUrl;
   }
 
   ngOnInit() {
@@ -36,10 +23,6 @@ export class MenuComponent implements OnInit {
   logout() {
     console.log('logout');
     this.welcomeComponent.authService.SignOut(this.welcomeComponent.user);
-  }
-
-  openCloseSideNavigation() {
-    this.opened = !this.opened;
   }
 }
 

@@ -69,7 +69,7 @@ export class WorkoutConverter {
         id: x.id,
         name: x.name,
         imageUrl: x.previewImageUrl,
-        creatorId: x.creator.id,
+        creator: x.creator,
         days: this.convertDTOsToDay(x.days),
         isSavedFromCurrentUser: x.savedFromCurrentUser
       })
@@ -85,7 +85,7 @@ export class WorkoutConverter {
       name: workoutDTO.name,
       imageUrl: workoutDTO.previewImageUrl,
       previewImage: workoutDTO.previewImage,
-      creatorId: workoutDTO.creator.id,
+      creator: workoutDTO.creator,
       days: this.convertDTOsToDay(workoutDTO.days),
       isSavedFromCurrentUser: workoutDTO.savedFromCurrentUser
     };

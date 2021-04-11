@@ -89,6 +89,10 @@ import { KpiComponent } from './features/workout-player/kpi/kpi.component';
 import { WorkoutPositionChartComponent } from './features/workout-player/workout-position-chart/workout-position-chart.component';
 import { VideoTopBarComponent } from './features/workout-player/video-top-bar/video-top-bar.component';
 import { VideoBottomBarComponent } from './features/workout-player/video-bottom-bar/video-bottom-bar.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { ImagePickerComponent } from './features/profile/image-picker/image-picker.component';
+import { DragImageDirective } from './features/profile/image-picker/drag-image.directive';
+import { ProfileImageComponent } from './features/profile/profile-image/profile-image.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +122,11 @@ import { VideoBottomBarComponent } from './features/workout-player/video-bottom-
     KpiComponent,
     WorkoutPositionChartComponent,
     VideoTopBarComponent,
-    VideoBottomBarComponent
+    VideoBottomBarComponent,
+    ProfileComponent,
+    ImagePickerComponent,
+    DragImageDirective,
+    ProfileImageComponent
   ],
   imports: [
     BrowserModule,

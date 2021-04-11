@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
       // TODO: for login uncomment next line; for developement comment it out
-      this.router.navigate(['welcome']);
+      // this.router.navigate(['welcome']);
       const user2: UserDTO = {
         email: '',
         emailVerified: false,

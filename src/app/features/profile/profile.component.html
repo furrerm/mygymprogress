@@ -1,0 +1,15 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<app-menu></app-menu>
+<div class="d-flex justify-content-center content-wrapper">
+  <div class="content-div">
+
+    <app-profile-image (activateSettingsEvent)="this.activateSettings($event)" *ngIf="this.settingsActive === false && this.profile" [saveImageUrl]="this.trustThisUrl(this.profile.profileImage)"></app-profile-image>
+    <app-image-picker (activateSettingsEvent)="this.activateSettings($event)" *ngIf="this.settingsActive === true && this.profile" [saveImageUrl]="this.trustThisUrl(this.profile.profileImage)"></app-image-picker>
+
+    <button class="logout-button" (click)="this.logout()">logout motherfucker</button>
+  </div>
+</div>
+
+
+

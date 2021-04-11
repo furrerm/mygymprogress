@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
-import { environment } from './../../../environments/environment';
+import {Injectable} from '@angular/core';
+import {environment} from './../../../environments/environment';
 import {UserDTO} from '../model/swagger-model/userDTO';
 import {HttpClient} from '@angular/common/http';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ConstantsService {
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(
+    private _httpClient: HttpClient,
+    private readonly sanitizer: DomSanitizer) {
 
   }
+
   private readonly _baseAppUrl: string = environment.APIEndpoint;
   private user: UserDTO;
 

@@ -56,10 +56,10 @@ export class AuthenticationService {
   SignOut(user: any) {
     return this.afAuth.signOut().then(() => {
       console.log('logged out');
-      // this.router.navigate(['welcome']);
+      this.router.navigate(['welcome']).then(user = null);
       user = null;
-      window.location.reload();
-      // this.router.navigate(['welcome']);
+      // window.location.reload();
+      this.router.navigate(['welcome']);
     });
   }
   validateLogin(exercise: string): Observable<UserDTO> {

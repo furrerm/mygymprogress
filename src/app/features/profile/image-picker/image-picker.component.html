@@ -1,0 +1,32 @@
+<div class="image-picker-container">
+
+  <img class="save-button" src="../../../../assets/pictures/menuButtons/profile/tick-mark.svg" (click)="this.uploadProfile()">
+  <div #fileInputWrapper id="file-input-wrapper">
+
+
+    <label class="file-input-default-image-label" *ngIf="!this.imageUrl && !this.saveImageUrlCopy" for="file-input">
+      <img class="file-input-default-image"
+           src="../../../../assets/pictures/menuButtons/workoutCreation/pictureIconBlack.svg"/>
+    </label>
+
+    <input #fileInput id="file-input" type="file" (change)="selectFile($event)"/>
+
+    <img *ngIf="this.imageUrl || this.saveImageUrl" (click)="this.removeImage()" class="close-cross-for-picture"
+         src="../../../../assets/pictures/menuButtons/workoutCreation/close-button.svg"/>
+    <img class="position-absolute visible-background-image" [ngClass]="this.imagePortraitMode === true ? 'file-input-image-portrait' : 'file-input-image-landscape'" [src]="this.imageUrl != null ? this.imageUrl : this.saveImageUrlCopy" draggable="false"
+         [ngStyle]="{'top': this.imagePosition.y, 'left': this.imagePosition.x}">
+
+    <canvas #circleViewCanvas class="visible-circle-view-canvas"></canvas>
+
+    <img #inputImage class="position-absolute invisible-front-image" [ngClass]="this.imagePortraitMode === true ? 'file-input-image-portrait' : 'file-input-image-landscape'" [src]="this.imageUrl != null ? this.imageUrl : this.saveImageUrlCopy" draggable="false"
+         (load)="this.resizeAndDrawImage()" appDragImage (newPositionEvent)="this.handleNewPositionEvent($event)">
+  </div>
+  <canvas class="canvas-circle-drawing" #canvas></canvas>
+
+
+
+
+
+  <canvas class="canvas-circle-drawing-small" #canvasSmall></canvas>
+
+</div>

@@ -1,0 +1,86 @@
+.image-picker-container {
+  margin-top: 50px;
+  width: 100%;
+position: relative;
+
+}
+
+#file-input-wrapper {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+#file-input {
+  display: none;
+}
+
+.file-input-image-landscape {
+  width: 100%;
+  height: auto;
+}
+
+.file-input-image-portrait {
+  height: 100%;
+  width: auto;
+}
+
+.invisible-front-image {
+  opacity: 0;
+  z-index: 2;
+}
+
+.visible-background-image {
+  z-index: 0;
+}
+
+.file-input-default-image {
+  width: 50%;
+  opacity: 0.3;
+  margin: auto;
+
+}
+
+.file-input-default-image-label {
+  display: flex;
+  height: 100%;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  z-index: 6;
+}
+
+.close-cross-for-picture {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 3;
+  cursor: pointer;
+
+}
+
+.canvas-circle-drawing {
+  display: none;
+}
+
+.canvas-circle-drawing-small {
+  display: none
+}
+
+.visible-circle-view-canvas {
+  position: absolute;
+  z-index: 2;
+}
+.save-button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
