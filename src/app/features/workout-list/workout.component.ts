@@ -13,6 +13,8 @@ import {WorkoutListingsInterface} from './shared/workout-listings-interface';
 import {AllWorkoutListingsService} from './shared/all-workout-listings.service';
 import {DayDTO} from '../../core/model/swagger-model/dayDTO';
 import {Day} from '../../core/model/internal-model/day.model';
+import {CacheService} from '../../core/services/cache.service';
+import { FilterGroupDTO } from 'src/app/core/model/swagger-model/filterGroupDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +33,15 @@ export class WorkoutComponent implements OnInit {
 
   private workoutListingsService: WorkoutListingsInterface;
 
+  filterGroups: FilterGroupDTO[] = [];
+  filterExpanded = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private workoutsService: WorkoutsService,
     private constants: ConstantsService,
+    private cacheService: CacheService,
     private workoutOverviewPicturesService: WorkoutOverviewPicturesService,
     private el: ElementRef,
     private savedWorkoutsService: SavedWorkoutsService,
@@ -44,6 +50,9 @@ export class WorkoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cacheService.getFilters().subscribe(filters => {
+      this.filterGroups = filters;
+    });
 
     this.route.queryParamMap.subscribe(params => {
       if (params.get('criteria') == null) {
@@ -106,5 +115,8 @@ export class WorkoutComponent implements OnInit {
   playDayWorkout(day: Day): void {
     this.workoutsService.cacheWorkoutDayToPlay(day);
     this.router.navigate(['tables/1/1'], { relativeTo: this.route });
+  }
+  filterDivExpanded(expanded: boolean): void {
+    this.filterExpanded = expanded;
   }
 }

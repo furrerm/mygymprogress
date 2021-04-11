@@ -4,6 +4,7 @@ import {User} from '../../core/model/internal-model/user';
 import {Router} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
 import {UserDTO} from '../../core/model/swagger-model/userDTO';
+import {CacheService} from '../../core/services/cache.service';
 
 @Component({
   selector: 'app-welcome',
@@ -20,10 +21,12 @@ export class WelcomeComponent implements OnInit {
   idToken: string;
   private sub: any;
 
-  constructor(private _authService: AuthenticationService,
-              private router: Router,
-              private constants: ConstantsService,
-              private ngZone: NgZone) {
+  constructor(
+    private _authService: AuthenticationService,
+    private router: Router,
+    private constants: ConstantsService,
+    private ngZone: NgZone,
+    private cacheService: CacheService) {
   }
 
   ngOnInit() {
@@ -44,7 +47,7 @@ export class WelcomeComponent implements OnInit {
                 this.constants.setUser = userDTO;
                 this.ngZone.run(() => {
                   if (this.constants.getUser !== undefined) {
-                    this.router.navigate(['workoutoverview']);
+                    this.router.navigate(['workoutoverview']).then(this.cacheService.loadFilters);
                   }
                 });
               }
@@ -58,6 +61,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   get authService(): AuthenticationService {
-  return this._authService;
+    return this._authService;
   }
 }

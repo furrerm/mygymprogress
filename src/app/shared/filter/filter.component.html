@@ -1,0 +1,14 @@
+<div #filterContainer [ngClass]="this.filterDivExpanded === true? 'expanded-to-content' : 'collapsed-to-button'" class="filter-container">
+  <div *ngFor="let filterGroup of this.filterGroups" class="filterGroupContainer">
+    <p class="filterGroupTitle">{{filterGroup.name}}</p>
+    <div class="single-filters-container">
+      <span [ngClass]="filterChosen(filterGroup, singleFilter) === true? 'active-filter' : 'inactive-filter'" class = "single-filter-span" *ngFor="let singleFilter of filterGroup.filter" (click)="this.addFilter(filterGroup, singleFilter)">{{singleFilter}}</span>
+    </div>
+  </div>
+</div>
+
+<div class = "button-wrapper">
+  <div class = "filter-button-wrapper">
+    <img src="../../../assets/pictures/menuButtons/workoutCreation/filter-button.svg" class = "filter-expansion-button" (click)="this.expandCollapseFilterDiv()">
+  </div>
+</div>

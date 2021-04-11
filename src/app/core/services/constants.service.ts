@@ -3,6 +3,8 @@ import {environment} from './../../../environments/environment';
 import {UserDTO} from '../model/swagger-model/userDTO';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {FilterGroupDTO} from '../model/swagger-model/filterGroupDTO';
+import {FilterService} from './filter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class ConstantsService {
 
   private readonly _baseAppUrl: string = environment.APIEndpoint;
   private user: UserDTO;
+  filterGroups: FilterGroupDTO[];
 
   get getUser(): UserDTO {
     return this.user;

@@ -1,8 +1,11 @@
 <app-menu></app-menu>
 
+
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div">
+    <app-filter [filterGroups]="this.filterGroups" (filterDivExpandedEvent)="this.filterDivExpanded($event)"></app-filter>
     <div *ngFor="let workoutListing of this.workoutListings; index as i" class="workoutsContainer">
+      <div *ngIf="i === 0 && this.filterExpanded === true" class="space-provider-for-Filter"></div>
       <div class = "centerContent frame-content">
         <h2 class="centerContent"
            style="text-align: center;">{{workoutListing.workout["name"]}}</h2>

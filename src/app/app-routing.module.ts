@@ -21,6 +21,7 @@ import {WorkoutPositionChartComponent} from './features/workout-player/workout-p
 import {PieChartComponent} from './features/workout-player/pie-chart/pie-chart.component';
 import {LastSetComponent} from './features/workout-player/last-set/last-set.component';
 import {ProfileComponent} from './features/profile/profile.component';
+import {FilterComponent} from './shared/filter/filter.component';
 
 
 
@@ -44,7 +45,8 @@ const routes: Routes = [
   { path: 'workout-player/video-bottom-bar', component: VideoBottomBarComponent, pathMatch: 'full' },
   { path: 'workout-player/workout-position-chart', component: WorkoutPositionChartComponent, pathMatch: 'full' },
   { path: 'workout-player/pie-chart', component: PieChartComponent, pathMatch: 'full' },
-  { path: 'workout-player/last-set', component: LastSetComponent, pathMatch: 'full' }
+  { path: 'workout-player/last-set', component: LastSetComponent, pathMatch: 'full' },
+  { path: 'ashitytest', component: FilterComponent, pathMatch: 'full' }
 
 ];
 

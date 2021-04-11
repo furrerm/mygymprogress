@@ -93,6 +93,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ImagePickerComponent } from './features/profile/image-picker/image-picker.component';
 import { DragImageDirective } from './features/profile/image-picker/drag-image.directive';
 import { ProfileImageComponent } from './features/profile/profile-image/profile-image.component';
+import { FilterComponent } from './shared/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { ProfileImageComponent } from './features/profile/profile-image/profile-
     ProfileComponent,
     ImagePickerComponent,
     DragImageDirective,
-    ProfileImageComponent
+    ProfileImageComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
