@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConstantsService} from './core/services/constants.service';
 import {UserDTO} from './core/model/swagger-model/userDTO';
+import {CacheService} from './core/services/cache.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,14 @@ import {UserDTO} from './core/model/swagger-model/userDTO';
 export class AppComponent implements OnInit {
   title = 'mygymprogress';
 
-  constructor(private router: Router, private constants: ConstantsService) {
+  constructor(
+    private router: Router,
+    private constants: ConstantsService,
+    private cacheService: CacheService) {
   }
 
   ngOnInit(): void {
+
     console.log(this.constants.getUser);
     console.log(this.constants.getUser == null);
     if (this.constants.getUser == null) {
@@ -47,6 +52,7 @@ export class AppComponent implements OnInit {
         followers: [user2]
       };
       this.constants.setUser = user;
+      this.cacheService.initialLoadSavedWorkouts();
     }
   }
 }

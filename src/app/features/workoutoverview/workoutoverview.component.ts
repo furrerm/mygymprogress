@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {ConstantsService} from '../../core/services/constants.service';
 import {WorkoutOverviewPicturesService} from './shared/workout-overview-pictures.service';
 import {Observable} from 'rxjs';
-import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
 import {SaveWorkoutService} from '../content-creation/new-workout/shared/save-workout.service';
 
 @Component({

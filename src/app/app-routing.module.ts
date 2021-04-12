@@ -22,6 +22,7 @@ import {PieChartComponent} from './features/workout-player/pie-chart/pie-chart.c
 import {LastSetComponent} from './features/workout-player/last-set/last-set.component';
 import {ProfileComponent} from './features/profile/profile.component';
 import {FilterComponent} from './shared/filter/filter.component';
+import {SavedWorkoutsComponent} from './features/saved-workouts/saved-workouts.component';
 
 
 
@@ -46,8 +47,9 @@ const routes: Routes = [
   { path: 'workout-player/workout-position-chart', component: WorkoutPositionChartComponent, pathMatch: 'full' },
   { path: 'workout-player/pie-chart', component: PieChartComponent, pathMatch: 'full' },
   { path: 'workout-player/last-set', component: LastSetComponent, pathMatch: 'full' },
-  { path: 'ashitytest', component: FilterComponent, pathMatch: 'full' }
-
+  { path: 'ashitytest', component: FilterComponent, pathMatch: 'full' },
+  { path: 'play', component: TablesComponent, pathMatch: 'full' },
+  { path: 'saved-workouts-list', component: SavedWorkoutsComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

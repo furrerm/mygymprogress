@@ -16,7 +16,6 @@ export class AllWorkoutListingsService implements WorkoutListingsInterface {
 
   constructor(
     private workoutsService: WorkoutsService,
-    private workoutpreviewpicturesService: WorkoutOverviewPicturesService,
   ) {
     this._savedWorkouts = new BehaviorSubject<Workout[]>([]);
   }
@@ -26,9 +25,7 @@ export class AllWorkoutListingsService implements WorkoutListingsInterface {
   public savedWorkouts(): Observable<Workout[]> {
     const workoutFetcher: (endpointEssentials: ConstantsService) =>
       Observable<WorkoutDTO[]> = this.workoutsService.fetchWorkoutsWithSearchCriteria;
-    const imageAdder: (imagePosition: number, url1: string, constants: ConstantsService) =>
-      ImageObservable = this.workoutpreviewpicturesService.getFiles;
-    this.workoutsService.initializeWorkouts(this._savedWorkouts, workoutFetcher, imageAdder);
+    this.workoutsService.initializeWorkouts(this._savedWorkouts, workoutFetcher);
     return this._savedWorkouts;
   }
 }

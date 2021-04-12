@@ -13,7 +13,6 @@ export class FilterComponent implements OnInit {
   private _filterDivExpanded = false;
   @Input() filterGroups: FilterGroupDTO[];
   @Output() filterChangedEvent: EventEmitter<FilterGroupDTO> = new EventEmitter<FilterGroupDTO>();
-  @Output() filterDivExpandedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild('filterContainer') filterContainer;
 
   constructor() { }
@@ -52,6 +51,5 @@ export class FilterComponent implements OnInit {
 
   expandCollapseFilterDiv(): void {
     this._filterDivExpanded = this._filterDivExpanded === false ? true : false;
-    this.filterDivExpandedEvent.emit(this._filterDivExpanded);
   }
 }

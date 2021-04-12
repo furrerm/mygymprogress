@@ -7,18 +7,15 @@ import {
   HostListener, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SavedWorkoutsService} from '../workout-list/shared/saved-workouts.service';
 import {LastSetService} from './shared/last-set.service';
 import {SaveSetsService} from './shared/save-sets.service';
 import {DayWorkoutHandler, DayWorkoutHandlerExerciseBased} from './DayWorkoutHandler';
 import {ConstantsService} from '../../core/services/constants.service';
-import {WorkoutsService} from '../workout-list/shared/workouts.service';
 import {Day} from '../../core/model/internal-model/day.model';
 import {Exercise} from '../../core/model/internal-model/exercise.model';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {WorkoutMock} from './WorkoutMock';
 import {WorkoutConverter} from '../../core/model/converter/workout-converter';
+import {CacheService} from '../../core/services/cache.service';
 
 @Component({
   selector: 'app-tables',
@@ -56,11 +53,10 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private savedWorkoutService: SavedWorkoutsService,
     private lastSetService: LastSetService,
     private saveSetsService: SaveSetsService,
     private constants: ConstantsService,
-    private workoutsService: WorkoutsService,
+    private cacheService: CacheService,
     private readonly sanitizer: DomSanitizer,
     private changeDetectorRef: ChangeDetectorRef
   ) {
@@ -78,8 +74,8 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
 
     this.route.paramMap.subscribe(params => {
       // todo: use params for reloading the right day Workout
-      if (this.workoutsService.day) {
-        this.currentDayWorkout = this.workoutsService.day;
+      if (this.cacheService.dayToPlay) {
+        this.currentDayWorkout = this.cacheService.dayToPlay;
         this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(
           this.currentDayWorkout,
           this.lastSetService,

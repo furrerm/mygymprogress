@@ -94,6 +94,8 @@ import { ImagePickerComponent } from './features/profile/image-picker/image-pick
 import { DragImageDirective } from './features/profile/image-picker/drag-image.directive';
 import { ProfileImageComponent } from './features/profile/profile-image/profile-image.component';
 import { FilterComponent } from './shared/filter/filter.component';
+import { WorkoutPostComponent } from './shared/workout-post/workout-post.component';
+import { SavedWorkoutsComponent } from './features/saved-workouts/saved-workouts.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +130,9 @@ import { FilterComponent } from './shared/filter/filter.component';
     ImagePickerComponent,
     DragImageDirective,
     ProfileImageComponent,
-    FilterComponent
+    FilterComponent,
+    WorkoutPostComponent,
+    SavedWorkoutsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,72 @@
+.innerWrapperDepth2 {
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 0;
+  margin: 0 0 30px 0;
+  border: solid black 1px;
+
+}
+
+.collapsed {
+  display: none;
+}
+
+.expanded {
+  display: block;
+}
+.playButton {
+  width:30px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+.centerContent {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+.frame-content {
+  max-width: 400px;
+  border: solid 1px black;
+}
+.phaseContainer {
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+}
+h4 {
+  background-color: #111110;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+}
+.imageLimiter {
+  max-height: 600px;
+  display: block;
+  cursor: pointer;
+}
+.toggleImageStyle {
+  max-height: 20px;
+  margin-top: 25px;
+  float: right;
+  cursor: pointer;
+}
+.expandButtonWrapper {
+  width: 100%;
+  height: 45px;
+}
+.workoutsContainer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.like-button-image {
+  max-height: 40px;
+  max-width: 40px;
+  margin-left: 10px;
+  float: left;
+  cursor: pointer;
+}
+.space-provider-for-Filter {
+  width: 100%;
+  height: 350px;
+
+}

@@ -53,24 +53,4 @@ export class ManagementComponent implements OnInit {
   saveUrl(base64Image: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
   }
-
-  expandContent(set: PostListing): void {
-    set.isCollapsed = !set.isCollapsed;
-    if (set.isCollapsed) {
-      set.toggleImage = '../../assets/pictures/menuButtons/toggle_open.png';
-    } else {
-      set.toggleImage = '../../assets/pictures/menuButtons/toggle_close.png';
-    }
-    this.bntStyle = 'btn-default2';
-  }
-
-  playDayWorkout(day: Day): void {
-    console.log('play button pressed');
-  }
-  likeWorkout(workout: Workout): void {
-    console.log('workout got liked');
-  }
-  likeButtonImage(isLiked: boolean): string {
-    return isLiked ? 'assets/pictures/menuButtons/like_active.svg' : 'assets/pictures/menuButtons/like_inactive.svg';
-  }
 }

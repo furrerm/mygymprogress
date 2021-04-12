@@ -4,7 +4,7 @@
   <div class="content-div">
     <app-filter [filterGroups]="this.filterGroups"></app-filter>
 
-    <div *ngFor="let workout of this.workouts" class="workoutsContainer">
+    <div *ngFor="let workout of this.workouts; index as i" class="workoutsContainer">
 
       <app-workout-post [workout]="workout"></app-workout-post>
 
