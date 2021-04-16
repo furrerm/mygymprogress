@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { DayDTO } from './dayDTO';
+import { FilterGroupDTO } from './filterGroupDTO';
 import { UserDTO } from './userDTO';
 
 export interface WorkoutDTO { 
@@ -19,5 +20,6 @@ export interface WorkoutDTO {
     previewImage?: string;
     creator?: UserDTO;
     days?: Array<DayDTO>;
+    filterGroups?: Array<FilterGroupDTO>;
     savedFromCurrentUser?: boolean;
 }

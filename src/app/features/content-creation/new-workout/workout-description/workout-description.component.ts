@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {SaveWorkoutService} from '../shared/save-workout.service';
 import {WorkoutDTO} from '../../../../core/model/swagger-model/workoutDTO';
 import {Router} from '@angular/router';
+import {FilterGroupDTO} from '../../../../core/model/swagger-model/filterGroupDTO';
+import {ConstantsService} from '../../../../core/services/constants.service';
+import {CacheService} from '../../../../core/services/cache.service';
 
 @Component({
   selector: 'app-workout-description',
@@ -12,20 +15,28 @@ export class WorkoutDescriptionComponent implements OnInit {
   readonly workout: WorkoutDTO = null;
   private answerMessage: string;
   private _workoutTitle: string;
+  workoutFilters: FilterGroupDTO[];
 
   constructor(
     private saveWorkoutService: SaveWorkoutService,
-    private router: Router) {
+    private router: Router,
+    private caches: CacheService) {
     this.workout = this.saveWorkoutService.workout;
   }
 
   ngOnInit(): void {
+    this.getWorkoutFilters();
+  }
+
+  private getWorkoutFilters(): void {
+    this.caches.getWorkoutFilters().subscribe(workoutFilter =>
+      this.workoutFilters = workoutFilter
+    );
   }
 
   upload(): void {
     try {
       this.workout.name = this._workoutTitle;
-
       this.workout.previewImageUrl = this.createImagePath(this.saveWorkoutService.file.name);
       this.workout.savedFromCurrentUser = true;
       this.saveWorkoutService.cacheWorkout(this.workout);
@@ -56,5 +67,9 @@ export class WorkoutDescriptionComponent implements OnInit {
 
   set workoutTitle(value: string) {
     this._workoutTitle = value;
+  }
+
+  addFilterGroups(filterGroups: FilterGroupDTO[]): void {
+    this.workout.filterGroups = filterGroups;
   }
 }

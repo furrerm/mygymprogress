@@ -7,6 +7,7 @@ import {DayDTO} from '../../../../core/model/swagger-model/dayDTO';
 import {PhaseDTO} from '../../../../core/model/swagger-model/phaseDTO';
 import {ExerciseDTO} from '../../../../core/model/swagger-model/exerciseDTO';
 import {Vector} from '../../../../core/types/vector';
+import {FilterGroupDTO} from '../../../../core/model/swagger-model/filterGroupDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,7 @@ export class SaveWorkoutService {
     const httpOptions = {
       headers: new HttpHeaders()
     };
+
     httpOptions.headers.append('Access-Control-Allow-Origin', '*');
     httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
