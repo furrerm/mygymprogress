@@ -18,7 +18,8 @@ import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
 export class ManagementComponent implements OnInit {
 
   private _postPage: PageDTO;
-  private _lastTimestamp: string;
+  private lowestId: number;
+  private counter = 0;
   private _postListings: PostListing[] = [];
   bntStyle = 'btn-default';
 
@@ -30,15 +31,24 @@ export class ManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe(a => {
+    this.loadPostPage(-1);
+  }
+
+  loadPostPage(id: number): void {
+    this.postService.getPosts(id).subscribe(a => {
       const workoutConverter = new WorkoutConverter(this.sanitizer);
       this._postPage = a;
-      this._postListings = this.postPage.posts.map(post => ({
+      this.postPage.posts.forEach(post => this._postListings.push({
         workout: post.workoutDTO ? workoutConverter.convertDTOToWorkout(post.workoutDTO) : null,
         simplePost: post.simplePostDTO ? post.simplePostDTO : null,
         isCollapsed: true,
         toggleImage: '../../assets/pictures/menuButtons/toggle_open.png'
       }));
+      this.lowestId = a.highestUpdateId;
+      ++this.counter;
+      if (this.counter < 3) {
+        this.loadPostPage(this.lowestId);
+      }
     });
   }
 

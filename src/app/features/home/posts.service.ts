@@ -15,12 +15,12 @@ export class PostsService {
     private constants: ConstantsService) {
   }
 
-  getPosts(): Observable<PageDTO> {
+  getPosts(id: number): Observable<PageDTO> {
 
     const endpoint = 'posts-service/get-all-posts';
     const endpointURL = this.constants.baseAppUrl + endpoint;
     let params = new HttpParams().set('userDTO', JSON.stringify(this.constants.getUser));
-    params = params.append('lastTimeStamp', '13');
+    params = params.append('lastId', String(id));
 
     return this.httpClient.get<PageDTO>(endpointURL, {params});
   }
