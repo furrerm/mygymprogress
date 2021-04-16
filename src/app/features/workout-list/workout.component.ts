@@ -43,10 +43,7 @@ export class WorkoutComponent implements OnInit {
     this.getFilterGroups();
     this.workoutListingsService = this.allWorkoutListingsService;
 
-    this.workoutListingsService.savedWorkouts().subscribe(workouts => {
-        this._workouts = workouts;
-      }
-    );
+
   }
 
   get workouts(): Workout[] {
@@ -54,8 +51,15 @@ export class WorkoutComponent implements OnInit {
   }
 
   private getFilterGroups(): void {
-    this.cacheService.getFilters().subscribe(filters => {
+    this.cacheService.getWorkoutFilters().subscribe(filters => {
       this.filterGroups = filters;
     });
+  }
+
+  public loadByFilter(filters: Array<string>): void {
+    this.workoutListingsService.savedWorkouts(filters).subscribe(workouts => {
+        this._workouts = workouts;
+      }
+    );
   }
 }

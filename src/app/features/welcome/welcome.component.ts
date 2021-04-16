@@ -47,7 +47,7 @@ export class WelcomeComponent implements OnInit {
                 this.constants.setUser = userDTO;
                 this.ngZone.run(() => {
                   if (this.constants.getUser !== undefined) {
-                    this.router.navigate(['workoutoverview']).then(this.cacheService.loadFilters);
+                    this.router.navigate(['workoutoverview']).then(this.cacheService.loadExerciseFilters);
                   }
                 });
               }

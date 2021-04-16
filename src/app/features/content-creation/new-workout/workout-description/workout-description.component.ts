@@ -25,6 +25,7 @@ export class WorkoutDescriptionComponent implements OnInit {
   upload(): void {
     try {
       this.workout.name = this._workoutTitle;
+
       this.workout.previewImageUrl = this.createImagePath(this.saveWorkoutService.file.name);
       this.workout.savedFromCurrentUser = true;
       this.saveWorkoutService.cacheWorkout(this.workout);

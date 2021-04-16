@@ -5,6 +5,7 @@
       <span [ngClass]="filterChosen(filterGroup, singleFilter) === true? 'active-filter' : 'inactive-filter'" class = "single-filter-span" *ngFor="let singleFilter of filterGroup.filter" (click)="this.addFilter(filterGroup, singleFilter)">{{singleFilter}}</span>
     </div>
   </div>
+  <button class="search-button" (click)="this.emitFilterGroups()">search</button>
 </div>
 
 <div class = "button-wrapper">

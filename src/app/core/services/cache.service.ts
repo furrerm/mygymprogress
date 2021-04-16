@@ -16,7 +16,9 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class CacheService {
 
-  filterGroups: BehaviorSubject<FilterGroupDTO[]> = new BehaviorSubject<FilterGroupDTO[]>([]);
+  exerciseFilterGroups: BehaviorSubject<FilterGroupDTO[]> = new BehaviorSubject<FilterGroupDTO[]>([]);
+  workoutFilterGroups: BehaviorSubject<FilterGroupDTO[]> = new BehaviorSubject<FilterGroupDTO[]>([]);
+  interestFilterGroups: BehaviorSubject<FilterGroupDTO[]> = new BehaviorSubject<FilterGroupDTO[]>([]);
   readonly savedWorkouts: BehaviorSubject<Workout[]> = new BehaviorSubject<Workout[]>([]);
   dayToPlay: Day;
 
@@ -27,16 +29,23 @@ export class CacheService {
     private sanitizer: DomSanitizer) {
   }
 
-  getFilters(): BehaviorSubject<FilterGroupDTO[]> {
-    if (this.filterGroups.getValue().length === 0) {
-      this.loadFilters();
-    }
-    return this.filterGroups;
+  getExerciseFilters(): BehaviorSubject<FilterGroupDTO[]> {
+    return this.exerciseFilterGroups;
   }
 
-  loadFilters(): void {
-    this.filterService.getAllFilterGroups().subscribe(filterGroups => {
-      this.filterGroups.next(filterGroups);
+  loadExerciseFilters(): void {
+    this.filterService.getAllExerciseFilterGroups().subscribe(filterGroups => {
+      this.exerciseFilterGroups.next(filterGroups);
+    });
+  }
+
+  getWorkoutFilters(): BehaviorSubject<FilterGroupDTO[]> {
+    return this.workoutFilterGroups;
+  }
+
+  loadWorkoutFilters(): void {
+    this.filterService.getAllWorkoutFilterGroups().subscribe(filterGroups => {
+      this.workoutFilterGroups.next(filterGroups);
     });
   }
 

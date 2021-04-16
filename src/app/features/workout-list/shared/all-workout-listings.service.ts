@@ -22,10 +22,10 @@ export class AllWorkoutListingsService implements WorkoutListingsInterface {
 
   readonly _savedWorkouts: BehaviorSubject<Workout[]>;
 
-  public savedWorkouts(): Observable<Workout[]> {
-    const workoutFetcher: (endpointEssentials: ConstantsService) =>
+  public savedWorkouts(filters: Array<string>): Observable<Workout[]> {
+    const workoutFetcher: (endpointEssentials: ConstantsService, filters: Array<string>) =>
       Observable<WorkoutDTO[]> = this.workoutsService.fetchWorkoutsWithSearchCriteria;
-    this.workoutsService.initializeWorkouts(this._savedWorkouts, workoutFetcher);
+    this.workoutsService.initializeWorkouts(this._savedWorkouts, workoutFetcher, filters);
     return this._savedWorkouts;
   }
 }

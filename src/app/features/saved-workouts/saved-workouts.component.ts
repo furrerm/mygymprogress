@@ -29,7 +29,7 @@ export class SavedWorkoutsComponent implements OnInit {
   }
 
   private getFilterGroups(): void {
-    this.cacheService.getFilters().subscribe(filterGroups => {
+    this.cacheService.getExerciseFilters().subscribe(filterGroups => {
       this.filterGroups = filterGroups;
     });
   }

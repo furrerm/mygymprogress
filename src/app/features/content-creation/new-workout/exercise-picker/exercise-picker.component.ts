@@ -68,7 +68,7 @@ export class ExercisePickerComponent implements OnInit {
   }
 
   private getAllFilterGroups(): void {
-    this.filterService.getAllFilterGroups().subscribe(filterGroups => {
+    this.filterService.getAllExerciseFilterGroups().subscribe(filterGroups => {
       this._filterGroups = filterGroups;
     });
   }

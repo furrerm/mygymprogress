@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     if (this.constants.getUser == null) {
       console.log(window.location + 'welcome');
       console.log('app component init was triggered with username = null');
-      // TODO: for login uncomment next line; for developement comment it out
+      // todo: for login uncomment next line; for developement comment it out
       // this.router.navigate(['welcome']);
       const user2: UserDTO = {
         email: '',
@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
       };
       this.constants.setUser = user;
       this.cacheService.initialLoadSavedWorkouts();
+      this.cacheService.loadWorkoutFilters();
     }
   }
 }

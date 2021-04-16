@@ -13,14 +13,19 @@ export class FilterService {
 
   }
 
-  getAllFilterGroups(): Observable<FilterGroupDTO[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+  getAllExerciseFilterGroups(): Observable<FilterGroupDTO[]> {
     const url = this.constant.baseAppUrl + 'filter/get-all-filter-groups';
-    httpOptions.headers.append('Access-Control-Allow-Origin', '*');
-    httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
+    const result: Observable<FilterGroupDTO[]> = this.constant.httpClient.get<FilterGroupDTO[]>(url);
+    return result;
+  }
+
+  getAllInterestFilterGroups(): Observable<FilterGroupDTO[]> {
+    // todo: impl
+    return null;
+  }
+
+  getAllWorkoutFilterGroups(): Observable<FilterGroupDTO[]> {
+    const url = this.constant.baseAppUrl + 'filter/get-workout-filter-groups';
     const result: Observable<FilterGroupDTO[]> = this.constant.httpClient.get<FilterGroupDTO[]>(url);
     return result;
   }

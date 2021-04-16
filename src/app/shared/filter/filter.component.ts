@@ -12,7 +12,8 @@ export class FilterComponent implements OnInit {
 
   private _filterDivExpanded = false;
   @Input() filterGroups: FilterGroupDTO[];
-  @Output() filterChangedEvent: EventEmitter<FilterGroupDTO> = new EventEmitter<FilterGroupDTO>();
+  @Output() filterGroupsEvent: EventEmitter<FilterGroupDTO[]> = new EventEmitter<FilterGroupDTO[]>();
+  @Output() filterEvent: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @ViewChild('filterContainer') filterContainer;
 
   constructor() { }
@@ -51,5 +52,12 @@ export class FilterComponent implements OnInit {
 
   expandCollapseFilterDiv(): void {
     this._filterDivExpanded = this._filterDivExpanded === false ? true : false;
+  }
+
+  emitFilterGroups(): void {
+    this.filterGroupsEvent.emit(this.activeFilters);
+    const filtersArrays = this.activeFilters.map(a => a.filter);
+    const filters = [].concat(...filtersArrays);
+    this.filterEvent.emit(filters);
   }
 }
