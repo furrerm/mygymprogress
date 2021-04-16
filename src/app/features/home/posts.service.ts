@@ -15,12 +15,13 @@ export class PostsService {
     private constants: ConstantsService) {
   }
 
-  getPosts(id: number): Observable<PageDTO> {
+  getPosts(id: number, pageSize: number): Observable<PageDTO> {
 
     const endpoint = 'posts-service/get-all-posts';
     const endpointURL = this.constants.baseAppUrl + endpoint;
     let params = new HttpParams().set('userDTO', JSON.stringify(this.constants.getUser));
     params = params.append('lastId', String(id));
+    params = params.append('pageSize', String(pageSize));
 
     return this.httpClient.get<PageDTO>(endpointURL, {params});
   }

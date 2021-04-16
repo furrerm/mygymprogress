@@ -9,6 +9,7 @@ import {WorkoutListing} from '../workout-list/workout-listing';
 import {Day} from '../../core/model/internal-model/day.model';
 import {Workout} from '../../core/model/internal-model/workout.model';
 import {SavedWorkoutDTO} from '../../core/model/swagger-model/savedWorkoutDTO';
+import {ConstantsService} from '../../core/services/constants.service';
 
 @Component({
   selector: 'app-management',
@@ -26,16 +27,17 @@ export class ManagementComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postService: PostsService,
-    private readonly sanitizer: DomSanitizer) {
+    private readonly sanitizer: DomSanitizer,
+    private constants: ConstantsService) {
     this._postPage = null;
   }
 
   ngOnInit(): void {
-    this.loadPostPage(-1);
+    this.loadPostPage(-1, this.constants.loadingPattern[0]);
   }
 
-  loadPostPage(id: number): void {
-    this.postService.getPosts(id).subscribe(a => {
+  loadPostPage(id: number, pageSize: number): void {
+    this.postService.getPosts(id, pageSize).subscribe(a => {
       const workoutConverter = new WorkoutConverter(this.sanitizer);
       this._postPage = a;
       this.postPage.posts.forEach(post => this._postListings.push({
@@ -46,8 +48,8 @@ export class ManagementComponent implements OnInit {
       }));
       this.lowestId = a.highestUpdateId;
       ++this.counter;
-      if (this.counter < 3) {
-        this.loadPostPage(this.lowestId);
+      if (this.counter < this.constants.loadingPattern.length) {
+        this.loadPostPage(this.lowestId, this.constants.loadingPattern[this.counter]);
       }
     });
   }

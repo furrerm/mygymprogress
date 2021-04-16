@@ -8,6 +8,9 @@ import {AllWorkoutListingsService} from './shared/all-workout-listings.service';
 import {CacheService} from '../../core/services/cache.service';
 import {FilterGroupDTO} from 'src/app/core/model/swagger-model/filterGroupDTO';
 import {Workout} from '../../core/model/internal-model/workout.model';
+import {WorkoutConverter} from '../../core/model/converter/workout-converter';
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +22,16 @@ import {Workout} from '../../core/model/internal-model/workout.model';
 })
 export class WorkoutComponent implements OnInit {
   exercise: string;
-  private _workouts: Workout[];
+  _workouts: Workout[] = [];
+  private counter = 0;
+  private offsetId = -1;
 
 
   private workoutListingsService: WorkoutListingsInterface;
 
   filterGroups: FilterGroupDTO[] = [];
   filterExpanded = false;
+  private workoutConverter: WorkoutConverter;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,14 +41,15 @@ export class WorkoutComponent implements OnInit {
     private cacheService: CacheService,
     private workoutOverviewPicturesService: WorkoutOverviewPicturesService,
     private el: ElementRef,
-    private allWorkoutListingsService: AllWorkoutListingsService
+    private allWorkoutListingsService: AllWorkoutListingsService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
   ngOnInit(): void {
     this.getFilterGroups();
     this.workoutListingsService = this.allWorkoutListingsService;
-
+    this.workoutConverter = new WorkoutConverter(this.sanitizer);
 
   }
 
@@ -56,9 +63,21 @@ export class WorkoutComponent implements OnInit {
     });
   }
 
-  public loadByFilter(filters: Array<string>): void {
-    this.workoutListingsService.savedWorkouts(filters).subscribe(workouts => {
-        this._workouts = workouts;
+  public loadByFilter(filters: Array<string>, pageSize: number, offsetId: number): void {
+    if (offsetId === -1) {
+      this._workouts = [];
+      this.counter = 0;
+    }
+    this.workoutsService.fetchWorkoutsWithSearchCriteria(this.constants, filters, pageSize, offsetId).subscribe(workouts => {
+
+        this.workoutConverter.convertDTOsToWorkouts(workouts).forEach(singleWorkout => {
+          this._workouts.push(singleWorkout);
+          this.offsetId = singleWorkout.id;
+        });
+        ++this.counter;
+        if (this.counter < this.constants.loadingPattern.length) {
+          this.loadByFilter(filters, this.constants.loadingPattern[this.counter], this.offsetId);
+        }
       }
     );
   }

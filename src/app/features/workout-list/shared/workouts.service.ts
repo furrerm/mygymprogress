@@ -29,11 +29,13 @@ export class WorkoutsService {
     this.appUrl = this.constant.baseAppUrl;
   }
 
-  fetchWorkoutsWithSearchCriteria(constants: ConstantsService, filters: Array<string>): Observable<WorkoutDTO[]> {
+  fetchWorkoutsWithSearchCriteria(constants: ConstantsService, filters: Array<string>, pageSize: number, offsetId: number): Observable<WorkoutDTO[]> {
     const endpointUrl = constants.baseAppUrl + 'workout-service/get-workouts-with-search-criteria';
     const criteria = filters;
     let params = new HttpParams().set('userDTOAsJson', JSON.stringify(constants.getUser));
     params = params.append('criteria', JSON.stringify(criteria));
+    params = params.append('pageSize', String(pageSize));
+    params = params.append('offsetId', String(offsetId));
 
     const result: Observable<WorkoutDTO[]> = constants.httpClient.post<WorkoutDTO[]>(endpointUrl, params);
     return result;
@@ -41,13 +43,15 @@ export class WorkoutsService {
 
   public initializeWorkouts(
     savedWorkouts: BehaviorSubject<Workout[]>,
-    workoutFetcher: (endpointEssentials: ConstantsService, filters: Array<string>) => Observable<WorkoutDTO[]>,
-    filters: Array<string>
+    workoutFetcher: (endpointEssentials: ConstantsService, filters: Array<string>, pageSize: number, offsetId: number) => Observable<WorkoutDTO[]>,
+    filters: Array<string>,
+    pageSize: number,
+    offsetId: number
   ): void {
     let workoutsLocal: Workout[] = [];
-    workoutFetcher(this.constant, filters).subscribe((data: WorkoutDTO[]) => {
+    workoutFetcher(this.constant, filters, pageSize, offsetId).subscribe((data: WorkoutDTO[]) => {
       workoutsLocal = new WorkoutConverter(this.sanitizer).convertDTOsToWorkouts(data);
-      workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
+      // workoutsLocal = workoutsLocal.sort((a, b) => a.id - b.id);
       savedWorkouts.next(workoutsLocal);
     });
   }
