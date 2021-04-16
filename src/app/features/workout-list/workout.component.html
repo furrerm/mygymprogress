@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-center content-wrapper">
   <div class="content-div">
-    <app-filter [filterGroups]="this.filterGroups" (filterEvent)="this.loadByFilter($event, this.constants.loadingPattern[0], -1)"></app-filter>
+    <app-filter [filterGroups]="this.filterGroups" (filterEvent)="this.loadByFilter($event, this.loadingPattern[0], -1)"></app-filter>
 
     <div *ngFor="let workout of this.workouts" class="workoutsContainer">
 

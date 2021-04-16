@@ -32,6 +32,7 @@ export class WorkoutComponent implements OnInit {
   filterGroups: FilterGroupDTO[] = [];
   filterExpanded = false;
   private workoutConverter: WorkoutConverter;
+  loadingPattern: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -50,6 +51,7 @@ export class WorkoutComponent implements OnInit {
     this.getFilterGroups();
     this.workoutListingsService = this.allWorkoutListingsService;
     this.workoutConverter = new WorkoutConverter(this.sanitizer);
+    this.loadingPattern = this.constants.loadingPattern;
 
   }
 
