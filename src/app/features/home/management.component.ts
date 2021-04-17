@@ -38,18 +38,20 @@ export class ManagementComponent implements OnInit {
 
   loadPostPage(id: number, pageSize: number): void {
     this.postService.getPosts(id, pageSize).subscribe(a => {
-      const workoutConverter = new WorkoutConverter(this.sanitizer);
-      this._postPage = a;
-      this.postPage.posts.forEach(post => this._postListings.push({
-        workout: post.workoutDTO ? workoutConverter.convertDTOToWorkout(post.workoutDTO) : null,
-        simplePost: post.simplePostDTO ? post.simplePostDTO : null,
-        isCollapsed: true,
-        toggleImage: '../../assets/pictures/menuButtons/toggle_open.png'
-      }));
-      this.lowestId = a.highestUpdateId;
-      ++this.counter;
-      if (this.counter < this.constants.loadingPattern.length) {
-        this.loadPostPage(this.lowestId, this.constants.loadingPattern[this.counter]);
+      if (a != null) {
+        const workoutConverter = new WorkoutConverter(this.sanitizer);
+        this._postPage = a;
+        this.postPage.posts.forEach(post => this._postListings.push({
+          workout: post.workoutDTO ? workoutConverter.convertDTOToWorkout(post.workoutDTO) : null,
+          simplePost: post.simplePostDTO ? post.simplePostDTO : null,
+          isCollapsed: true,
+          toggleImage: '../../assets/pictures/menuButtons/toggle_open.png'
+        }));
+        this.lowestId = a.highestUpdateId;
+        ++this.counter;
+        if (this.counter < this.constants.loadingPattern.length) {
+          this.loadPostPage(this.lowestId, this.constants.loadingPattern[this.counter]);
+        }
       }
     });
   }

@@ -6,11 +6,14 @@
   <div class="content-div">
 
     <div *ngFor="let post of this.postListings; index as i" class="workoutsContainer">
-      <div *ngIf="post.simplePost != null" class = "centerContent frame-content">
+     <app-simple-post-presentation *ngIf="post.simplePost != null" [simplePostDTO]="post.simplePost"></app-simple-post-presentation>
+     <!--
+     <div *ngIf="post.simplePost != null" class = "centerContent frame-content">
         <img [src]="this.saveUrl(post.simplePost.userDTO.profileImageSmall)">
         <img [src]="this.saveUrl(post.simplePost.previewImage)" class="centerContent imageLimiter img-thumbnail">
         <p>{{post.simplePost.description}}</p>
       </div>
+      -->
       <app-workout-post *ngIf="post.workout != null" [workout]="post.workout"></app-workout-post>
 
     </div>

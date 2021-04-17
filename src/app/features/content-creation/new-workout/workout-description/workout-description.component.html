@@ -3,5 +3,5 @@
   <input class="day-button-input" type="text" placeholder="workout name" [(ngModel)]="this.workoutTitle">
 </label>
 </div>
-<app-filter [filterGroups]="this.workoutFilters" (filterGroupsEvent)="this.addFilterGroups($event)"></app-filter>
+<app-filter [_filterDivExpanded]="true" [showSearchButton]="false" [filterGroups]="this.workoutFilters" (filterGroupsEvent)="this.addFilterGroups($event)"></app-filter>
 <button class="upload-button" (click)="this.upload()">Upload workout</button>

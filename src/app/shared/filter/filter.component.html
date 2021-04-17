@@ -5,12 +5,12 @@
       <span [ngClass]="filterChosen(filterGroup, singleFilter) === true? 'active-filter' : 'inactive-filter'" class = "single-filter-span" *ngFor="let singleFilter of filterGroup.filter" (click)="this.addFilter(filterGroup, singleFilter)">{{singleFilter}}</span>
     </div>
   </div>
-  <button class="search-button" (click)="this.emitFilterGroups()">search</button>
+  <button *ngIf="this.showSearchButton" class="search-button" (click)="this.emitFilterGroups()">search</button>
 </div>
 
-<div class = "button-wrapper">
+<div *ngIf="!this.filterDivExpanded" class = "button-wrapper">
   <div class = "filter-button-wrapper">
     <img src="../../../assets/pictures/menuButtons/workoutCreation/filter-button.svg" class = "filter-expansion-button" (click)="this.expandCollapseFilterDiv()">
   </div>
 </div>
-<div *ngIf="this.filterDivExpanded === true" class="space-provider-for-Filter"></div>
+

@@ -33,14 +33,8 @@ export class WorkoutPostComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  expandContent(): void {
-    this.isCollapsed = !this.isCollapsed;
-    if (this.isCollapsed) {
-      this.toggleImage = 'assets/pictures/menuButtons/toggle_open.png';
-    } else {
-      this.toggleImage = 'assets/pictures/menuButtons/toggle_close.png';
-    }
-    this.bntStyle = 'btn-default2';
+  expandContent(isCollapsedEvent: boolean): void {
+    this.isCollapsed = isCollapsedEvent;
   }
 
   likeWorkout(workout: Workout): void {
@@ -65,8 +59,5 @@ export class WorkoutPostComponent implements OnInit {
   playDayWorkout(day: Day): void {
     this.cacheService.cacheWorkoutDayToPlay(day);
     this.router.navigate(['play']);
-  }
-  saveUrl(base64Image: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(base64Image);
   }
 }

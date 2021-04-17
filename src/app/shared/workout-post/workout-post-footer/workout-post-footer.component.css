@@ -1,0 +1,10 @@
+.expandButtonWrapper {
+  width: 100%;
+  height: 45px;
+}
+.footer-image {
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 40px;
+  cursor: pointer;
+}

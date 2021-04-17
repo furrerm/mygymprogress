@@ -96,6 +96,10 @@ import { ProfileImageComponent } from './features/profile/profile-image/profile-
 import { FilterComponent } from './shared/filter/filter.component';
 import { WorkoutPostComponent } from './shared/workout-post/workout-post.component';
 import { SavedWorkoutsComponent } from './features/saved-workouts/saved-workouts.component';
+import { PostHeaderComponent } from './shared/post-header/post-header.component';
+import { SimplePostFooterComponent } from './shared/simple-post/simple-post-footer/simple-post-footer.component';
+import { WorkoutPostFooterComponent } from './shared/workout-post/workout-post-footer/workout-post-footer.component';
+import {SimplePostPresentationComponent} from './shared/simple-post/simple-post-presentation.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +136,11 @@ import { SavedWorkoutsComponent } from './features/saved-workouts/saved-workouts
     ProfileImageComponent,
     FilterComponent,
     WorkoutPostComponent,
-    SavedWorkoutsComponent
+    SavedWorkoutsComponent,
+    PostHeaderComponent,
+    SimplePostFooterComponent,
+    WorkoutPostFooterComponent,
+    SimplePostPresentationComponent
   ],
   imports: [
     BrowserModule,

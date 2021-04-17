@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimplePostComponent } from './simple-post.component';
+import { SimplePostFooterComponent } from './simple-post-footer.component';
 
-describe('SimplePostComponent', () => {
-  let component: SimplePostComponent;
-  let fixture: ComponentFixture<SimplePostComponent>;
+describe('SimplePostFooterComponent', () => {
+  let component: SimplePostFooterComponent;
+  let fixture: ComponentFixture<SimplePostFooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SimplePostComponent ]
+      declarations: [ SimplePostFooterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SimplePostComponent);
+    fixture = TestBed.createComponent(SimplePostFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,11 @@
+<div class = "centerContent frame-content">
+  <app-post-header [creator]="this.simplePostDTO.userDTO"></app-post-header>
+
+  <img [src]="this.postHelper.saveUrl(this.simplePostDTO.previewImage)" class="centerContent imageLimiter img-thumbnail">
+
+  <div class="description-container">
+    <p>{{this.simplePostDTO.description}}</p>
+  </div>
+  <app-simple-post-footer></app-simple-post-footer>
+
+</div>

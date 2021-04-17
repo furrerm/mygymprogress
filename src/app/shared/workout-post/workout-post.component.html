@@ -1,15 +1,17 @@
 <div class="centerContent frame-content">
-  <img [src]="this.saveUrl(workout.creator.profileImageSmall)">
-  <h2 class="centerContent"
-      style="text-align: center;">{{this.workout["name"]}}</h2>
+  <app-post-header [creator]="this.workout.creator"></app-post-header>
+
+
   <img class="centerContent imageLimiter img-thumbnail"
-       [src]="this.workout['image']" (click)="expandContent()">
-  <div class="expandButtonWrapper centerContent">
-    <img [src]=this.likeButtonImage(this.workout.isSavedFromCurrentUser) class="like-button-image"
-         (click)=this.likeWorkout(this.workout)>
-    <img class="toggleImageStyle" [src]="this.toggleImage"
-         (click)="expandContent()">
+       [src]="this.workout.image">
+
+  <div class="description-container">
+    <p>{{this.workout.name}}</p>
   </div>
+  <app-workout-post-footer (isCollapsedEvent)="this.expandContent($event)" [workout]="this.workout"></app-workout-post-footer>
+
+
+
 
   <div [ngClass]="this.isCollapsed ? 'collapsed' : 'expanded'"
        class="centerContent">

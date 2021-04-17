@@ -74,7 +74,7 @@
 }
 
 .dashboard-container {
-  width: 1080px;
+  max-width: 1080px;
   height: 750px;
   position: absolute;
   top: 50px;

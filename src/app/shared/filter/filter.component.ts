@@ -10,8 +10,9 @@ export class FilterComponent implements OnInit {
 
   private activeFilters: FilterGroupDTO[] = [];
 
-  private _filterDivExpanded = false;
+  @Input() _filterDivExpanded = false;
   @Input() filterGroups: FilterGroupDTO[];
+  @Input() showSearchButton: boolean;
   @Output() filterGroupsEvent: EventEmitter<FilterGroupDTO[]> = new EventEmitter<FilterGroupDTO[]>();
   @Output() filterEvent: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @ViewChild('filterContainer') filterContainer;
@@ -48,6 +49,7 @@ export class FilterComponent implements OnInit {
     } else {
       this.activeFilters.push({name: filterGroup.name, filter: [singleFilter]});
     }
+    this.filterGroupsEvent.emit(this.activeFilters);
   }
 
   expandCollapseFilterDiv(): void {
@@ -55,6 +57,7 @@ export class FilterComponent implements OnInit {
   }
 
   emitFilterGroups(): void {
+    this._filterDivExpanded = false;
     this.filterGroupsEvent.emit(this.activeFilters);
     const filtersArrays = this.activeFilters.map(a => a.filter);
     const filters = [].concat(...filtersArrays);
