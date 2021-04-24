@@ -1,29 +1,118 @@
 .dashboard-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  /*justify-content: center;*/
+  /*align-items: center;*/
   max-width: 1080px;
   width: 100%;
   height: 100%;
-  min-height: 480px;
-  max-height: 700px;
+  max-height: 530px;
   margin: 0;
   padding: 0;
 }
-.kpi-chart-wrapper {
-  width: 240px;
-  height: 240px;
-}
-.time-and-position-chart-wrapper {
-  width: 100px;
-  height: 240px;
-  display: flex;
 
-  flex-wrap: wrap;
-  align-content: space-between;
-}
 .exercise-image {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
+}
+
+.dashboard-header {
+  width: 100%;
+  height: 50px;
+}
+
+.entry-panel-title {
+  display: inline;
+  height: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+.entry-panel-container {
+  width: 50%;
+  height: calc(50% - 20px);
+  max-height: 240px;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+
+.pie-charts-containers {
+
+  width: 50%;
+  height: calc(50% - 20px);
+  max-height: 240px;
+
+
+}
+
+.bar-chart-container {
+  width: 50%;
+  height: calc(50% - 25px);
+  max-height: 240px;
+}
+
+.kpi-chart-wrapper {
+  width: 20%;
+  height: calc(50% - 25px);
+  max-height: 240px;
+}
+
+.next-exercise-preview-container {
+  width: 30%;
+  height: calc(50% - 25px);
+  max-height: 240px;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .dashboard-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .entry-panel-container {
+    width: 75%;
+
+    height: calc(40% - 45px);
+    max-height: 240px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pie-charts-containers {
+    width: 25%;
+    height: calc(40% - 45px);
+    max-height: 240px;
+
+  }
+
+  .bar-chart-container {
+    width: 100%;
+    height: 30%;
+    max-height: 240px;
+  }
+
+  .kpi-chart-wrapper {
+    width: 40%;
+    height: 30%;
+    max-height: 240px;
+  }
+
+  .next-exercise-preview-container {
+    width: 60%;
+    height: 30%;
+    max-height: 240px;
+  }
 }

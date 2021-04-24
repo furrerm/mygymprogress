@@ -1,8 +1,7 @@
 <app-menu></app-menu>
 
 <div class="d-flex justify-content-center content-wrapper">
-  <div #contentDiv [ngClass]="this.fullscreen === true ? 'full-screen' : 'content-div-media-specific'"
-       [ngStyle]="this.fullscreen !== true && {'height': this.paddingForContent}">
+  <div #contentDiv class="content-div-media-specific">
 
     <app-video-player [videoHandler]="this"></app-video-player>
 

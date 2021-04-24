@@ -72,9 +72,12 @@ export class CacheService {
   }
 
   getSavedWorkouts(): BehaviorSubject<Workout[]> {
+    /*
     if (this.savedWorkouts.getValue().length === 0) {
       this.initialLoadSavedWorkouts();
     }
+
+     */
     return this.savedWorkouts;
   }
 }

@@ -40,13 +40,9 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
 
   @ViewChild('contentDiv') contentDiv;
 
-  public paddingForContent = 0;
-
   public lastSetContainerPosition;
 
   public timeCounter = 0;
-
-  public fullscreen = false;
 
   public view: VIEW;
 
@@ -76,35 +72,46 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
       // todo: use params for reloading the right day Workout
       if (this.cacheService.dayToPlay) {
         this.currentDayWorkout = this.cacheService.dayToPlay;
-        this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(
-          this.currentDayWorkout,
-          this.lastSetService,
-          this.constants,
-          this.sanitizer);
-        this.dayWorkoutHandler.getWorkout().subscribe(a =>
-          this.currentDayWorkout = a
-        );
-        this.dayWorkoutHandler.getExercise().subscribe(exercise => {
-            this.currentExercise = exercise;
-            if (exercise) {
-              exercise.videoSrc.subscribe(videoUrl => {
-                if (videoUrl !== null) {
-                  this.currentVideoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(videoUrl));
+        this.playWorkout(this.currentDayWorkout);
 
-                  this.changeDetectorRef.detectChanges();
-                  this.fileReader.readAsDataURL(videoUrl);
-
-                }
-              });
-            }
-          }
-        );
       } else {
-        this.showEntryPanel = true;
-        // this.currentDayWorkout = new WorkoutMock(this.sanitizer).day;
-        // this.currentExercise = this.currentDayWorkout.phases[0].exercises[0];
+        // this.showEntryPanel = true;
+        this.cacheService.getSavedWorkouts().subscribe(workouts => {
+          if (workouts.length > 0) {
+            // this.currentDayWorkout = workouts[0].days[0];
+            this.currentDayWorkout = workouts.find(a => a.name === 'big test').days[0];
+            this.cacheService.cacheWorkoutDayToPlay(this.currentDayWorkout);
+            this.playWorkout(this.currentDayWorkout);
+          }
+        });
       }
     });
+  }
+
+  private playWorkout(day: Day): void {
+    this.dayWorkoutHandler = new DayWorkoutHandlerExerciseBased(
+      day,
+      this.lastSetService,
+      this.constants,
+      this.sanitizer);
+    // todo: delete this subscribtion
+    this.dayWorkoutHandler.getWorkout().subscribe(a =>
+      this.currentDayWorkout = a
+    );
+    this.dayWorkoutHandler.getExercise().subscribe(exercise => {
+        this.currentExercise = exercise;
+        if (exercise) {
+          exercise.videoSrc.subscribe(videoUrl => {
+            if (videoUrl !== null) {
+              this.currentVideoSrc = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(videoUrl));
+
+              this.changeDetectorRef.detectChanges();
+              this.fileReader.readAsDataURL(videoUrl);
+            }
+          });
+        }
+      }
+    );
   }
 
   getNextExercise(): Exercise {
@@ -121,9 +128,6 @@ export class TablesComponent implements OnInit, AfterContentInit, AfterViewInit 
 
 
   nextExercise(): void {
-    if (this.view === VIEW.MobileLandscape) {
-      this.fullscreen = true;
-    }
     this.dayWorkoutHandler.nextExercise();
   }
 

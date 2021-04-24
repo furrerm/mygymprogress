@@ -1,16 +1,31 @@
 <div class="dashboard-wrapper">
-  <div class="time-and-position-chart-wrapper">
-    <img class = "exercise-image" *ngIf="this.currentExercise.image != null" [src]="this.currentExercise.image">
+  <div class="dashboard-header">
+    <img class="exercise-image" *ngIf="this.currentExercise.image != null" [src]="this.currentExercise.image">
+    <h3 class="entry-panel-title" *ngIf="this.currentExercise">{{this.currentExercise.name}}</h3>
     <app-workout-position-chart [tableComponent]=this.tablesComponent></app-workout-position-chart>
   </div>
 
-  <app-entry-panel [currentExercise]="this.currentExercise" (currentExerciseEvent)="this.currentExerciseChangeListener($event)"></app-entry-panel>
-  <app-pie-chart [title]="'muscle target'" [namedNumbers]="this.currentExercise.muscleTarget"></app-pie-chart>
-  <app-pie-chart [title]="'stretching target'" [namedNumbers]="this.currentExercise.stretchingTarget"></app-pie-chart>
-  <app-last-set [currentExercise]="this.currentExercise"></app-last-set>
+  <div class="entry-panel-container">
+    <app-entry-panel [currentExercise]="this.currentExercise"
+                     (currentExerciseEvent)="this.currentExerciseChangeListener($event)"></app-entry-panel>
+  </div>
+
+  <div class="pie-charts-containers">
+    <app-pie-chart [title]="'muscle target'" [namedNumbers]="this.currentExercise.muscleTarget"></app-pie-chart>
+    <app-pie-chart [title]="'stretching target'" [namedNumbers]="this.currentExercise.stretchingTarget"></app-pie-chart>
+  </div>
+
+  <div class="bar-chart-container">
+    <app-last-set [currentExercise]="this.currentExercise"></app-last-set>
+  </div>
+
   <div class="kpi-chart-wrapper">
     <app-kpi [kpi]="this.strengthIndex"></app-kpi>
     <app-kpi [kpi]="this.burnedCalories"></app-kpi>
   </div>
-  <app-next-exercise-preview [tablesComponent]="this.tablesComponent"  [exercises]="this.currentDayWorkout.phases[0].exercises" [position]=1></app-next-exercise-preview>
+  <div class="next-exercise-preview-container">
+    <app-next-exercise-preview [tablesComponent]="this.tablesComponent"
+                               [exercises]="this.currentDayWorkout.phases[0].exercises"
+                               [position]=1></app-next-exercise-preview>
+  </div>
 </div>

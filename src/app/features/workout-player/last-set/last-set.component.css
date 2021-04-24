@@ -1,4 +1,5 @@
 .chart {
-  width: 400px;
-  height: 240px;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
 }

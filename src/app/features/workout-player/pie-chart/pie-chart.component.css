@@ -1,5 +1,18 @@
 .chart {
-  width: 240px;
-  height: 240px;
+  width: 50%;
+  height: 100%;
+  float: left;
   padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+@media (max-width: 767px) and (orientation: portrait) {
+  .chart {
+    width: 100%;
+    height: 50%;
+    float: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
 }

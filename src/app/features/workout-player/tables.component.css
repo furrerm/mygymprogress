@@ -53,17 +53,7 @@
   background-color: white;
 }
 
-.bright {
-  background-color: white;
-  filter: brightness(100%);
-  width: 1500px;
-  height: 3000px;
-  display: none;
-}
 
-.dark {
-
-}
 
 .time-container {
   width: 100px;
@@ -74,18 +64,21 @@
 }
 
 .dashboard-container {
+  width: 100%;
   max-width: 1080px;
-  height: 750px;
+  max-height: 750px;
+  height: 100%;
   position: absolute;
-  top: 50px;
+  top: 0px;
   left: 0px;
-  background-color: white;
+  overflow: hidden;
 }
 
 .content-div-media-specific {
   width: 100%;
-  max-width: 1000px;
-  margin-top: 50px;
+  max-width: 1080px;
+  height: 100%;
+  margin-top: 0px;
   position: relative;
 }
 
@@ -108,7 +101,7 @@
   padding: 0px;
   margin: 0px;
   width: 100%;
-  height: calc(100% - 35px);
+  height: calc(100% - 45px);
   position: relative;
   /*background-color: RGB(250, 250, 250);*/
 }
@@ -128,3 +121,6 @@
   top: 800px;
 }
 
+@media (max-width: 767px) and (orientation: portrait) {
+
+}
