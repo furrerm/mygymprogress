@@ -59,7 +59,6 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
         this.videoHandler.nextExercise();
       } else {
         this.videoHandler.showEntryPanel = true;
-        this.videoHandler.fullscreen = false;
       }
     }
   }
