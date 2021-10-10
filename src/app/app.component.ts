@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
         name: '',
         pictureUrl: '',
         uid: '',
-        id: 50,
+        id: 2,
         follows: null,
         followers: null
       };

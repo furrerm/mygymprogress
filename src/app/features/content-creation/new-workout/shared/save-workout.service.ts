@@ -22,7 +22,7 @@ export class SaveWorkoutService {
   private _days: DayDTO[];
   private _pickedExercises: ExerciseDTO[];
   private _selection: Selection;
-  private _dragPosition: Vector;
+  private _dragPosition: Vector = new Vector(0, 0);
 
   constructor(
     private http: HttpClient,

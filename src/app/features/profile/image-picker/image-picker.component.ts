@@ -206,10 +206,12 @@ export class ImagePickerComponent implements OnInit, AfterViewInit, OnChanges {
 
   public uploadProfile(): void {
 
+
+
     const userDTO = this.constants.getUser;
 
-    userDTO.pictureUrl = 'resources/' + userDTO.id + '/profilePics/' + 'profileImage.png';
-    userDTO.pictureUrlSmall = 'resources/' + userDTO.id + '/profilePics/' + 'profileImageSmall.png';
+    userDTO.pictureUrl = '';
+    userDTO.pictureUrlSmall = '';
 
     userDTO.profileImage = this.newImageBase64;
     userDTO.profileImageSmall = this.newImageBase64Small;
