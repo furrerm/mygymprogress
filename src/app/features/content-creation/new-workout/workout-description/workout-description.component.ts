@@ -53,7 +53,7 @@ export class WorkoutDescriptionComponent implements OnInit {
   private createImagePath(filename: string): string {
     if (filename.includes('.', 1)) {
       const extension = filename.substr(filename.lastIndexOf('.') + 1);
-      const basePath = 'resources/' + this.workout.creator.id + '/' + this._workoutTitle;
+      const basePath = this._workoutTitle;
       const imagePath = basePath + '/' + 'frontimage.' + extension;
       return imagePath;
     } else {
