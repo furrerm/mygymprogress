@@ -27,7 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
     "bootstrap": "^4.6.0",
     "echarts": "^5.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "firebase": "^7.24.0",
     "html-entities": "^1.4.0",
     "ngx-echarts": "^5.2.2",
